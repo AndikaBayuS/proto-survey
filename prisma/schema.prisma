@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(cuid())
+  name         String
+  email        String
+  password     String
+  createdAt    DateTime       @default(now()) @db.Timestamp(3)
+  updatedAt    DateTime       @updatedAt
+  Surveys      Surveys[]
+  Participants Participants[]
+}
+
+model Surveys {
+  id           String         @id @default(cuid())
+  name         String
+  owner        String
+  description  String
+  createdAt    DateTime       @default(now()) @db.Timestamp(3)
+  updatedAt    DateTime       @updatedAt
+  User         User           @relation(fields: [owner], references: [id])
+  Questions    Questions[]
+  Participants Participants[]
+}
+
+model Questions {
+  id       String     @id @default(cuid())
+  question String
+  answer   String?
+  surveyId String
+  Survey   Surveys    @relation(fields: [surveyId], references: [id])
+  Response Response[]
+}
+
+model Response {
+  id            String       @id @default(cuid())
+  answer        String
+  questionId    String
+  participantId String
+  Question      Questions    @relation(fields: [questionId], references: [id])
+  Participant   Participants @relation(fields: [participantId], references: [id])
+}
+
+model Participants {
+  id        String     @id @default(cuid())
+  userId    String
+  surveyId  String
+  createdAt DateTime   @default(now()) @db.Timestamp(3)
+  Surveys   Surveys    @relation(fields: [surveyId], references: [id])
+  User      User       @relation(fields: [userId], references: [id])
+  Response  Response[]
+}
