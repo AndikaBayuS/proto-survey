@@ -1,6 +1,7 @@
-import Card from "@/components/Card/Card";
-import BaseLayout from "@/layouts/BaseLayout/BaseLayout";
-import { PrismaClient, Surveys, User } from "@prisma/client";
+import Card from "@/src/components/Card/Card";
+import BaseLayout from "@/src/layouts/BaseLayout/BaseLayout";
+import { prisma } from "@/src/common/prisma";
+import { Surveys, User } from "@prisma/client";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 
@@ -10,7 +11,6 @@ type Props = {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const prisma = new PrismaClient();
   const surveyData = await prisma.surveys.findMany();
   const surveys = JSON.parse(JSON.stringify(surveyData));
 

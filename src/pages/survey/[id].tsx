@@ -1,5 +1,6 @@
-import BaseLayout from "@/layouts/BaseLayout/BaseLayout";
-import { PrismaClient, Questions } from "@prisma/client";
+import BaseLayout from "@/src/layouts/BaseLayout/BaseLayout";
+import { prisma } from "@/src/common/prisma";
+import { Questions } from "@prisma/client";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 interface Props {
@@ -15,7 +16,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const questionId: any = params?.id;
-  const prisma = new PrismaClient();
   const questionData = await prisma.questions.findMany({
     where: {
       surveyId: questionId,
