@@ -1,4 +1,4 @@
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 const NavigationItem = [
@@ -26,17 +26,37 @@ const Navbar = () => {
                   <p className="cursor-pointer font-semibold">{item.name}</p>
                 </Link>
               ))}
-              <button onClick={() => signOut()}>Log out</button>
-              <picture>
-                <img
-                  src={session?.user?.image!}
-                  alt="User Profile"
-                  className="h-10 w-10 rounded-full"
-                />
-              </picture>
+
+              <div className="dropdown dropdown-end">
+                <label className="avatar btn btn-ghost btn-circle" tabIndex={0}>
+                  <picture>
+                    <img
+                      src={session?.user?.image!}
+                      alt="User Profile"
+                      className="rounded-full"
+                    />
+                  </picture>
+                </label>
+
+                <ul
+                  className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
+                  tabIndex={0}
+                >
+                  <li>
+                    <button onClick={() => signOut()}>Logout</button>
+                  </li>
+                </ul>
+              </div>
             </div>
           ) : (
-            <button>Login</button>
+            <button
+              className="btn btn-sm rounded-full border-none bg-blue-500 text-xs hover:bg-blue-700"
+              onClick={() =>
+                signIn("google", { callbackUrl: "http://localhost:3000" })
+              }
+            >
+              Login
+            </button>
           )}
         </div>
       </div>
