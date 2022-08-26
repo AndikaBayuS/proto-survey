@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 
   return (
     <SessionProvider session={session}>
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen bg-gray-100" data-theme="light">
         {auth && <Navbar />}
         <Component {...pageProps} />
       </div>
