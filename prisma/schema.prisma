@@ -61,7 +61,7 @@ model VerificationToken {
 
 model Surveys {
   id           String         @id @default(cuid())
-  name         String
+  title        String
   owner        String
   description  String
   createdAt    DateTime       @default(now()) @db.Timestamp(3)
@@ -74,7 +74,6 @@ model Surveys {
 model Questions {
   id       String     @id @default(cuid())
   question String
-  answer   String?
   surveyId String
   Survey   Surveys    @relation(fields: [surveyId], references: [id])
   Response Response[]

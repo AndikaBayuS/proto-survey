@@ -1,6 +1,6 @@
 import Card from "@/src/components/Card/Card";
 import BaseLayout from "@/src/layouts/BaseLayout/BaseLayout";
-import { prisma } from "@/src/common/prisma";
+import { prisma } from "@/src/lib/prisma";
 import { Surveys, User } from "@prisma/client";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
@@ -46,6 +46,7 @@ const Home: React.FC<Props> = ({ surveys, owners }) => {
               return (
                 <Card
                   key={survey.id}
+                  surveyId={survey.id}
                   owner={owner!.name}
                   title={survey.name}
                   description={survey.description}

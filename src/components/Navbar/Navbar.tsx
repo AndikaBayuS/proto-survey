@@ -1,9 +1,11 @@
-import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
+import { Menu, Transition } from '@headlessui/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { Fragment } from 'react';
 
 const NavigationItem = [
-  { name: "Surveys", href: "/" },
-  { name: "Leaderboard", href: "/leaderboard" },
+  { name: 'Surveys', href: '/' },
+  { name: 'Leaderboard', href: '/leaderboard' },
 ];
 
 const Navbar = () => {
@@ -12,47 +14,58 @@ const Navbar = () => {
   return (
     <div className="bg-white shadow">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <Link href={"/"}>
+        <div className="flex h-14 items-center justify-between">
+          <Link href={'/'}>
             <p className="cursor-pointer text-2xl font-semibold">
-              <span className="text-blue-600">Proto</span>Survey
+              <span className="text-blue-600">P</span>S
             </p>
           </Link>
 
-          {status === "authenticated" ? (
+          {status === 'authenticated' ? (
             <div className="flex items-center space-x-5">
               {NavigationItem.map((item) => (
                 <Link href={item.href} key={item.name}>
                   <p className="cursor-pointer font-semibold">{item.name}</p>
                 </Link>
               ))}
-
-              <div className="dropdown dropdown-end">
-                <label className="avatar btn btn-ghost btn-circle" tabIndex={0}>
+              <Menu as="div" className="relative inline-block">
+                <Menu.Button>
                   <picture>
                     <img
                       src={session?.user?.image!}
                       alt="User Profile"
-                      className="rounded-full"
+                      className="h-9 rounded-full"
                     />
                   </picture>
-                </label>
+                </Menu.Button>
 
-                <ul
-                  className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
-                  tabIndex={0}
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
                 >
-                  <li>
-                    <button onClick={() => signOut()}>Logout</button>
-                  </li>
-                </ul>
-              </div>
+                  <Menu.Items className="absolute right-0 mt-3 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Item>
+                      <button
+                        onClick={() => signOut()}
+                        className="w-full px-4 py-3 text-left"
+                      >
+                        Log out
+                      </button>
+                    </Menu.Item>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
             </div>
           ) : (
             <button
-              className="btn btn-sm rounded-full border-none bg-blue-500 text-xs hover:bg-blue-700"
+              className="rounded-full bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
               onClick={() =>
-                signIn("google", { callbackUrl: "http://localhost:3000" })
+                signIn('google', { callbackUrl: 'http://localhost:3000' })
               }
             >
               Login
