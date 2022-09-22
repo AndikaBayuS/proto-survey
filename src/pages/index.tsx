@@ -1,6 +1,6 @@
-import Card from "@/src/components/Card/Card";
-import BaseLayout from "@/src/layouts/BaseLayout/BaseLayout";
+import Card from "@/src/components/common/Card";
 import { prisma } from "@/src/lib/prisma";
+import { Box, Container, SimpleGrid } from "@chakra-ui/react";
 import { Surveys, User } from "@prisma/client";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
@@ -31,32 +31,29 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: React.FC<Props> = ({ surveys, owners }) => {
   return (
-    <div>
+    <Box py={5}>
       <Head>
         <title>ProtoSurvey</title>
         <meta name="description" content="ProtoSurvey" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <BaseLayout>
-        <div className="py-5">
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-3">
-            {surveys.map((survey) => {
-              let owner = owners.find((data: User) => data.id === survey.owner);
-              return (
-                <Card
-                  key={survey.id}
-                  surveyId={survey.id}
-                  owner={owner!.name}
-                  title={survey.name}
-                  description={survey.description}
-                />
-              );
-            })}
-          </div>
-        </div>
-      </BaseLayout>
-    </div>
+      <Container maxWidth={"container.xl"}>
+        <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing={4}>
+          {surveys.map((survey) => {
+            return (
+              <Card
+                key={survey.id}
+                surveyId={survey.id}
+                owner={survey.owner}
+                title={survey.title}
+                description={survey.description}
+              />
+            );
+          })}
+        </SimpleGrid>
+      </Container>
+    </Box>
   );
 };
 
