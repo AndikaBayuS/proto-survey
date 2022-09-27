@@ -13,7 +13,9 @@ const Header = () => {
     >
       <Container maxWidth={"container.xl"}>
         <HStack justifyContent={"space-between"}>
-          <Text>Survei</Text>
+          <Text fontSize={"xl"} fontWeight={"semibold"}>
+            Survei
+          </Text>
           <Link href="/survey/create">
             <Button colorScheme={"telegram"} size={"sm"}>
               Buat Survei

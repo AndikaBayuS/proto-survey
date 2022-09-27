@@ -1,14 +1,8 @@
-import { Box, Button, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
+import { CardProps } from "./card.interface";
 
-interface Props {
-  surveyId: string;
-  owner: string;
-  title: string;
-  description: string;
-}
-
-const Card: React.FC<Props> = ({ surveyId, owner, title, description }) => {
+const Card: React.FC<CardProps> = ({ surveyId, owner, title, description }) => {
   return (
     <Link href={`/survey/${surveyId}`}>
       <Box
@@ -22,7 +16,9 @@ const Card: React.FC<Props> = ({ surveyId, owner, title, description }) => {
         p={4}
       >
         <VStack spacing={3} alignItems={"start"}>
-          <Heading size={"sm"}>{title}</Heading>
+          <Text size={"sm"} fontWeight={"semibold"}>
+            {title}
+          </Text>
           <Text fontSize={"xs"} color={"gray.600"}>
             {owner}
           </Text>

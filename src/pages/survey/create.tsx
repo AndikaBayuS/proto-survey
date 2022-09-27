@@ -13,16 +13,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
-
-interface Values {
-  title: string;
-  description: string;
-  questions: [{ question: string }];
-}
+import { CreateValues } from "./survey.interface";
 
 const Create = () => {
   const router = useRouter();
-  const createSurvey = async ({ title, description, questions }: Values) => {
+  const createSurvey = async ({
+    title,
+    description,
+    questions,
+  }: CreateValues) => {
     try {
       const body = { title, description, questions };
       await fetch("/api/survey", {
@@ -46,8 +45,8 @@ const Create = () => {
             questions: [{ question: "" }],
           }}
           onSubmit={(
-            values: Values,
-            { setSubmitting }: FormikHelpers<Values>
+            values: CreateValues,
+            { setSubmitting }: FormikHelpers<CreateValues>
           ) => {
             setTimeout(() => {
               createSurvey(values);
@@ -125,7 +124,7 @@ const Create = () => {
               </Box>
             </VStack>
 
-            <HStack marginTop={10} justifyContent={'end'}>
+            <HStack marginTop={10} justifyContent={"end"}>
               <Button
                 colorScheme={"red"}
                 variant={"outline"}

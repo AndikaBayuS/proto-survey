@@ -1,22 +1,20 @@
 import { getSession } from "next-auth/react";
 import { prisma } from "@/src/lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getUserId } from "@/src/common/user";
 
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { title, description, questions } = req.body;
+  const { questions } = req.body;
   const session = await getSession({ req });
-  const surveys = await prisma.surveys.create({
-    data: {
-      title,
-      owner: String(session?.user?.email),
-      description,
-      questions: {
-        create: questions,
-      },
-    },
+  const userId = await getUserId(String(session?.user?.email));
+  const surveys = await prisma.response.createMany({
+    data: [...questions].map((question) => ({
+      ...question,
+      participantId: userId,
+    })),
   });
   res.json(surveys);
 }

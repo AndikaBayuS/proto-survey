@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       <ChakraProvider>
         <Box minH={"100vh"} bgColor="gray.100">
           {auth && <Navbar />}
-          <Header />
+          {auth && <Header />}
           <Component {...pageProps} />
         </Box>
       </ChakraProvider>

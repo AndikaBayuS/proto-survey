@@ -68,6 +68,7 @@ model Surveys {
   updatedAt   DateTime    @updatedAt
   user        User        @relation(fields: [owner], references: [email])
   questions   Questions[]
+  response    Response[]
 }
 
 model Questions {
@@ -79,10 +80,13 @@ model Questions {
 }
 
 model Response {
-  id            String    @id @default(cuid())
-  answer        String
-  questionId    String
+  id          String    @id @default(cuid())
+  answer      String
+  question    String
   participantId String
-  question      Questions @relation(fields: [questionId], references: [id])
-  participant   User      @relation(fields: [participantId], references: [id])
+  surveyId    String
+  questionsId String
+  questions   Questions @relation(fields: [questionsId], references: [id])
+  user        User      @relation(fields: [participantId], references: [id])
+  survey      Surveys   @relation(fields: [surveyId], references: [id])
 }

@@ -30,45 +30,54 @@ const Navbar = () => {
           alignItems={"center"}
           height={16}
         >
-          <NextLink href="/">
-            <Text fontSize={"xl"} fontWeight={"semibold"} cursor={"pointer"}>
-              <Text as={"span"} color="telegram.500">
-                Proto
+          <HStack spacing={4}>
+            <NextLink href="/">
+              <Text
+                fontSize={"xl"}
+                fontWeight={"semibold"}
+                cursor={"pointer"}
+                _hover={{ color: "telegram.500" }}
+              >
+                <Text as={"span"} color="telegram.500">
+                  Proto
+                </Text>
+                Survey
               </Text>
-              Survey
-            </Text>
-          </NextLink>
-
-          <HStack>
+            </NextLink>
             {NavigationItem.map((item) => (
               <NextLink href={item.href} key={item.name}>
-                <Link _hover={{ textDecoration: "none" }} p={2}>
+                <Link
+                  _hover={{ textDecoration: "none", color: "telegram.500" }}
+                  p={2}
+                  fontSize={"md"}
+                  fontWeight={"semibold"}
+                >
                   {item.name}
                 </Link>
               </NextLink>
             ))}
-
-            {status === "authenticated" ? (
-              <Menu>
-                <MenuButton>
-                  <Avatar size={"sm"} src={session?.user?.image!} />
-                </MenuButton>
-                <MenuList>
-                  <MenuItem onClick={() => signOut()}>Keluar</MenuItem>
-                </MenuList>
-              </Menu>
-            ) : (
-              <Button
-                colorScheme="telegram"
-                size={"sm"}
-                onClick={() =>
-                  signIn("google", { callbackUrl: "http://localhost:3000" })
-                }
-              >
-                Masuk
-              </Button>
-            )}
           </HStack>
+
+          {status === "authenticated" ? (
+            <Menu>
+              <MenuButton>
+                <Avatar size={"sm"} src={session?.user?.image!} />
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={() => signOut()}>Keluar</MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Button
+              colorScheme="telegram"
+              size={"sm"}
+              onClick={() =>
+                signIn("google", { callbackUrl: "http://localhost:3000" })
+              }
+            >
+              Masuk
+            </Button>
+          )}
         </Flex>
       </Container>
     </Box>
