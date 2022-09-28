@@ -19,7 +19,11 @@ const SignIn: React.FC<SigninProps> = ({ providers }) => {
         <Button
           colorScheme={"gray"}
           key={provider.name}
-          onClick={() => signIn(provider.id)}
+          onClick={() =>
+            signIn(provider.id, {
+              callbackUrl: "http://localhost:3000/",
+            })
+          }
         >
           <HStack>
             <Box height={5} width={5}>
