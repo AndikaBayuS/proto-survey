@@ -112,7 +112,7 @@ const Create = () => {
                         <Button
                           type="button"
                           colorScheme={"telegram"}
-                          size={"sm"}
+                          size={"md"}
                           onClick={() => push({ question: "" })}
                         >
                           Tambah Pertanyaan
@@ -128,12 +128,12 @@ const Create = () => {
               <Button
                 colorScheme={"red"}
                 variant={"outline"}
-                size={"sm"}
+                size={"md"}
                 onClick={() => router.push("/")}
               >
                 Batal
               </Button>
-              <Button type="submit" colorScheme={"telegram"} size={"sm"}>
+              <Button type="submit" colorScheme={"telegram"} size={"md"}>
                 Buat Survei
               </Button>
             </HStack>

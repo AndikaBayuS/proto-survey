@@ -55,7 +55,7 @@ const Survey = ({ questions }: SurveyProps) => {
   const submitAnswer = async ({ questions }: SurveyProps) => {
     try {
       const body = { questions };
-      await fetch("/api/survey/submit", {
+      await fetch("/api/survey/answer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -133,7 +133,7 @@ const Survey = ({ questions }: SurveyProps) => {
                       )}
                       <Button
                         type="submit"
-                        size={"sm"}
+                        size={"md"}
                         colorScheme={"telegram"}
                       >
                         Submit

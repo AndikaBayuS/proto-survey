@@ -17,7 +17,7 @@ const Header = () => {
             Survei
           </Text>
           <Link href="/survey/create">
-            <Button colorScheme={"telegram"} size={"sm"}>
+            <Button colorScheme={"telegram"} size={"md"}>
               Buat Survei
             </Button>
           </Link>

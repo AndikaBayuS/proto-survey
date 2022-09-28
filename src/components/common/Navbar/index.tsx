@@ -70,7 +70,7 @@ const Navbar = () => {
           ) : (
             <Button
               colorScheme="telegram"
-              size={"sm"}
+              size={"md"}
               onClick={() =>
                 signIn("google", { callbackUrl: "http://localhost:3000" })
               }
