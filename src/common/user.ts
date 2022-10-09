@@ -21,9 +21,9 @@ export const getUserName = async (email: string) => {
 };
 
 export const getGamification = async (id: string) => {
-  const data = await prisma.gamification.findUnique({
+  const data = await prisma.gamification.findFirst({
     where: {
-      id,
+      userId: id,
     },
   });
 
@@ -31,13 +31,11 @@ export const getGamification = async (id: string) => {
 };
 
 export const setGamification = async (id: string) => {
-  const data = await prisma.gamification.update({
-    where: { id },
+  await prisma.gamification.create({
     data: {
+      userId: id,
       level: 1,
       points: 0,
     },
   });
-
-  return data;
 };

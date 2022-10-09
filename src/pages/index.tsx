@@ -1,18 +1,28 @@
 import Card from "@/src/components/common/Card";
 import { prisma } from "@/src/lib/prisma";
 import { Box, Container, SimpleGrid } from "@chakra-ui/react";
-import { Surveys, User } from "@prisma/client";
-import type { GetStaticProps } from "next";
+import { Gamification, Surveys, User } from "@prisma/client";
+import type { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
+import { getUserId, getGamification, setGamification } from "@/src/common/user";
 import Head from "next/head";
 
 type Props = {
   surveys: Surveys[];
   owners: User[];
+  gamification: Gamification[];
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  const userId = await getUserId(String(session?.user?.email));
+  const userGamification = await getGamification(String(userId));
   const surveyData = await prisma.surveys.findMany();
   const surveys = JSON.parse(JSON.stringify(surveyData));
+
+  if (userId && userGamification == null) {
+    await setGamification(String(userId));
+  }
 
   const ownerData = await prisma.user.findMany({
     where: {
@@ -25,11 +35,12 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       surveys,
       owners,
+      gamification: userGamification,
     },
   };
 };
 
-const Home: React.FC<Props> = ({ surveys, owners }) => {
+const Home: React.FC<Props> = ({ surveys }) => {
   return (
     <Box py={5}>
       <Head>
