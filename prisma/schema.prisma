@@ -46,17 +46,18 @@ model VerificationToken {
 }
 
 model User {
-  id            String     @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String
-  email         String     @unique
+  email         String         @unique
   emailVerified DateTime?
   image         String?
-  createdAt     DateTime   @default(now()) @db.Timestamp(3)
-  updatedAt     DateTime   @updatedAt
+  createdAt     DateTime       @default(now()) @db.Timestamp(3)
+  updatedAt     DateTime       @updatedAt
   surveys       Surveys[]
   account       Account[]
   session       Session[]
   response      Response[]
+  gamification  Gamification[]
 }
 
 model Surveys {
@@ -80,13 +81,21 @@ model Questions {
 }
 
 model Response {
-  id          String    @id @default(cuid())
-  answer      String
-  question    String
+  id            String    @id @default(cuid())
+  answer        String
+  question      String
   participantId String
-  surveyId    String
-  questionsId String
-  questions   Questions @relation(fields: [questionsId], references: [id])
-  user        User      @relation(fields: [participantId], references: [id])
-  survey      Surveys   @relation(fields: [surveyId], references: [id])
+  surveyId      String
+  questionsId   String
+  questions     Questions @relation(fields: [questionsId], references: [id])
+  user          User      @relation(fields: [participantId], references: [id])
+  survey        Surveys   @relation(fields: [surveyId], references: [id])
+}
+
+model Gamification {
+  id     String @id @default(cuid())
+  userId String
+  level  Int    @default(1)
+  points Int    @default(0)
+  user   User   @relation(fields: [userId], references: [id])
 }
