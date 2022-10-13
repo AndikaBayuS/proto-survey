@@ -1,7 +1,7 @@
 import { Questions } from "@prisma/client";
 
 export interface SurveyProps {
-  questions: Questions[] | any;
+  questions: Questions[];
 }
 
 export interface SubmitValues {

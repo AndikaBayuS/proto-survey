@@ -1,7 +1,8 @@
-import { getSession } from "next-auth/react";
-import { prisma } from "@/src/lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getUserId } from "@/src/common/user";
+import { getSession } from "next-auth/react";
+
+import { prisma } from "@/src/lib/prisma";
+import { getUserId } from "@/src/modules/user";
 
 export default async function handle(
   req: NextApiRequest,

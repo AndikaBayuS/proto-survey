@@ -1,5 +1,5 @@
-import { Box, Button, Container, HStack, Text } from "@chakra-ui/react";
 import Link from "next/link";
+import { Box, Button, Container, HStack, Text } from "@chakra-ui/react";
 
 const Header = () => {
   return (

@@ -1,3 +1,5 @@
+import NextLink from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
 import {
   Avatar,
   Box,
@@ -12,8 +14,6 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import { signIn, signOut, useSession } from "next-auth/react";
-import NextLink from "next/link";
 
 const NavigationItem = [
   { name: "Surveys", href: "/" },

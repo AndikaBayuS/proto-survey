@@ -1,5 +1,6 @@
-import { Box, Button, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
+import { Box, Button, Text, VStack } from "@chakra-ui/react";
+
 import { CardProps } from "./card.interface";
 
 const Card: React.FC<CardProps> = ({ surveyId, owner, title, description }) => {

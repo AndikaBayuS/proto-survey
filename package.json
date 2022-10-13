@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.10.4",
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^4.4.0",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
     "formik": "^2.2.9",
     "framer-motion": "^7.3.5",
     "next": "12.2.5",

@@ -1,4 +1,5 @@
-import { prisma } from "@/src/lib/prisma";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import {
   Box,
   Button,
@@ -18,9 +19,10 @@ import {
   Formik,
   FormikHelpers,
 } from "formik";
-import { GetStaticPaths, GetStaticProps } from "next";
-import { useRouter } from "next/router";
-import { SurveyProps, SubmitValues } from "./survey.interface";
+
+import { prisma } from "@/src/lib/prisma";
+
+import { SubmitValues,SurveyProps } from "./survey.interface";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {

@@ -1,7 +1,8 @@
-import { prisma } from "@/src/lib/prisma";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+
+import { prisma } from "@/src/lib/prisma";
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -17,9 +18,7 @@ export default NextAuth({
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      // Allows relative callback URLs
       if (url.startsWith("/")) return `${baseUrl}${url}`;
-      // Allows callback URLs on the same origin
       else if (new URL(url).origin === baseUrl) return url;
       return baseUrl;
     },

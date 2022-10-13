@@ -1,17 +1,13 @@
+import type { GetServerSideProps } from "next";
+import Head from "next/head";
+import { getSession } from "next-auth/react";
+import { Box, Container, SimpleGrid } from "@chakra-ui/react";
+
 import Card from "@/src/components/common/Card";
 import { prisma } from "@/src/lib/prisma";
-import { Box, Container, SimpleGrid } from "@chakra-ui/react";
-import { Gamification, Surveys, User } from "@prisma/client";
-import type { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
-import { getUserId, getGamification, setGamification } from "@/src/common/user";
-import Head from "next/head";
+import { getGamification, getUserId, setGamification } from "@/src/modules/user";
 
-type Props = {
-  surveys: Surveys[];
-  owners: User[];
-  gamification: Gamification[];
-};
+import { Props } from "./pages.interface";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);

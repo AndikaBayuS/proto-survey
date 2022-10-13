@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Formik, Field, FieldArray, Form, FormikHelpers } from "formik";
+import { CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -12,7 +12,8 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { CloseIcon } from "@chakra-ui/icons";
+import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
+
 import { CreateValues } from "./survey.interface";
 
 const Create = () => {
@@ -24,7 +25,7 @@ const Create = () => {
   }: CreateValues) => {
     try {
       const body = { title, description, questions };
-      await fetch("/api/survey", {
+      await fetch("/api/survey/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

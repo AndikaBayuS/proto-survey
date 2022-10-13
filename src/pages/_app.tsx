@@ -1,9 +1,10 @@
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { SessionProvider } from "next-auth/react";
-import { ChakraProvider, Box } from "@chakra-ui/react";
-import Navbar from "@/src/components/common/Navbar";
+import { Box,ChakraProvider } from "@chakra-ui/react";
+
 import Header from "@/src/components/common/Header";
+import Navbar from "@/src/components/common/Navbar";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
