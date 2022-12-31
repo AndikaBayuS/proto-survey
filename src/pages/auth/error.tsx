@@ -1,12 +1,12 @@
-import { Box, Text } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
+import { Center, Text } from "@chakra-ui/react";
 
 const Error = () => {
   return (
-    <Box>
-      <Text>Harus Login</Text>
-    </Box>
+    <Center>
+      <CloseIcon boxSize={20} />
+    </Center>
   );
 };
 
 export default Error;
-    

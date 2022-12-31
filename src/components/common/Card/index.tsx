@@ -9,9 +9,6 @@ const Card: React.FC<CardProps> = ({ surveyId, owner, title, description }) => {
       <Box
         maxWidth={"sm"}
         rounded={"xl"}
-        border={1}
-        borderStyle={"solid"}
-        borderColor={"gray.300"}
         bgColor={"white"}
         shadow={"sm"}
         p={4}
@@ -24,7 +21,7 @@ const Card: React.FC<CardProps> = ({ surveyId, owner, title, description }) => {
             {owner}
           </Text>
           <Text>{description}</Text>
-          <Button colorScheme={"telegram"}>Mulai Survei</Button>
+          <Button colorScheme={"telegram"} variant={"outline"}>Mulai Survei</Button>
         </VStack>
       </Box>
     </Link>

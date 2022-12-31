@@ -1,9 +1,8 @@
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { SessionProvider } from "next-auth/react";
-import { Box,ChakraProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 
-import Header from "@/src/components/common/Header";
 import Navbar from "@/src/components/common/Navbar";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
@@ -13,9 +12,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
       <ChakraProvider>
-        <Box minH={"100vh"} bgColor="gray.100">
+        <Box minH={"100vh"} bgColor="gray.100" position={"relative"}>
           {auth && <Navbar />}
-          {auth && <Header />}
           <Component {...pageProps} />
         </Box>
       </ChakraProvider>

@@ -15,6 +15,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+import Stats from "@/src/components/common/Stats";
+
 const NavigationItem = [
   { name: "Surveys", href: "/" },
   { name: "Leaderboard", href: "/leaderboard" },
@@ -59,14 +61,18 @@ const Navbar = () => {
           </HStack>
 
           {status === "authenticated" ? (
-            <Menu>
-              <MenuButton>
-                <Avatar size={"sm"} src={session?.user?.image!} />
-              </MenuButton>
-              <MenuList>
-                <MenuItem onClick={() => signOut()}>Keluar</MenuItem>
-              </MenuList>
-            </Menu>
+            <HStack>
+              <Menu>
+                <MenuButton>
+                  <Avatar size={"sm"} src={session?.user?.image!} />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem onClick={() => signOut()}>Keluar</MenuItem>
+                </MenuList>
+              </Menu>
+
+              <Stats level={1} experience={80} />
+            </HStack>
           ) : (
             <Button
               colorScheme="telegram"

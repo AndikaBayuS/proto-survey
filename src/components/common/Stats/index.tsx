@@ -1,0 +1,27 @@
+import { Box, Progress, Text, VStack } from "@chakra-ui/react";
+
+import { StatsProps } from "./stats.interface";
+
+const Stats: React.FC<StatsProps> = ({ experience, level }) => {
+  return (
+    <Box
+      width={"5rem"}
+      backgroundColor={"gray.200"}
+      px={2}
+      py={1}
+      rounded={"md"}
+    >
+      <VStack>
+        <Text fontWeight={"semibold"}>Lv. {level}</Text>
+        <Progress
+          value={experience}
+          width={"full"}
+          rounded={"md"}
+          size={"sm"}
+        />
+      </VStack>
+    </Box>
+  );
+};
+
+export default Stats;

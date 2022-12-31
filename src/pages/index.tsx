@@ -1,11 +1,16 @@
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import { getSession } from "next-auth/react";
-import { Box, Container, SimpleGrid } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import { Box, Container, IconButton, SimpleGrid } from "@chakra-ui/react";
 
 import Card from "@/src/components/common/Card";
 import { prisma } from "@/src/lib/prisma";
-import { getGamification, getUserId, setGamification } from "@/src/modules/user";
+import {
+  getGamification,
+  getUserId,
+  setGamification,
+} from "@/src/modules/user";
 
 import { Props } from "./pages.interface";
 
@@ -45,7 +50,7 @@ const Home: React.FC<Props> = ({ surveys }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container maxWidth={"container.xl"}>
+      <Container maxWidth={"container.xl"} position={"relative"}>
         <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing={4}>
           {surveys.map((survey) => {
             return (
@@ -59,6 +64,17 @@ const Home: React.FC<Props> = ({ surveys }) => {
             );
           })}
         </SimpleGrid>
+        <IconButton
+          aria-label="Create Survey"
+          icon={<AddIcon />}
+          rounded={"full"}
+          colorScheme={"telegram"}
+          position={"fixed"}
+          bottom={"4rem"}
+          right={"8rem"}
+          zIndex={99}
+          size={"lg"}
+        />
       </Container>
     </Box>
   );
