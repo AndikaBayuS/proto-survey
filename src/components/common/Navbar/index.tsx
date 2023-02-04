@@ -1,4 +1,5 @@
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import { signIn, signOut, useSession } from "next-auth/react";
 import {
   Avatar,
@@ -24,6 +25,7 @@ const NavigationItem = [
 
 const Navbar = () => {
   const { data: session, status } = useSession();
+  const router = useRouter();
   return (
     <Box bgColor={"white"}>
       <Container maxWidth={"container.xl"}>
@@ -61,17 +63,21 @@ const Navbar = () => {
           </HStack>
 
           {status === "authenticated" ? (
-            <HStack>
+            <HStack backgroundColor={"gray.200"} px={2} py={1} rounded={"md"}>
               <Menu>
                 <MenuButton>
-                  <Avatar size={"sm"} src={session?.user?.image!} />
+                  <HStack>
+                    <Avatar size={"sm"} src={session?.user?.image!} />
+                    <Stats level={1} experience={80} />
+                  </HStack>
                 </MenuButton>
                 <MenuList>
+                  <MenuItem onClick={() => router.push("/survey/create")}>
+                    Buat Survey
+                  </MenuItem>
                   <MenuItem onClick={() => signOut()}>Keluar</MenuItem>
                 </MenuList>
               </Menu>
-
-              <Stats level={1} experience={80} />
             </HStack>
           ) : (
             <Button

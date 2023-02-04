@@ -1,8 +1,11 @@
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import { getSession } from "next-auth/react";
-import { AddIcon } from "@chakra-ui/icons";
-import { Box, Container, IconButton, SimpleGrid } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  SimpleGrid,
+} from "@chakra-ui/react";
 
 import Card from "@/src/components/common/Card";
 import { prisma } from "@/src/lib/prisma";
@@ -64,17 +67,6 @@ const Home: React.FC<Props> = ({ surveys }) => {
             );
           })}
         </SimpleGrid>
-        <IconButton
-          aria-label="Create Survey"
-          icon={<AddIcon />}
-          rounded={"full"}
-          colorScheme={"telegram"}
-          position={"fixed"}
-          bottom={"4rem"}
-          right={"8rem"}
-          zIndex={99}
-          size={"lg"}
-        />
       </Container>
     </Box>
   );

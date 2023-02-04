@@ -4,13 +4,7 @@ import { StatsProps } from "./stats.interface";
 
 const Stats: React.FC<StatsProps> = ({ experience, level }) => {
   return (
-    <Box
-      width={"5rem"}
-      backgroundColor={"gray.200"}
-      px={2}
-      py={1}
-      rounded={"md"}
-    >
+    <Box width={"5rem"}>
       <VStack>
         <Text fontWeight={"semibold"}>Lv. {level}</Text>
         <Progress
