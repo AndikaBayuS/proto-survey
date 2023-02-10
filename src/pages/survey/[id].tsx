@@ -22,7 +22,7 @@ import {
 
 import { prisma } from "@/src/lib/prisma";
 
-import { SubmitValues,SurveyProps } from "./survey.interface";
+import {  SurveyProps, SurveyQuestion } from "./survey.interface";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -74,8 +74,8 @@ const Survey = ({ questions }: SurveyProps) => {
         <Box bgColor={"white"} p={5} rounded={"lg"}>
           <Formik
             initialValues={{
-              questions: questions?.map((question: SubmitValues) => ({
-                questionsId: question.id,
+              questions: questions?.map((question: SurveyQuestion) => ({
+                questionsId: question.id || "",
                 surveyId: question.surveyId,
                 question: question.question,
                 answer: "",
@@ -99,7 +99,7 @@ const Survey = ({ questions }: SurveyProps) => {
                   return (
                     <VStack alignItems={"start"} spacing={3}>
                       {values.questions?.map(
-                        (question: SubmitValues, index: number) => (
+                        (question: SurveyQuestion, index: number) => (
                           <Field
                             name={`questions.${index}.answer`}
                             key={question.questionsId}
@@ -114,7 +114,7 @@ const Survey = ({ questions }: SurveyProps) => {
                                 </FormLabel>
                                 <RadioGroup
                                   {...field}
-                                  id={questions.questionsId}
+                                  id={question.questionsId}
                                 >
                                   <Stack direction={"row"}>
                                     {radioValues.map((value) => (

@@ -1,15 +1,13 @@
-import { Questions } from "@prisma/client";
-
-export interface SurveyProps {
-  questions: Questions[];
-}
-
-export interface SubmitValues {
+export interface SurveyQuestion {
   id?: string;
   questionsId: string;
   surveyId: string;
   question: string;
   answer: string;
+}
+
+export interface SurveyProps {
+  questions: SurveyQuestion[];
 }
 
 export interface CreateValues {
