@@ -13,7 +13,7 @@ import {
   getGamification,
   getUserId,
   setGamification,
-} from "@/src/modules/user";
+} from "@/src/utils/prisma/user";
 
 import { Props } from "./pages.interface";
 

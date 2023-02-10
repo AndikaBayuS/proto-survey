@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 
 import { prisma } from "@/src/lib/prisma";
-import { addExperience } from "@/src/modules/gamification";
-import { getUserId } from "@/src/modules/user";
+import { addExperience } from "@/src/utils/prisma/gamification";
+import { getUserId } from "@/src/utils/prisma/user";
 
 export default async function handle(
   req: NextApiRequest,
