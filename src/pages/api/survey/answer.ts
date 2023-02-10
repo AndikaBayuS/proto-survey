@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 
 import { prisma } from "@/src/lib/prisma";
+import { addExperience } from "@/src/modules/gamification";
 import { getUserId } from "@/src/modules/user";
 
 export default async function handle(
@@ -17,5 +18,6 @@ export default async function handle(
       participantId: userId,
     })),
   });
+  await addExperience(String(userId), 10);
   res.json(surveys);
 }
