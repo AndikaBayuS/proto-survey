@@ -1,11 +1,7 @@
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import { getSession } from "next-auth/react";
-import {
-  Box,
-  Container,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Box, Container, SimpleGrid } from "@chakra-ui/react";
 
 import Card from "@/src/components/common/Card";
 import { prisma } from "@/src/lib/prisma";
@@ -28,18 +24,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     await setGamification(String(userId));
   }
 
-  const ownerData = await prisma.user.findMany({
-    where: {
-      id: surveys.owner,
-    },
-  });
-  const owners = JSON.parse(JSON.stringify(ownerData));
-
   return {
     props: {
       surveys,
-      owners,
-      gamification: userGamification,
     },
   };
 };
@@ -60,7 +47,8 @@ const Home: React.FC<Props> = ({ surveys }) => {
               <Card
                 key={survey.id}
                 surveyId={survey.id}
-                owner={survey.owner}
+                owner={survey.ownerName}
+                ownerImage={survey.ownerImage}
                 title={survey.title}
                 description={survey.description}
               />

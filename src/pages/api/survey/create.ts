@@ -17,7 +17,9 @@ export default async function handle(
   const surveys = await prisma.surveys.create({
     data: {
       title,
-      owner: String(session?.user?.email),
+      ownerEmail: String(session?.user?.email),
+      ownerName: String(session?.user?.name),
+      ownerImage: String(session?.user?.image),
       description,
       questions: {
         create: questions,

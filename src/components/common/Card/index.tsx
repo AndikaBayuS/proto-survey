@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { Box, Button, Text, VStack } from "@chakra-ui/react";
+import { Avatar, Box, HStack, Text, VStack } from "@chakra-ui/react";
 
 import { CardProps } from "./card.interface";
 
-const Card: React.FC<CardProps> = ({ surveyId, owner, title, description }) => {
+const Card: React.FC<CardProps> = ({ surveyId, owner, ownerImage, title, description }) => {
   return (
     <Link href={`/survey/${surveyId}`}>
       <Box
@@ -12,16 +12,19 @@ const Card: React.FC<CardProps> = ({ surveyId, owner, title, description }) => {
         bgColor={"white"}
         shadow={"sm"}
         p={4}
+        cursor={"pointer"}
       >
         <VStack spacing={3} alignItems={"start"}>
-          <Text size={"sm"} fontWeight={"semibold"}>
+          <Text size={"sm"} fontWeight={"semibold"} noOfLines={1}>
             {title}
           </Text>
-          <Text fontSize={"xs"} color={"gray.600"}>
-            {owner}
-          </Text>
-          <Text>{description}</Text>
-          <Button colorScheme={"telegram"} variant={"outline"}>Mulai Survei</Button>
+          <HStack>
+            <Avatar size={"xs"} src={ownerImage} />
+            <Text fontSize={"xs"} color={"gray.600"}>
+              {owner}
+            </Text>
+          </HStack>
+          <Text noOfLines={2}>{description}</Text>
         </VStack>
       </Box>
     </Link>
