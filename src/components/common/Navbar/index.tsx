@@ -15,8 +15,10 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 import Stats from "@/src/components/common/Stats";
+import { getGamificationData } from "@/src/utils/fetch";
 
 const NavigationItem = [
   { name: "Surveys", href: "/" },
@@ -24,8 +26,19 @@ const NavigationItem = [
 ];
 
 const Navbar = () => {
+  const [gamification, setGamification] = useState({
+    level: 0,
+    points: 0,
+  });
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  useEffect(() => {
+    getGamificationData().then((res) => {
+      setGamification(res.data);
+    });
+  }, []);
+  
   return (
     <Box bgColor={"white"}>
       <Container maxWidth={"container.xl"}>
@@ -68,7 +81,10 @@ const Navbar = () => {
                 <MenuButton>
                   <HStack>
                     <Avatar size={"sm"} src={session?.user?.image!} />
-                    <Stats level={1} experience={80} />
+                    <Stats
+                      level={gamification?.level}
+                      experience={gamification.points}
+                    />
                   </HStack>
                 </MenuButton>
                 <MenuList>
