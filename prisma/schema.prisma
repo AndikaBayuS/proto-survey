@@ -62,14 +62,13 @@ model User {
 
 model Surveys {
   id          String      @id @default(cuid())
-  ownerEmail  String
-  ownerName   String
-  ownerImage  String
+  ownerId     String
+  owner       Json
   title       String
   description String
   createdAt   DateTime    @default(now()) @db.Timestamp(3)
   updatedAt   DateTime    @updatedAt
-  user        User        @relation(fields: [ownerEmail], references: [email])
+  user        User        @relation(fields: [ownerId], references: [id])
   questions   Questions[]
   response    Response[]
 }

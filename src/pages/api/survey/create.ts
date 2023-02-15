@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
+import { Prisma } from "@prisma/client";
 
 import { prisma } from "@/src/lib/prisma";
 import { countQuestions } from "@/src/utils/gamification";
@@ -14,18 +15,24 @@ export default async function handle(
   const points = countQuestions(questions);
   const session = await getSession({ req });
   const userId = await getUserId(String(session?.user?.email));
+  const ownerData = {
+    name: session?.user?.name,
+    email: session?.user?.email,
+    image: session?.user?.image,
+  } as Prisma.JsonObject;
+
   const surveys = await prisma.surveys.create({
     data: {
       title,
-      ownerEmail: String(session?.user?.email),
-      ownerName: String(session?.user?.name),
-      ownerImage: String(session?.user?.image),
+      ownerId: String(userId),
+      owner: ownerData,
       description,
       questions: {
         create: questions,
       },
     },
   });
+
   await addExperience(String(userId), points);
   res.json(surveys);
 }

@@ -3,7 +3,13 @@ import { Avatar, Box, HStack, Text, VStack } from "@chakra-ui/react";
 
 import { CardProps } from "./card.interface";
 
-const Card: React.FC<CardProps> = ({ surveyId, owner, ownerImage, title, description }) => {
+const Card: React.FC<CardProps> = ({
+  surveyId,
+  ownerName,
+  ownerImage,
+  title,
+  description,
+}) => {
   return (
     <Link href={`/survey/${surveyId}`}>
       <Box
@@ -19,9 +25,9 @@ const Card: React.FC<CardProps> = ({ surveyId, owner, ownerImage, title, descrip
             {title}
           </Text>
           <HStack>
-            <Avatar size={"xs"} src={ownerImage} />
+            <Avatar size={"xs"} src={String(ownerImage)} />
             <Text fontSize={"xs"} color={"gray.600"}>
-              {owner}
+              {String(ownerName)}
             </Text>
           </HStack>
           <Text noOfLines={2}>{description}</Text>

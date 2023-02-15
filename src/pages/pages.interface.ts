@@ -1,6 +1,5 @@
-import { Surveys, User } from "@prisma/client";
+import { Surveys } from "@prisma/client";
 
-export type Props = {
+export interface Props {
   surveys: Surveys[];
-  owners: User;
 };

@@ -2,6 +2,7 @@ import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import { getSession } from "next-auth/react";
 import { Box, Container, SimpleGrid } from "@chakra-ui/react";
+import { Prisma } from "@prisma/client";
 
 import Card from "@/src/components/common/Card";
 import { prisma } from "@/src/lib/prisma";
@@ -43,12 +44,13 @@ const Home: React.FC<Props> = ({ surveys }) => {
       <Container maxWidth={"container.xl"} position={"relative"}>
         <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing={4}>
           {surveys.map((survey) => {
+            const owner = survey.owner as Prisma.JsonObject;
             return (
               <Card
                 key={survey.id}
                 surveyId={survey.id}
-                owner={survey.ownerName}
-                ownerImage={survey.ownerImage}
+                ownerName={owner.name}
+                ownerImage={owner.image}
                 title={survey.title}
                 description={survey.description}
               />
