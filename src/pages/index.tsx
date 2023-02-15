@@ -18,7 +18,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   const userId = await getUserId(String(session?.user?.email));
   const userGamification = await getGamification(String(userId));
-  const surveyData = await prisma.surveys.findMany();
+  const surveyData = await prisma.surveys.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
   const surveys = JSON.parse(JSON.stringify(surveyData));
 
   if (userId && userGamification == null) {
