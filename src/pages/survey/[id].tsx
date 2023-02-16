@@ -20,9 +20,8 @@ import {
   FormikHelpers,
 } from "formik";
 
+import {  SurveyProps, SurveyQuestion } from "@/src/interfaces/survey.interface";
 import { prisma } from "@/src/lib/prisma";
-
-import {  SurveyProps, SurveyQuestion } from "./survey.interface";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Avatar, Box, HStack, Text, VStack } from "@chakra-ui/react";
 
-import { CardProps } from "./card.interface";
+import { CardProps } from "@/src/interfaces/card.interface";
 
 const Card: React.FC<CardProps> = ({
   surveyId,

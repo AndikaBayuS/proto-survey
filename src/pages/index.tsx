@@ -5,14 +5,13 @@ import { Box, Container, SimpleGrid } from "@chakra-ui/react";
 import { Prisma } from "@prisma/client";
 
 import Card from "@/src/components/common/Card";
+import { PagesProps } from "@/src/interfaces/pages.interface";
 import { prisma } from "@/src/lib/prisma";
 import {
   getGamification,
   getUserId,
   setGamification,
 } from "@/src/utils/prisma/user";
-
-import { Props } from "./pages.interface";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -37,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const Home: React.FC<Props> = ({ surveys }) => {
+const Home: React.FC<PagesProps> = ({ surveys }) => {
   return (
     <Box py={5}>
       <Head>

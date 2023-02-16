@@ -1,5 +1,5 @@
 import { Surveys } from "@prisma/client";
 
-export interface Props {
+export interface PagesProps {
   surveys: Surveys[];
 };

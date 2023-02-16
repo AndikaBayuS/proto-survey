@@ -1,6 +1,6 @@
 import { Box, Progress, Text, VStack } from "@chakra-ui/react";
 
-import { StatsProps } from "./stats.interface";
+import { StatsProps } from "@/src/interfaces/stats.interface";
 
 const Stats: React.FC<StatsProps> = ({ experience, level }) => {
   return (

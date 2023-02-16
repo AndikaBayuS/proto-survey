@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
 
-import { CreateValues } from "./survey.interface";
+import { CreateValues } from "@/src/interfaces/survey.interface";
 
 const Create = () => {
   const router = useRouter();

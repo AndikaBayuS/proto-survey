@@ -3,8 +3,7 @@ import { getProviders, signIn } from "next-auth/react";
 import { Box, Button, Center, HStack, Text } from "@chakra-ui/react";
 
 import GoogleIcon from "@/src/components/icons/GoogleIcon/GoogleIcon";
-
-import { SigninProps } from "./auth.interface";
+import { SigninProps } from "@/src/interfaces/auth.interface";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const providers = await getProviders();
