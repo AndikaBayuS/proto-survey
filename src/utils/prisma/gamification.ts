@@ -14,3 +14,16 @@ export const addExperience = async (id: string, points: number) => {
 
   return data;
 };
+
+export const getLeaderboard = async () => {
+  const data = await prisma.gamification.findMany({
+    orderBy: {
+      points: "desc",
+    },
+    include: {
+      user: true,
+    },
+  });
+
+  return data;
+};

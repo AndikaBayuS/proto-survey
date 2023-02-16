@@ -21,8 +21,8 @@ import Stats from "@/src/components/common/Stats";
 import { getGamificationData } from "@/src/utils/fetch";
 
 const NavigationItem = [
-  { name: "Surveys", href: "/" },
-  { name: "Leaderboard", href: "/leaderboard" },
+  { name: "Survei", href: "/" },
+  { name: "Peringkat", href: "/leaderboard" },
 ];
 
 const Navbar = () => {

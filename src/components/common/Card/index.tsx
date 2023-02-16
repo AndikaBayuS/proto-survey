@@ -24,13 +24,13 @@ const Card: React.FC<CardProps> = ({
           <Text size={"sm"} fontWeight={"semibold"} noOfLines={1}>
             {title}
           </Text>
+          <Text noOfLines={2}>{description}</Text>
           <HStack>
             <Avatar size={"xs"} src={String(ownerImage)} />
             <Text fontSize={"xs"} color={"gray.600"}>
               {String(ownerName)}
             </Text>
           </HStack>
-          <Text noOfLines={2}>{description}</Text>
         </VStack>
       </Box>
     </Link>
