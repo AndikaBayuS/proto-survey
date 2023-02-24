@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { Box, Container, Divider } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 
 import UserCard from "@/src/components/pages/leaderboards/UserCard";
 import { LeaderboardProps } from "@/src/interfaces/leaderboard.interface";

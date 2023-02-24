@@ -4,6 +4,7 @@ export interface SurveyQuestion {
   surveyId: string;
   question: string;
   answer: string;
+  type: string;
 }
 
 export interface SurveyProps {
@@ -13,5 +14,5 @@ export interface SurveyProps {
 export interface CreateValues {
   title: string;
   description: string;
-  questions: [{ question: string }];
+  questions: [{ question: string; type: string; options?: string[] }];
 }

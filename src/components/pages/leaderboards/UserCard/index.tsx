@@ -1,4 +1,4 @@
-import { Avatar, Flex, HStack, Text } from "@chakra-ui/react";
+import { Avatar, Flex, Text } from "@chakra-ui/react";
 
 import { UserCardProps } from "@/src/interfaces/usercard.interface";
 

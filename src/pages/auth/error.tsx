@@ -1,5 +1,5 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { Center, Text } from "@chakra-ui/react";
+import { Center } from "@chakra-ui/react";
 
 const Error = () => {
   return (

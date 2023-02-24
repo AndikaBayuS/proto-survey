@@ -8,33 +8,20 @@ import {
   FormLabel,
   HStack,
   IconButton,
-  Input,
-  Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
+import { FieldArray, Form, Formik, FormikHelpers } from "formik";
 
+import TextArea from "@/src/components/forms/TextArea";
+import TextField from "@/src/components/forms/TextField";
+import QuestionFormControl from "@/src/components/pages/survey/QuestionType";
 import { CreateValues } from "@/src/interfaces/survey.interface";
+import { createSurvey } from "@/src/utils/fetch";
+
+import { buttonAttributes } from "./constants";
 
 const Create = () => {
   const router = useRouter();
-  const createSurvey = async ({
-    title,
-    description,
-    questions,
-  }: CreateValues) => {
-    try {
-      const body = { title, description, questions };
-      await fetch("/api/survey/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      await router.push("/");
-    } catch {
-      console.log("error");
-    }
-  };
 
   return (
     <Container maxWidth={"container.xl"} py={5}>
@@ -43,7 +30,7 @@ const Create = () => {
           initialValues={{
             title: "",
             description: "",
-            questions: [{ question: "" }],
+            questions: [{ question: "", type: "text" }],
           }}
           onSubmit={(
             values: CreateValues,
@@ -53,49 +40,48 @@ const Create = () => {
               createSurvey(values);
               setSubmitting(false);
             }, 500);
+            router.push("/");
           }}
         >
           <Form>
             <VStack alignItems={"start"} spacing={3}>
               <FormControl isRequired>
                 <FormLabel htmlFor="title">Judul Survei</FormLabel>
-                <Field
-                  as={Input}
+                <TextField
                   id="title"
                   name="title"
-                  placeholder="Survey ..."
-                  variant="filled"
+                  placeholder="Masukkan judul survei"
                 />
               </FormControl>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel htmlFor="description">Deskripsi Survei</FormLabel>
-                <Field
-                  as={Textarea}
+                <TextArea
                   id="description"
                   name="description"
-                  placeholder="Survey mengenai ..."
-                  variant="filled"
+                  placeholder="Masukkan deskripsi survei"
                 />
               </FormControl>
 
               <Box w="full">
                 <FieldArray name="questions">
                   {({ remove, push, form }) => {
-                    const { values } = form;
+                    const { values, setFieldValue } = form;
+                    console.log(values)
                     return (
                       <VStack alignItems={"start"} spacing={3}>
                         {values.questions.map(
-                          (_question: string[], index: number) => (
-                            <FormControl key={index}>
+                          (_question: any, index: number) => (
+                            <FormControl key={index} isRequired>
                               <FormLabel htmlFor={`questions.${index}`}>
                                 Pertanyaan {index + 1}
                               </FormLabel>
-                              <HStack>
-                                <Field
-                                  as={Input}
+                              <HStack w={"full"}>
+                                <QuestionFormControl
+                                  type={_question.type}
                                   name={`questions[${index}].question`}
-                                  placeholder="Pertanyaan ..."
-                                  variant="filled"
+                                  options={_question.options}
+                                  setFieldValue={setFieldValue}
+                                  target={`questions[${index}].options`}
                                 />
                                 <IconButton
                                   icon={<CloseIcon />}
@@ -110,14 +96,23 @@ const Create = () => {
                             </FormControl>
                           )
                         )}
-                        <Button
-                          type="button"
-                          colorScheme={"telegram"}
-                          size={"md"}
-                          onClick={() => push({ question: "" })}
-                        >
-                          Tambah Pertanyaan
-                        </Button>
+                        <HStack>
+                          {buttonAttributes.map((attribute, index) => (
+                            <Button
+                              key={index}
+                              size="md"
+                              onClick={() =>
+                                push({
+                                  question: "",
+                                  type: attribute.type,
+                                  options: attribute.options,
+                                })
+                              }
+                            >
+                              {attribute.label}
+                            </Button>
+                          ))}
+                        </HStack>
                       </VStack>
                     );
                   }}

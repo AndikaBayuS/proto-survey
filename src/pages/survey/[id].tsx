@@ -77,6 +77,7 @@ const Survey = ({ questions }: SurveyProps) => {
                 questionsId: question.id || "",
                 surveyId: question.surveyId,
                 question: question.question,
+                type: question.type,
                 answer: "",
               })),
             }}
