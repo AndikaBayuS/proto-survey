@@ -22,6 +22,11 @@ import { buttonAttributes } from "./constants";
 
 const Create = () => {
   const router = useRouter();
+  const handleEnterKey = (e: any) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
 
   return (
     <Container maxWidth={"container.xl"} py={5}>
@@ -43,7 +48,7 @@ const Create = () => {
             router.push("/");
           }}
         >
-          <Form>
+          <Form onKeyDown={handleEnterKey}>
             <VStack alignItems={"start"} spacing={3}>
               <FormControl isRequired>
                 <FormLabel htmlFor="title">Judul Survei</FormLabel>
@@ -66,7 +71,7 @@ const Create = () => {
                 <FieldArray name="questions">
                   {({ remove, push, form }) => {
                     const { values, setFieldValue } = form;
-                    console.log(values)
+                    console.log(values);
                     return (
                       <VStack alignItems={"start"} spacing={3}>
                         {values.questions.map(

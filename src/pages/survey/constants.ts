@@ -1,6 +1,11 @@
-export const defaultOptions = ["Pilihan 1", "Pilihan 2", "Pilihan 3"];
+import { v4 as uuidv4 } from 'uuid';
+
 export const buttonAttributes = [
   { label: "Teks", type: "text" },
-  { label: "Checkbox", type: "checkbox", options: defaultOptions },
-  { label: "Pilihan Ganda", type: "radio", options: defaultOptions },
+  { label: "Checkbox", type: "checkbox", options: [{ id: uuidv4(), value: "" }] },
+  {
+    label: "Pilihan Ganda",
+    type: "radio",
+    options: [{ id: uuidv4(), value: "" }],
+  },
 ];
