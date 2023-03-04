@@ -8,12 +8,12 @@ import {
   FormLabel,
   HStack,
   IconButton,
+  Input,
+  Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { FieldArray, Form, Formik, FormikHelpers } from "formik";
+import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
 
-import TextArea from "@/src/components/forms/TextArea";
-import TextField from "@/src/components/forms/TextField";
 import QuestionFormControl from "@/src/components/pages/survey/QuestionType";
 import { CreateValues } from "@/src/interfaces/survey.interface";
 import { createSurvey } from "@/src/utils/fetch";
@@ -52,7 +52,8 @@ const Create = () => {
             <VStack alignItems={"start"} spacing={3}>
               <FormControl isRequired>
                 <FormLabel htmlFor="title">Judul Survei</FormLabel>
-                <TextField
+                <Field
+                  as={Input}
                   id="title"
                   name="title"
                   placeholder="Masukkan judul survei"
@@ -60,7 +61,8 @@ const Create = () => {
               </FormControl>
               <FormControl isRequired>
                 <FormLabel htmlFor="description">Deskripsi Survei</FormLabel>
-                <TextArea
+                <Field
+                  as={Textarea}
                   id="description"
                   name="description"
                   placeholder="Masukkan deskripsi survei"
@@ -71,7 +73,6 @@ const Create = () => {
                 <FieldArray name="questions">
                   {({ remove, push, form }) => {
                     const { values, setFieldValue } = form;
-                    console.log(values);
                     return (
                       <VStack alignItems={"start"} spacing={3}>
                         {values.questions.map(

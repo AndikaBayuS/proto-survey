@@ -7,9 +7,9 @@ import {
   FormErrorMessage,
   IconButton,
   Input,
-  Text,
   VStack,
 } from "@chakra-ui/react";
+import { Field } from "formik";
 import { useState } from "react";
 
 import {
@@ -18,7 +18,7 @@ import {
   handleEditOption,
 } from "@/src/utils/helper";
 
-const SurveyCheckbox = ({ name, options, setFieldValue, target }: any) => {
+const OptionsForm = ({ name, options, setFieldValue, target }: any) => {
   const [updatedValue, setUpdatedValue] = useState("");
 
   const checkValue = (id: any) => {
@@ -31,19 +31,19 @@ const SurveyCheckbox = ({ name, options, setFieldValue, target }: any) => {
     }
   };
 
-  const isError = options.length === 0;
+  const isError = options.length < 2;
 
   return (
     <Box>
       <VStack alignItems={"start"} gap={3}>
         <FormControl isInvalid={isError}>
-          <Input
-            id={name}
+          <Field
+            as={Input}
             name={name}
             placeholder="Masukkan pertanyaan"
             variant="filled"
           />
-          <FormErrorMessage>Minimal harus ada 1 pilihan</FormErrorMessage>
+          <FormErrorMessage>Minimal harus ada 2 pilihan</FormErrorMessage>
         </FormControl>
         {options.map((option: any) => (
           <Flex key={option.id} gap={3}>
@@ -79,4 +79,4 @@ const SurveyCheckbox = ({ name, options, setFieldValue, target }: any) => {
   );
 };
 
-export default SurveyCheckbox;
+export default OptionsForm;

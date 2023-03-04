@@ -77,7 +77,7 @@ model Questions {
   id       String     @id @default(cuid())
   question String
   type     String
-  options  String?
+  options  Json?
   surveyId String
   survey   Surveys    @relation(fields: [surveyId], references: [id])
   response Response[]

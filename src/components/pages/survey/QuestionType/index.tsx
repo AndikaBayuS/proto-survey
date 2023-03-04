@@ -1,7 +1,7 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Input } from "@chakra-ui/react";
+import { Field } from "formik";
 
-import SurveyCheckbox from "@/src/components/forms/SurveyCheckbox";
-import TextField from "@/src/components/forms/TextField";
+import OptionsForm from "@/src/components/forms/CreateOptions";
 import { QuestionTypeInterface } from "@/src/interfaces/components/pages/questiontype.interface";
 
 const QuestionType = ({
@@ -13,17 +13,15 @@ const QuestionType = ({
 }: QuestionTypeInterface) => {
   return (
     <Box w="full">
-      {type === "checkbox" ? (
-        <SurveyCheckbox
+      {type === "text" ? (
+        <Field as={Input} name={name} placeholder="Masukkan pertanyaan" />
+      ) : (
+        <OptionsForm
           name={name}
           options={options}
           setFieldValue={setFieldValue}
           target={target}
         />
-      ) : type === "radio" ? (
-        <Text>Ini pertanyaan Radio</Text>
-      ) : (
-        <TextField id={name} name={name} placeholder="Masukkan pertanyaan" />
       )}
     </Box>
   );
