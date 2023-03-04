@@ -18,7 +18,7 @@ import {
   handleEditOption,
 } from "@/src/utils/helper";
 
-const OptionsForm = ({ name, options, setFieldValue, target }: any) => {
+const CreateOption = ({ name, options, setFieldValue, target }: any) => {
   const [updatedValue, setUpdatedValue] = useState("");
 
   const checkValue = (id: any) => {
@@ -79,4 +79,4 @@ const OptionsForm = ({ name, options, setFieldValue, target }: any) => {
   );
 };
 
-export default OptionsForm;
+export default CreateOption;

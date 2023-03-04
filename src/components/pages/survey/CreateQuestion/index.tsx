@@ -1,10 +1,10 @@
 import { Box, Input } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import OptionsForm from "@/src/components/forms/CreateOptions";
+import CreateOption from "@/src/components/forms/CreateOption";
 import { QuestionTypeInterface } from "@/src/interfaces/components/pages/questiontype.interface";
 
-const QuestionType = ({
+const CreateQuestion = ({
   type,
   name,
   options,
@@ -16,7 +16,7 @@ const QuestionType = ({
       {type === "text" ? (
         <Field as={Input} name={name} placeholder="Masukkan pertanyaan" />
       ) : (
-        <OptionsForm
+        <CreateOption
           name={name}
           options={options}
           setFieldValue={setFieldValue}
@@ -27,4 +27,4 @@ const QuestionType = ({
   );
 };
 
-export default QuestionType;
+export default CreateQuestion;

@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
 
-import QuestionFormControl from "@/src/components/pages/survey/QuestionType";
+import CreateQuestion from "@/src/components/pages/survey/CreateQuestion";
 import { CreateValues } from "@/src/interfaces/survey.interface";
 import { createSurvey } from "@/src/utils/fetch";
 
@@ -82,7 +82,7 @@ const Create = () => {
                                 Pertanyaan {index + 1}
                               </FormLabel>
                               <HStack w={"full"}>
-                                <QuestionFormControl
+                                <CreateQuestion
                                   type={_question.type}
                                   name={`questions[${index}].question`}
                                   options={_question.options}
