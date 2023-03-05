@@ -3,6 +3,7 @@ export interface SurveyQuestion {
   questionsId: string;
   surveyId: string;
   question: string;
+  options: any;
   answer: string;
   type: string;
 }

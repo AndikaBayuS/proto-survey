@@ -6,9 +6,6 @@ import {
   Container,
   FormControl,
   FormLabel,
-  Radio,
-  RadioGroup,
-  Stack,
   VStack,
 } from "@chakra-ui/react";
 import {
@@ -20,7 +17,8 @@ import {
   FormikHelpers,
 } from "formik";
 
-import {  SurveyProps, SurveyQuestion } from "@/src/interfaces/survey.interface";
+import ViewOption from "@/src/components/forms/ViewOption";
+import { SurveyProps, SurveyQuestion } from "@/src/interfaces/survey.interface";
 import { prisma } from "@/src/lib/prisma";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -51,7 +49,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 const Survey = ({ questions }: SurveyProps) => {
   const router = useRouter();
-  const radioValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
   const submitAnswer = async ({ questions }: SurveyProps) => {
     try {
@@ -78,6 +75,7 @@ const Survey = ({ questions }: SurveyProps) => {
                 surveyId: question.surveyId,
                 question: question.question,
                 type: question.type,
+                options: question.options,
                 answer: "",
               })),
             }}
@@ -95,7 +93,7 @@ const Survey = ({ questions }: SurveyProps) => {
               <FieldArray name="question">
                 {({ form }) => {
                   const { values } = form;
-
+                  
                   return (
                     <VStack alignItems={"start"} spacing={3}>
                       {values.questions?.map(
@@ -104,32 +102,23 @@ const Survey = ({ questions }: SurveyProps) => {
                             name={`questions.${index}.answer`}
                             key={question.questionsId}
                           >
-                            {({ field }: FieldProps) => (
-                              <FormControl id={`questions.${index}.answer`}>
-                                <FormLabel
-                                  htmlFor={`questions.${index}.answer`}
-                                  fontWeight={"semibold"}
-                                >
-                                  {index + 1}. {question.question}
-                                </FormLabel>
-                                <RadioGroup
-                                  {...field}
-                                  id={question.questionsId}
-                                >
-                                  <Stack direction={"row"}>
-                                    {radioValues.map((value) => (
-                                      <Radio
-                                        {...field}
-                                        value={value}
-                                        key={value}
-                                      >
-                                        {value}
-                                      </Radio>
-                                    ))}
-                                  </Stack>
-                                </RadioGroup>
-                              </FormControl>
-                            )}
+                            {({ field }: FieldProps) => {
+                              return (
+                                <FormControl id={`questions.${index}.answer`}>
+                                  <FormLabel
+                                    htmlFor={`questions.${index}.answer`}
+                                    fontWeight={"semibold"}
+                                  >
+                                    {index + 1}. {question.question}
+                                  </FormLabel>
+                                  <ViewOption
+                                    options={question.options}
+                                    type={question.type}
+                                    fieldProps={field}
+                                  />
+                                </FormControl>
+                              );
+                            }}
                           </Field>
                         )
                       )}
