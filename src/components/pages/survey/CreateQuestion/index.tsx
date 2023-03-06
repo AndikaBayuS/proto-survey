@@ -2,7 +2,7 @@ import { Box, Input } from "@chakra-ui/react";
 import { Field } from "formik";
 
 import CreateOption from "@/src/components/forms/CreateOption";
-import { QuestionTypeInterface } from "@/src/interfaces/components/pages/questiontype.interface";
+import { CreateQuestionInterface } from "@/src/interfaces/components/pages/survey/createquestion.interface";
 
 const CreateQuestion = ({
   type,
@@ -10,7 +10,7 @@ const CreateQuestion = ({
   options,
   setFieldValue,
   target,
-}: QuestionTypeInterface) => {
+}: CreateQuestionInterface) => {
   return (
     <Box w="full">
       {type === "text" ? (

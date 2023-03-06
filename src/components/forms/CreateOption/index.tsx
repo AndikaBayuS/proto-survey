@@ -21,7 +21,7 @@ import {
 const CreateOption = ({ name, options, setFieldValue, target }: any) => {
   const [updatedValue, setUpdatedValue] = useState("");
 
-  const checkValue = (id: any) => {
+  const checkValue = (id: string) => {
     if (updatedValue === "") {
       handleDeleteOption(options, setFieldValue, target, id);
       setUpdatedValue("");

@@ -18,6 +18,7 @@ export default async function handle(
     data: [...questions].map((question) => ({
       ...question,
       participantId: userId,
+      options: question.options || undefined,
     })),
   });
   await addExperience(String(userId), points);

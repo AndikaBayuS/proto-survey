@@ -1,4 +1,4 @@
-export interface QuestionTypeInterface {
+export interface CreateQuestionInterface {
   type: string;
   name: string;
   options: string[];

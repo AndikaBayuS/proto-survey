@@ -85,7 +85,9 @@ model Questions {
 
 model Response {
   id            String    @id @default(cuid())
-  answer        String
+  answer        String[]
+  type          String
+  options       Json?
   question      String
   participantId String
   surveyId      String
