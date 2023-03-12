@@ -1,3 +1,3 @@
 export const countQuestions = (questions: Array<object>) => {
-  return questions.length * 10;
+  return questions.length * 5;
 };
