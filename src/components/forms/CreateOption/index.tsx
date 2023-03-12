@@ -51,6 +51,7 @@ const CreateOption = ({ name, options, setFieldValue, target }: any) => {
               key={option.id}
               variant="filled"
               placeholder="Masukkan pilihan"
+              defaultValue={option.value}
               onChange={(value) => {
                 setUpdatedValue(value.target.value);
               }}
