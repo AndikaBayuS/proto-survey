@@ -10,6 +10,24 @@ export const getUserId = async (email: string) => {
   return data?.id;
 };
 
+export const getUserData = async (id: string) => {
+  const data = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      surveys: true,
+      gamification: {
+        where: {
+          userId: id,
+        },
+      },
+    },
+  });
+
+  return data;
+};
+
 export const getGamification = async (id: string) => {
   const data = await prisma.gamification.findFirst({
     where: {
