@@ -68,8 +68,6 @@ const SurveyEdit = ({ questions, survey }: any) => {
   };
 
   if (questions) {
-    console.log("Survey", survey);
-    console.log("Question", questions);
     return (
       <Container maxWidth={"container.xl"} py={5}>
         <Box bgColor={"white"} rounded={"lg"} p={5}>
@@ -184,7 +182,7 @@ const SurveyEdit = ({ questions, survey }: any) => {
                   Batal
                 </Button>
                 <Button type="submit" colorScheme={"telegram"} size={"md"}>
-                  Buat Survei
+                  Perbarui Survei
                 </Button>
               </HStack>
             </Form>

@@ -20,7 +20,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const Profile = ({ userData }: any) => {
-  console.log(userData);
   const surveyCount = userData.surveys.length;
 
   return (
