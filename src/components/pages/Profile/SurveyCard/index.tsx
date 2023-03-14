@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { EditIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 import {
   Card,
   CardBody,
@@ -9,8 +9,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+import { deleteSurvey } from "@/src/utils/fetch";
+
 const SurveyCard = ({ title, description, surveyId }: any) => {
   const router = useRouter();
+  const handleDeleteSurvey = (id: any) => {
+    return deleteSurvey(id);
+  };
+
   return (
     <Card bgColor={"white"} rounded={"xl"} cursor={"default"} shadow={"sm"}>
       <CardBody>
@@ -21,6 +27,13 @@ const SurveyCard = ({ title, description, surveyId }: any) => {
       </CardBody>
       <CardFooter justifyContent={"flex-end"} pt={0}>
         <HStack>
+          <IconButton
+            aria-label="Delete"
+            icon={<DeleteIcon />}
+            onClick={() => {
+              handleDeleteSurvey(surveyId);
+            }}
+          />
           <IconButton
             aria-label="Edit"
             icon={<EditIcon />}

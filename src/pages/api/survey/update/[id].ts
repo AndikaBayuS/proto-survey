@@ -1,0 +1,1 @@
+export const handle(req: NextApiRequest, res: NextApiResponse)
