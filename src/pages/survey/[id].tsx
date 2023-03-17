@@ -93,7 +93,7 @@ const Survey = ({ questions }: SurveyProps) => {
               <FieldArray name="question">
                 {({ form }) => {
                   const { values } = form;
-                  
+
                   return (
                     <VStack alignItems={"start"} spacing={3}>
                       {values.questions?.map(

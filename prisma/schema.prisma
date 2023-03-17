@@ -74,13 +74,14 @@ model Surveys {
 }
 
 model Questions {
-  id       String     @id @default(cuid())
-  question String
-  type     String
-  options  Json?
-  surveyId String
-  survey   Surveys    @relation(fields: [surveyId], references: [id])
-  response Response[]
+  id             String     @id @default(cuid())
+  questionNumber Int
+  question       String
+  type           String
+  options        Json?
+  surveyId       String
+  survey         Surveys    @relation(fields: [surveyId], references: [id])
+  response       Response[]
 }
 
 model Response {

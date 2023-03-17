@@ -18,6 +18,7 @@ import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
 import CreateQuestion from "@/src/components/pages/survey/CreateQuestion";
 import { SurveyProps, SurveyQuestion } from "@/src/interfaces/survey.interface";
 import { prisma } from "@/src/lib/prisma";
+import { updateSurvey } from "@/src/utils/fetch";
 
 import { buttonAttributes } from "./constants";
 
@@ -73,13 +74,14 @@ const SurveyEdit = ({ questions, survey }: any) => {
         <Box bgColor={"white"} rounded={"lg"} p={5}>
           <Formik
             initialValues={{
+              title: survey.title,
+              description: survey.description,
               questions: questions?.map((question: SurveyQuestion) => ({
                 questionsId: question.id || "",
                 surveyId: question.surveyId,
                 question: question.question,
                 type: question.type,
                 options: question.options,
-                answer: "",
               })),
             }}
             onSubmit={(
@@ -87,6 +89,7 @@ const SurveyEdit = ({ questions, survey }: any) => {
               { setSubmitting }: FormikHelpers<SurveyProps>
             ) => {
               setTimeout(() => {
+                updateSurvey(values);
                 setSubmitting(false);
               }, 500);
               router.push("/");
@@ -119,6 +122,7 @@ const SurveyEdit = ({ questions, survey }: any) => {
                   <FieldArray name="questions">
                     {({ remove, push, form }) => {
                       const { values, setFieldValue } = form;
+                      console.log(values);
                       return (
                         <VStack alignItems={"start"} spacing={3}>
                           {values.questions.map(
