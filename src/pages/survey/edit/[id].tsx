@@ -67,6 +67,15 @@ const SurveyEdit = ({ questions, survey }: any) => {
       e.preventDefault();
     }
   };
+  const handleDeleteQuestion = (
+    values: any,
+    index: any,
+    setFieldValue: any
+  ) => {
+    const questions = [...values.questions];
+    questions[index].deleteQuestion = true;
+    setFieldValue("questions", questions);
+  };
 
   if (questions) {
     return (
@@ -82,6 +91,7 @@ const SurveyEdit = ({ questions, survey }: any) => {
                 question: question.question,
                 type: question.type,
                 options: question.options,
+                deleteQuestion: false,
               })),
             }}
             onSubmit={(
@@ -146,7 +156,13 @@ const SurveyEdit = ({ questions, survey }: any) => {
                                     variant={"outline"}
                                     size={"sm"}
                                     disabled={index === 0}
-                                    onClick={() => remove(index)}
+                                    onClick={() =>
+                                      handleDeleteQuestion(
+                                        values,
+                                        index,
+                                        setFieldValue
+                                      )
+                                    }
                                   />
                                 </HStack>
                               </FormControl>
