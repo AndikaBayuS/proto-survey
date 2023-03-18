@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { Container } from "@chakra-ui/react";
 
-import UserCard from "@/src/components/pages/leaderboards/UserCard";
+import UserCard from "@/src/components/pages/Leaderboards/UserCard";
 import { LeaderboardProps } from "@/src/interfaces/leaderboard.interface";
 import { getLeaderboard } from "@/src/utils/prisma/gamification";
 

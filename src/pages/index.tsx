@@ -1,10 +1,9 @@
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import { getSession } from "next-auth/react";
-import { Box, Container, SimpleGrid } from "@chakra-ui/react";
-import { Prisma } from "@prisma/client";
+import { Box } from "@chakra-ui/react";
 
-import Card from "@/src/components/common/Card";
+import Home from "@/src/components/pages/Survey/Home";
 import { PagesProps } from "@/src/interfaces/pages.interface";
 import { prisma } from "@/src/lib/prisma";
 import {
@@ -36,34 +35,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const Home: React.FC<PagesProps> = ({ surveys }) => {
+const SurveyPage: React.FC<PagesProps> = ({ surveys }) => {
   return (
-    <Box py={5}>
+    <Box>
       <Head>
         <title>ProtoSurvey</title>
         <meta name="description" content="ProtoSurvey" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Container maxWidth={"container.xl"} position={"relative"}>
-        <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing={4}>
-          {surveys.map((survey) => {
-            const owner = survey.owner as Prisma.JsonObject;
-            return (
-              <Card
-                key={survey.id}
-                surveyId={survey.id}
-                ownerName={owner.name}
-                ownerImage={owner.image}
-                title={survey.title}
-                description={survey.description}
-              />
-            );
-          })}
-        </SimpleGrid>
-      </Container>
+      <Home surveys={surveys} />
     </Box>
   );
 };
 
-export default Home;
+export default SurveyPage;

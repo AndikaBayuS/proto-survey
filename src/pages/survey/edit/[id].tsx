@@ -1,26 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { useRouter } from "next/router";
-import { CloseIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  FormLabel,
-  HStack,
-  IconButton,
-  Input,
-  Textarea,
-  VStack,
-} from "@chakra-ui/react";
-import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
+import Head from "next/head";
+import { Box } from "@chakra-ui/react";
 
-import CreateQuestion from "@/src/components/pages/survey/CreateQuestion";
-import { SurveyProps, SurveyQuestion } from "@/src/interfaces/survey.interface";
+import EditSurvey from "@/src/components/pages/Survey/EditSurvey";
 import { prisma } from "@/src/lib/prisma";
-import { updateSurvey } from "@/src/utils/fetch";
-
-import { buttonAttributes } from "./constants";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -60,157 +43,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-const SurveyEdit = ({ questions, survey }: any) => {
-  const router = useRouter();
-  const handleEnterKey = (e: any) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-    }
-  };
-  const handleDeleteQuestion = (
-    values: any,
-    index: any,
-    setFieldValue: any
-  ) => {
-    const questions = [...values.questions];
-    questions[index].deleteQuestion = true;
-    setFieldValue("questions", questions);
-  };
-
+const EditSurveyPage = ({ questions, survey }: any) => {
   if (questions) {
     return (
-      <Container maxWidth={"container.xl"} py={5}>
-        <Box bgColor={"white"} rounded={"lg"} p={5}>
-          <Formik
-            initialValues={{
-              title: survey.title,
-              description: survey.description,
-              questions: questions?.map((question: SurveyQuestion) => ({
-                questionsId: question.id || "",
-                surveyId: question.surveyId,
-                question: question.question,
-                type: question.type,
-                options: question.options,
-                deleteQuestion: false,
-              })),
-            }}
-            onSubmit={(
-              values: SurveyProps,
-              { setSubmitting }: FormikHelpers<SurveyProps>
-            ) => {
-              setTimeout(() => {
-                updateSurvey(values);
-                setSubmitting(false);
-              }, 500);
-              router.push("/");
-            }}
-          >
-            <Form onKeyDown={handleEnterKey}>
-              <VStack alignItems={"start"} spacing={3}>
-                <FormControl isRequired>
-                  <FormLabel htmlFor="title">Judul Survei</FormLabel>
-                  <Field
-                    as={Input}
-                    id="title"
-                    name="title"
-                    defaultValue={survey.title}
-                    placeholder="Masukkan judul survei"
-                  />
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel htmlFor="description">Deskripsi Survei</FormLabel>
-                  <Field
-                    as={Textarea}
-                    id="description"
-                    name="description"
-                    defaultValue={survey.description}
-                    placeholder="Masukkan deskripsi survei"
-                  />
-                </FormControl>
-
-                <Box w="full">
-                  <FieldArray name="questions">
-                    {({ remove, push, form }) => {
-                      const { values, setFieldValue } = form;
-                      console.log(values);
-                      return (
-                        <VStack alignItems={"start"} spacing={3}>
-                          {values.questions.map(
-                            (_question: any, index: number) => (
-                              <FormControl key={index} isRequired>
-                                <FormLabel htmlFor={`questions.${index}`}>
-                                  Pertanyaan {index + 1}
-                                </FormLabel>
-                                <HStack w={"full"}>
-                                  <CreateQuestion
-                                    type={_question.type}
-                                    name={`questions[${index}].question`}
-                                    options={_question.options}
-                                    setFieldValue={setFieldValue}
-                                    target={`questions[${index}].options`}
-                                  />
-                                  <IconButton
-                                    icon={<CloseIcon />}
-                                    aria-label="Hapus Pertanyaan"
-                                    colorScheme={"red"}
-                                    variant={"outline"}
-                                    size={"sm"}
-                                    disabled={index === 0}
-                                    onClick={() =>
-                                      handleDeleteQuestion(
-                                        values,
-                                        index,
-                                        setFieldValue
-                                      )
-                                    }
-                                  />
-                                </HStack>
-                              </FormControl>
-                            )
-                          )}
-                          <HStack>
-                            {buttonAttributes.map((attribute, index) => (
-                              <Button
-                                key={index}
-                                size="md"
-                                onClick={() =>
-                                  push({
-                                    question: "",
-                                    type: attribute.type,
-                                    options: attribute.options,
-                                  })
-                                }
-                              >
-                                {attribute.label}
-                              </Button>
-                            ))}
-                          </HStack>
-                        </VStack>
-                      );
-                    }}
-                  </FieldArray>
-                </Box>
-              </VStack>
-
-              <HStack marginTop={10} justifyContent={"end"}>
-                <Button
-                  colorScheme={"red"}
-                  variant={"outline"}
-                  size={"md"}
-                  onClick={() => router.push("/")}
-                >
-                  Batal
-                </Button>
-                <Button type="submit" colorScheme={"telegram"} size={"md"}>
-                  Perbarui Survei
-                </Button>
-              </HStack>
-            </Form>
-          </Formik>
-        </Box>
-      </Container>
+      <Box>
+        <Head>
+          <title>ProtoSurvey - Edit Survei</title>
+        </Head>
+        <EditSurvey questions={questions} survey={survey} />
+      </Box>
     );
   }
 };
 
-export default SurveyEdit;
+export default EditSurveyPage;
