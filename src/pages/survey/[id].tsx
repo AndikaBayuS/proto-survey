@@ -4,7 +4,7 @@ import { Box } from "@chakra-ui/react";
 
 import AnswerSurvey from "@/src/components/pages/Survey/AnswerSurvey";
 import { SurveyProps } from "@/src/interfaces/survey.interface";
-import { prisma } from "@/src/lib/prisma";
+import { getSurveyData } from "@/src/utils/prisma/survey";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -14,16 +14,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  let surveyId = null;
-  let questionData = null;
-  try {
-    surveyId = String(params?.id);
-    questionData = await prisma.questions.findMany({
-      where: {
-        surveyId,
-      },
-    });
-  } catch (err) {}
+  let surveyId = String(params?.id);
+  let { questionData } = await getSurveyData(surveyId);
 
   return {
     props: {

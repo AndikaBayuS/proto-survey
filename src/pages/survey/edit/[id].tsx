@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Box } from "@chakra-ui/react";
 
 import EditSurvey from "@/src/components/pages/Survey/EditSurvey";
-import { prisma } from "@/src/lib/prisma";
+import { getSurveyData } from "@/src/utils/prisma/survey";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -14,31 +14,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   let surveyId = String(params?.id);
-  let questionData = null;
-  let surveyData = null;
-
-  try {
-    questionData = await prisma.questions.findMany({
-      where: {
-        surveyId,
-      },
-    });
-  } catch (err) {}
-
-  try {
-    surveyData = await prisma.surveys.findUnique({
-      where: {
-        id: surveyId,
-      },
-    });
-  } catch (err) {}
-
-  const surveys = JSON.parse(JSON.stringify(surveyData));
+  let { surveyData, questionData } = await getSurveyData(surveyId);
 
   return {
     props: {
       questions: questionData,
-      survey: surveys,
+      survey: surveyData,
     },
   };
 };

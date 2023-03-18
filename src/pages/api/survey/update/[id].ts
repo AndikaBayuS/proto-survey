@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { prisma } from "@/src/lib/prisma";
-import { handleUpdateQuestion } from "@/src/utils/helper";
+import { handleUpdateQuestion } from "@/src/utils/prisma/survey";
 
 export default async function handle(
   req: NextApiRequest,
