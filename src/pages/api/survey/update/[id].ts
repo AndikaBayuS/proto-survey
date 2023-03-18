@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { prisma } from "@/src/lib/prisma";
+import { handleUpdateQuestion } from "@/src/utils/helper";
 
 export default async function handle(
   req: NextApiRequest,
@@ -9,22 +10,7 @@ export default async function handle(
   try {
     const { title, description, questions } = req.body;
     const surveyId = questions[0].surveyId;
-    const updates = questions
-      .filter((question: any) => !question.deleteQuestion)
-      .map((question: any) => ({
-        where: { id: question.questionsId },
-        data: {
-          question: question.question,
-          options: question.options ?? undefined,
-          type: question.type,
-        },
-      }));
-
-    const deletes = questions
-      .filter((question: any) => question.deleteQuestion)
-      .map((question: any) => ({
-        where: { id: question.questionsId },
-      }));
+    const { updates, deletes } = handleUpdateQuestion(questions);
 
     await prisma.$transaction([
       prisma.surveys.update({
