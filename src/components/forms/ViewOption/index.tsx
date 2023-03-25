@@ -1,10 +1,12 @@
 import { Box, Input } from "@chakra-ui/react";
 
+import { ViewOptionInterface } from "@/src/global/interfaces";
+
 import CheckboxOption from "./fragments/CheckboxOption";
 import RadioOption from "./fragments/RadioOption";
 import SelectOption from "./fragments/SelectOption";
 
-const ViewOption = ({ options, type, fieldProps }: any) => {
+const ViewOption = ({ options, type, fieldProps }: ViewOptionInterface) => {
   const questiontType = (() => {
     switch (type) {
       case "checkbox":

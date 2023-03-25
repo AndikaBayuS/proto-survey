@@ -12,13 +12,14 @@ import {
 import { Field } from "formik";
 import { useState } from "react";
 
+import { CreateOptionInterface } from "@/src/global/interfaces";
 import {
   handleAddOption,
   handleDeleteOption,
   handleEditOption,
 } from "@/src/utils/helper";
 
-const CreateOption = ({ name, options, setFieldValue, target }: any) => {
+const CreateOption = ({ name, options, setFieldValue, target }: CreateOptionInterface) => {
   const [updatedValue, setUpdatedValue] = useState("");
 
   const checkValue = (id: string) => {
@@ -45,13 +46,12 @@ const CreateOption = ({ name, options, setFieldValue, target }: any) => {
           />
           <FormErrorMessage>Minimal harus ada 2 pilihan</FormErrorMessage>
         </FormControl>
-        {options.map((option: any) => (
+        {options.map((option) => (
           <Flex key={option.id} gap={3}>
             <Input
               key={option.id}
               variant="filled"
               placeholder="Masukkan pilihan"
-              defaultValue={option.value}
               onChange={(value) => {
                 setUpdatedValue(value.target.value);
               }}

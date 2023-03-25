@@ -1,6 +1,8 @@
 import { Avatar, Box, Card, CardBody, HStack, Text } from "@chakra-ui/react";
 
-const ProfileCard = ({ name, email, image, surveyCount }: any) => {
+import { ProfileCardProps } from "@/src/global/interfaces";
+
+const ProfileCard = ({ name, image, surveyCount }: ProfileCardProps) => {
   return (
     <Card direction={"row"} bgColor={"white"} rounded={"sm"}>
       <HStack>

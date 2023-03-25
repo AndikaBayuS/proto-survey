@@ -9,11 +9,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+import { SurveyCardProps } from "@/src/global/interfaces";
 import { deleteSurvey } from "@/src/utils/fetch";
 
-const SurveyCard = ({ title, description, surveyId }: any) => {
+const SurveyCard = ({ title, description, surveyId }: SurveyCardProps) => {
   const router = useRouter();
-  const handleDeleteSurvey = (id: any) => {
+  const handleDeleteSurvey = (id: string) => {
     return deleteSurvey(id);
   };
 

@@ -13,23 +13,24 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
+import React from "react";
 
 import CreateQuestion from "@/src/components/forms/CreateQuestion";
-import { SurveyProps, SurveyQuestion } from "@/src/interfaces/survey.interface";
+import { EditSurveyProps, QuestionValues, SurveyProps, SurveyQuestion } from "@/src/global/interfaces";
 import { updateSurvey } from "@/src/utils/fetch";
 
 import { buttonAttributes } from "./constants";
 
-const EditSurvey = ({ questions, survey }: any) => {
+const EditSurvey = ({ questions, survey }: EditSurveyProps) => {
   const router = useRouter();
-  const handleEnterKey = (e: any) => {
+  const handleEnterKey = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
     }
   };
   const handleDeleteQuestion = (
-    values: any,
-    index: any,
+    values: SurveyProps,
+    index: number,
     setFieldValue: any
   ) => {
     const questions = [...values.questions];
@@ -95,7 +96,7 @@ const EditSurvey = ({ questions, survey }: any) => {
                       return (
                         <VStack alignItems={"start"} spacing={3}>
                           {values.questions.map(
-                            (_question: any, index: number) => (
+                            (_question: QuestionValues, index: number) => (
                               <FormControl key={index} isRequired>
                                 <FormLabel htmlFor={`questions.${index}`}>
                                   Pertanyaan {index + 1}

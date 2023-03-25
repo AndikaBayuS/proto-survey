@@ -1,6 +1,8 @@
 import { Select } from "@chakra-ui/react";
 
-const SelectOption = ({ options, fieldProps }: any) => {
+import { FormComponentProps } from "@/src/global/interfaces";
+
+const SelectOption = ({ options, fieldProps }: FormComponentProps) => {
   return (
     <Select
       placeholder="Pilih Jawaban"
@@ -8,7 +10,7 @@ const SelectOption = ({ options, fieldProps }: any) => {
       onChange={fieldProps.onChange}
       onBlur={fieldProps.onBlur}
     >
-      {options.map((option: any) => (
+      {options.map((option) => (
         <option key={option.id} value={option.value}>
           {option.value}
         </option>

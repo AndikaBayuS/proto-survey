@@ -17,7 +17,7 @@ import {
 } from "formik";
 
 import ViewOption from "@/src/components/forms/ViewOption";
-import { SurveyProps, SurveyQuestion } from "@/src/interfaces/survey.interface";
+import { SurveyProps, SurveyQuestion } from "@/src/global/interfaces";
 
 const AnswerSurvey = ({ questions }: SurveyProps) => {
   const router = useRouter();

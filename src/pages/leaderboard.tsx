@@ -1,8 +1,8 @@
 import { GetServerSideProps } from "next";
 import { Container } from "@chakra-ui/react";
 
-import UserCard from "@/src/components/pages/Leaderboards/UserCard";
-import { LeaderboardProps } from "@/src/interfaces/leaderboard.interface";
+import UserCard from "@/src/components/pages/Leaderboard/UserCard";
+import { LeaderboardProps } from "@/src/global/interfaces";
 import { getLeaderboard } from "@/src/utils/prisma/gamification";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

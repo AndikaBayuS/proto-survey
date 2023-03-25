@@ -2,7 +2,7 @@ import { Box, Input } from "@chakra-ui/react";
 import { Field } from "formik";
 
 import CreateOption from "@/src/components/forms/CreateOption";
-import { CreateQuestionInterface } from "@/src/interfaces/components/pages/survey/createquestion.interface";
+import { CreateQuestionInterface } from "@/src/global/interfaces";
 
 const CreateQuestion = ({
   type,

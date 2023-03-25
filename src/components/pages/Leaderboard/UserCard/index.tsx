@@ -1,6 +1,6 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 
-import { UserCardProps } from "@/src/interfaces/usercard.interface";
+import { UserCardProps } from "@/src/global/interfaces";
 
 export default function UserCard({ user, points, index }: UserCardProps) {
   const bgClass = index % 2 === 0 ? "blue.50" : "white";

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { CreateValues } from "@/src/interfaces/survey.interface";
+import { CreateValues, SurveyProps } from "@/src/global/interfaces";
 
 export const createSurvey = async ({
   title,
@@ -19,7 +19,7 @@ export const createSurvey = async ({
   }
 };
 
-export const updateSurvey = async (data: any) => {
+export const updateSurvey = async (data: SurveyProps) => {
   try {
     await fetch(`/api/survey/update/${data.id}`, {
       method: "PUT",

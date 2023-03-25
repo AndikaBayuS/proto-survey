@@ -4,7 +4,7 @@ import { getSession } from "next-auth/react";
 import { Box } from "@chakra-ui/react";
 
 import Home from "@/src/components/pages/Survey/Home";
-import { PagesProps } from "@/src/interfaces/pages.interface";
+import { PagesProps } from "@/src/global/interfaces";
 import {
   getGamification,
   getUserId,

@@ -4,6 +4,7 @@ import { Box, SimpleGrid } from "@chakra-ui/react";
 
 import ProfileCard from "@/src/components/pages/Profile/ProfileCard";
 import SurveyCard from "@/src/components/pages/Profile/SurveyCard";
+import { ProfileProps } from "@/src/global/interfaces";
 import { getUserData, getUserId } from "@/src/utils/prisma/user";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -19,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const Profile = ({ userData }: any) => {
+const Profile = ({ userData }: ProfileProps) => {
   const surveyCount = userData.surveys.length;
 
   return (
@@ -30,7 +31,7 @@ const Profile = ({ userData }: any) => {
         surveyCount={surveyCount}
       />
       <SimpleGrid columns={4} spacing={4} mt={5}>
-        {userData.surveys.map((survey: any) => (
+        {userData.surveys.map((survey) => (
           <SurveyCard
             key={survey.id}
             title={survey.title}

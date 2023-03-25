@@ -1,10 +1,12 @@
 import { Radio, RadioGroup, VStack } from "@chakra-ui/react";
 
-const RadioOption = ({ options, fieldProps }: any) => {
+import { FormComponentProps } from "@/src/global/interfaces";
+
+const RadioOption = ({ options, fieldProps }: FormComponentProps) => {
   return (
     <RadioGroup colorScheme="blue">
       <VStack alignItems={"start"}>
-        {options.map((option: any) => (
+        {options.map((option) => (
           <Radio
             key={option.id}
             value={option.value}

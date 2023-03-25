@@ -3,6 +3,7 @@ import Head from "next/head";
 import { Box } from "@chakra-ui/react";
 
 import EditSurvey from "@/src/components/pages/Survey/EditSurvey";
+import { EditSurveyPageProps } from "@/src/global/interfaces";
 import { getSurveyData } from "@/src/utils/prisma/survey";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -24,7 +25,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-const EditSurveyPage = ({ questions, survey }: any) => {
+const EditSurveyPage = ({ questions, survey }: EditSurveyPageProps) => {
   if (questions) {
     return (
       <Box>

@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Box } from "@chakra-ui/react";
 
 import AnswerSurvey from "@/src/components/pages/Survey/AnswerSurvey";
-import { SurveyProps } from "@/src/interfaces/survey.interface";
+import { SurveyProps } from "@/src/global/interfaces";
 import { getSurveyData } from "@/src/utils/prisma/survey";
 
 export const getStaticPaths: GetStaticPaths = async () => {

@@ -13,16 +13,17 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
+import React from "react";
 
 import CreateQuestion from "@/src/components/forms/CreateQuestion";
-import { CreateValues } from "@/src/interfaces/survey.interface";
+import { CreateValues, QuestionValues } from "@/src/global/interfaces";
 import { createSurvey } from "@/src/utils/fetch";
 
 import { buttonAttributes } from "./constants";
 
 const CreateSurvey = () => {
   const router = useRouter();
-  const handleEnterKey = (e: any) => {
+  const handleEnterKey = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
     }
@@ -76,7 +77,7 @@ const CreateSurvey = () => {
                     return (
                       <VStack alignItems={"start"} spacing={3}>
                         {values.questions.map(
-                          (_question: any, index: number) => (
+                          (_question: QuestionValues, index: number) => (
                             <FormControl key={index} isRequired>
                               <FormLabel htmlFor={`questions.${index}`}>
                                 Pertanyaan {index + 1}

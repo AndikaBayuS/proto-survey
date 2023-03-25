@@ -1,10 +1,12 @@
 import { Checkbox, CheckboxGroup, VStack } from "@chakra-ui/react";
 
-const CheckboxOption = ({ options, fieldProps }: any) => {
+import { FormComponentProps } from "@/src/global/interfaces";
+
+const CheckboxOption = ({ options, fieldProps }: FormComponentProps) => {
   return (
     <CheckboxGroup colorScheme="blue">
       <VStack alignItems={"start"}>
-        {options.map((option: any) => (
+        {options.map((option) => (
           <Checkbox
             key={option.id}
             value={option.value}
