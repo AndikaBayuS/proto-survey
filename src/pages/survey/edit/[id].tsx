@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { Box } from "@chakra-ui/react";
 
+import PageBase from "@/src/components/layouts/PageBase";
 import EditSurvey from "@/src/components/pages/Survey/EditSurvey";
 import { EditSurveyPageProps } from "@/src/global/interfaces";
 import { getSurveyData } from "@/src/utils/prisma/survey";
@@ -32,7 +33,9 @@ const EditSurveyPage = ({ questions, survey }: EditSurveyPageProps) => {
         <Head>
           <title>ProtoSurvey - Edit Survei</title>
         </Head>
-        <EditSurvey questions={questions} survey={survey} />
+        <PageBase>
+          <EditSurvey questions={questions} survey={survey} />
+        </PageBase>
       </Box>
     );
   }

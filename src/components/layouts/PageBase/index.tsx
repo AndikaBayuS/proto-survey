@@ -7,8 +7,14 @@ interface Props {
 }
 
 const PageBase = ({ children }: Props) => {
-  <Box>
-    <Navbar />
-    {children}
-  </Box>;
+  return (
+    <Box minH={"100vh"} backgroundColor={"gray.100"}>
+      <Navbar />
+      <Box px={{ base: 4, md: 8, lg: 16 }} py={5}>
+        {children}
+      </Box>
+    </Box>
+  );
 };
+
+export default PageBase;

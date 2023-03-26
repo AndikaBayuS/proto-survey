@@ -2,9 +2,25 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { Box } from "@chakra-ui/react";
 
+import PageBase from "@/src/components/layouts/PageBase";
 import AnswerSurvey from "@/src/components/pages/Survey/AnswerSurvey";
 import { SurveyProps } from "@/src/global/interfaces";
 import { getSurveyData } from "@/src/utils/prisma/survey";
+
+const AnswerSurveyPage = ({ questions }: SurveyProps) => {
+  if (questions) {
+    return (
+      <Box>
+        <Head>
+          <title>ProtoSurvey - Jawab Survei</title>
+        </Head>
+        <PageBase>
+          <AnswerSurvey questions={questions} />
+        </PageBase>
+      </Box>
+    );
+  }
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -22,19 +38,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       questions: questionData,
     },
   };
-};
-
-const AnswerSurveyPage = ({ questions }: SurveyProps) => {
-  if (questions) {
-    return (
-      <Box>
-        <Head>
-          <title>ProtoSurvey - Jawab Survei</title>
-        </Head>
-        <AnswerSurvey questions={questions} />
-      </Box>
-    );
-  }
 };
 
 export default AnswerSurveyPage;

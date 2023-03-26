@@ -1,11 +1,27 @@
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import { getSession } from "next-auth/react";
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
-import ProfileCard from "@/src/components/pages/Profile/ProfileCard";
-import SurveyCard from "@/src/components/pages/Profile/SurveyCard";
+import PageBase from "@/src/components/layouts/PageBase";
+import Profile from "@/src/components/pages/Profile/Home";
 import { ProfileProps } from "@/src/global/interfaces";
 import { getUserData, getUserId } from "@/src/utils/prisma/user";
+
+const ProfilePage = ({ userData }: ProfileProps) => {
+  return (
+    <Box>
+      <Head>
+        <title>ProtoSurvey - Peringkat</title>
+        <meta name="description" content="ProtoSurvey" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <PageBase>
+        <Profile userData={userData} />
+      </PageBase>
+    </Box>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -20,28 +36,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const Profile = ({ userData }: ProfileProps) => {
-  const surveyCount = userData.surveys.length;
-
-  return (
-    <Box>
-      <ProfileCard
-        image={userData.image}
-        name={userData.name}
-        surveyCount={surveyCount}
-      />
-      <SimpleGrid columns={4} spacing={4} mt={5}>
-        {userData.surveys.map((survey) => (
-          <SurveyCard
-            key={survey.id}
-            title={survey.title}
-            description={survey.description}
-            surveyId={survey.id}
-          />
-        ))}
-      </SimpleGrid>
-    </Box>
-  );
-};
-
-export default Profile;
+export default ProfilePage;

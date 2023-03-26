@@ -55,7 +55,7 @@ const Navbar = () => {
         justifyContent={"space-between"}
         alignItems={"center"}
         height={20}
-        px={16}
+        px={{ base: 4, md: 8, lg: 16 }}
       >
         <HStack spacing={4} alignItems={"center"}>
           <NextLink href="/">

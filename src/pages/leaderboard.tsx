@@ -1,9 +1,26 @@
 import { GetServerSideProps } from "next";
-import { Container } from "@chakra-ui/react";
+import Head from "next/head";
+import { Box } from "@chakra-ui/react";
 
-import UserCard from "@/src/components/pages/Leaderboard/UserCard";
+import PageBase from "@/src/components/layouts/PageBase";
+import Home from "@/src/components/pages/Leaderboard/Home";
 import { LeaderboardProps } from "@/src/global/interfaces";
 import { getLeaderboard } from "@/src/utils/prisma/gamification";
+
+const LeaderboardPage: React.FC<LeaderboardProps> = ({ leaderboard }) => {
+  return (
+    <Box>
+      <Head>
+        <title>ProtoSurvey - Peringkat</title>
+        <meta name="description" content="ProtoSurvey" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <PageBase>
+        <Home leaderboard={leaderboard} />
+      </PageBase>
+    </Box>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const leaderboards = await getLeaderboard();
@@ -14,25 +31,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const Leaderboard: React.FC<LeaderboardProps> = ({ leaderboard }) => {
-  return (
-    <Container
-      p={0}
-      mt={5}
-      maxWidth={"container.xl"}
-      bgColor={"white"}
-      rounded={"md"}
-    >
-      {leaderboard.map((leaderboard, index) => (
-        <UserCard
-          key={leaderboard.id}
-          user={leaderboard.user}
-          points={leaderboard.points}
-          index={index}
-        />
-      ))}
-    </Container>
-  );
-};
-
-export default Leaderboard;
+export default LeaderboardPage;

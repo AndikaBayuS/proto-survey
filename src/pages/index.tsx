@@ -3,15 +3,15 @@ import Head from "next/head";
 import { getSession } from "next-auth/react";
 import { Box } from "@chakra-ui/react";
 
+import PageBase from "@/src/components/layouts/PageBase";
 import Home from "@/src/components/pages/Survey/Home";
 import { PagesProps } from "@/src/global/interfaces";
+import { getSurveys } from "@/src/utils/prisma/survey";
 import {
   getGamification,
   getUserId,
   setGamification,
 } from "@/src/utils/prisma/user";
-
-import { getSurveys } from "../utils/prisma/survey";
 
 const SurveyPage: React.FC<PagesProps> = ({ surveys }) => {
   return (
@@ -21,7 +21,9 @@ const SurveyPage: React.FC<PagesProps> = ({ surveys }) => {
         <meta name="description" content="ProtoSurvey" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Home surveys={surveys} />
+      <PageBase>
+        <Home surveys={surveys} />
+      </PageBase>
     </Box>
   );
 };
