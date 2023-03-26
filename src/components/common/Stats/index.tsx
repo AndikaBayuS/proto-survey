@@ -5,7 +5,7 @@ import { StatsProps } from "@/src/global/interfaces";
 const Stats: React.FC<StatsProps> = ({ experience, level }) => {
   return (
     <Box width={"5rem"}>
-      <VStack>
+      <VStack alignItems={"flex-start"}>
         <Text fontWeight={"semibold"}>Lv. {level}</Text>
         <Progress
           value={experience}
