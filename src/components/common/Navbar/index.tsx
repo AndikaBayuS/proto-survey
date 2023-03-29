@@ -170,8 +170,8 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
               size={"sm"}
             />
             <Stats
-              level={gamification.level}
-              experience={gamification.points}
+              level={gamification?.level}
+              experience={gamification?.points}
             />
           </HStack>
 
