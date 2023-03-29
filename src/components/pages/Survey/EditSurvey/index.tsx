@@ -76,7 +76,6 @@ const EditSurvey = ({ questions, survey }: EditSurveyProps) => {
                 as={Input}
                 id="title"
                 name="title"
-                defaultValue={survey.title}
                 placeholder="Masukkan judul survei"
               />
             </FormControl>
@@ -86,7 +85,6 @@ const EditSurvey = ({ questions, survey }: EditSurveyProps) => {
                 as={Textarea}
                 id="description"
                 name="description"
-                defaultValue={survey.description}
                 placeholder="Masukkan deskripsi survei"
               />
             </FormControl>

@@ -19,14 +19,16 @@ import {
   handleEditOption,
 } from "@/src/utils/helper";
 
-const CreateOption = ({ name, options, setFieldValue, target }: CreateOptionInterface) => {
+const CreateOption = ({
+  name,
+  options,
+  setFieldValue,
+  target,
+}: CreateOptionInterface) => {
   const [updatedValue, setUpdatedValue] = useState("");
 
   const checkValue = (id: string) => {
-    if (updatedValue === "") {
-      handleDeleteOption(options, setFieldValue, target, id);
-      setUpdatedValue("");
-    } else {
+    if (updatedValue !== "") {
       handleEditOption(options, setFieldValue, target, updatedValue, id);
       setUpdatedValue("");
     }
@@ -50,6 +52,7 @@ const CreateOption = ({ name, options, setFieldValue, target }: CreateOptionInte
           <Flex key={option.id} gap={3}>
             <Input
               key={option.id}
+              defaultValue={option.value}
               variant="filled"
               placeholder="Masukkan pilihan"
               onChange={(value) => {
