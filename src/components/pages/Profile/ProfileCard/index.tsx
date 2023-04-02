@@ -1,24 +1,47 @@
-import { Avatar, Box, Card, CardBody, HStack, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Text,
+} from "@chakra-ui/react";
 
 import { ProfileCardProps } from "@/src/global/interfaces";
 
 const ProfileCard = ({ name, image, surveyCount }: ProfileCardProps) => {
   return (
-    <Card direction={"row"} bgColor={"white"} rounded={"sm"}>
-      <HStack>
-        <Avatar src={image} name={name} />
-        <Box>
-          <Text>{name}</Text>
-          <Text>Lv. 100</Text>
-        </Box>
-        <CardBody>
-          <HStack>
-            <Text>{surveyCount}</Text>
-            <Text>Survei</Text>
-          </HStack>
-        </CardBody>
-      </HStack>
-    </Card>
+    <Box>
+      <Box
+        position={"relative"}
+        bgGradient={
+          "linear(109.6deg,  rgba(45,116,213,1) 11.2%, rgba(121,137,212,1) 91.2%)"
+        }
+        roundedTop={"md"}
+      >
+        <Avatar
+          src={image}
+          name={name}
+          size={"2xl"}
+          top={50}
+          ml={["auto", 5]}
+          mr={["auto", 0]}
+          border={"3px solid"}
+          display={"block"}
+          borderColor={"white"}
+        />
+      </Box>
+      <Box
+        backgroundColor={"white"}
+        pt={55}
+        pl={5}
+        pb={"5"}
+        roundedBottom={"md"}
+      >
+        <Text fontSize={"xl"} fontWeight={"semibold"}>
+          {name}
+        </Text>
+        <Text color={"gray.600"}>Level 1</Text>
+        <Text>Di sini harusnya badge atau konten lain</Text>
+      </Box>
+    </Box>
   );
 };
 

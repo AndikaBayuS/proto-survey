@@ -1,4 +1,4 @@
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid, Text } from "@chakra-ui/react";
 
 import { ProfileProps } from "@/src/global/interfaces";
 
@@ -14,16 +14,21 @@ const Profile = ({ userData }: ProfileProps) => {
         name={userData.name}
         surveyCount={surveyCount}
       />
-      <SimpleGrid columns={4} spacing={4} mt={5}>
-        {userData.surveys.map((survey) => (
-          <SurveyCard
-            key={survey.id}
-            title={survey.title}
-            description={survey.description}
-            surveyId={survey.id}
-          />
-        ))}
-      </SimpleGrid>
+      <Box mt={5} p={5} bgColor={"white"} rounded={"md"}>
+        <Text fontWeight={"semibold"} fontSize={"xl"}>
+          Daftar Survei
+        </Text>
+        <SimpleGrid columns={[1, 2, 4]} spacing={4} mt={5}>
+          {userData.surveys.map((survey) => (
+            <SurveyCard
+              key={survey.id}
+              title={survey.title}
+              description={survey.description}
+              surveyId={survey.id}
+            />
+          ))}
+        </SimpleGrid>
+      </Box>
     </Box>
   );
 };

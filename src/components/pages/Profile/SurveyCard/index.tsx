@@ -19,7 +19,13 @@ const SurveyCard = ({ title, description, surveyId }: SurveyCardProps) => {
   };
 
   return (
-    <Card bgColor={"white"} rounded={"xl"} cursor={"default"} shadow={"sm"}>
+    <Card
+      bgColor={"white"}
+      rounded={"xl"}
+      cursor={"default"}
+      shadow={"sm"}
+      variant={"outline"}
+    >
       <CardBody>
         <Text size={"sm"} fontWeight={"semibold"}>
           {title}
