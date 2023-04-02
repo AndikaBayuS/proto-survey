@@ -12,7 +12,7 @@ const ProfilePage = ({ userData }: ProfileProps) => {
   return (
     <Box>
       <Head>
-        <title>ProtoSurvey - Peringkat</title>
+        <title>ProtoSurvey - Profil</title>
         <meta name="description" content="ProtoSurvey" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
