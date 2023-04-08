@@ -8,3 +8,12 @@ export type surveyType = {
   title: string;
   description: string;
 }
+
+export type AnswerCounts = {
+  [answer: string]: number;
+};
+
+export type SurveyAnswerCount = {
+  question: string;
+  response: { answer: string; count: number }[];
+};

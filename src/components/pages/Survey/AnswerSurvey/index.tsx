@@ -34,6 +34,7 @@ const AnswerSurvey = ({ questions }: SurveyProps) => {
       console.log("error");
     }
   };
+
   return (
     <Box bgColor={"white"} p={5} rounded={"lg"}>
       <Formik

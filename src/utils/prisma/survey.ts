@@ -1,3 +1,6 @@
+import { Response } from "@prisma/client";
+
+import { AnswerCounts, SurveyAnswerCount } from "@/src/global/types";
 import { prisma } from "@/src/lib/prisma";
 
 export const getSurveys = async () => {
@@ -27,6 +30,41 @@ export const getSurveyData = async (surveyId: string) => {
   });
 
   return { surveyData, questionData };
+};
+
+export const getSurveyAnswers = async (
+  surveyId: string
+): Promise<SurveyAnswerCount[]> => {
+  const responses = await prisma.response.findMany({
+    where: {
+      surveyId,
+    },
+  });
+
+  const counts: { [question: string]: AnswerCounts } = {};
+
+  responses.forEach((response: Response) => {
+    const question = response.question;
+
+    if (!counts[question]) {
+      counts[question] = {};
+    }
+
+    response.answer.forEach((answer: string) => {
+      counts[question][answer] = (counts[question][answer] || 0) + 1;
+    });
+  });
+
+  const result: SurveyAnswerCount[] = [];
+  Object.entries(counts).forEach(([question, countObj]) => {
+    const response = Object.entries(countObj).map(([answer, count]) => ({
+      answer,
+      count,
+    }));
+    result.push({ question, response });
+  });
+
+  return result;
 };
 
 export const handleUpdateQuestion = (questions: any) => {
