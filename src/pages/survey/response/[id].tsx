@@ -2,31 +2,20 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { Box } from "@chakra-ui/react";
 
-import PieChart from "@/src/components/common/PieChart";
 import PageBase from "@/src/components/layouts/PageBase";
-import { getSurveyAnswers, getSurveyData } from "@/src/utils/prisma/survey";
+import ResponseSurvey from "@/src/components/pages/Survey/ResponseSurvey";
+import { getSurveyData, getSurveyResponse } from "@/src/utils/prisma/survey";
 
-interface Response {
-  answer: string;
-  count: number;
-}
-
-const SurverResponse = ({ answers }: any) => {
-  if (answers) {
+const ResponseSurveyPage = ({ surveys, responses }: any) => {
+  if (responses) {
+    console.log(responses);
     return (
       <Box>
         <Head>
           <title>ProtoSurvey - Respon</title>
         </Head>
         <PageBase>
-          {answers.map((surveyAnswer: any, index: any) => (
-            <PieChart
-              key={index}
-              labels={surveyAnswer.response.map((res: any) => res.answer)}
-              data={surveyAnswer.response.map((res: any) => res.count)}
-              title={surveyAnswer.question}
-            />
-          ))}
+          <ResponseSurvey surveys={surveys} responses={responses} />
         </PageBase>
       </Box>
     );
@@ -42,16 +31,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   let surveyId = String(params?.id);
-  let { surveyData, questionData } = await getSurveyData(surveyId);
-  let answers = await getSurveyAnswers(surveyId);
+  let { surveyData } = await getSurveyData(surveyId);
+  let responses = await getSurveyResponse(surveyId);
 
   return {
     props: {
-      answers,
-      survey: surveyData,
-      questions: questionData,
+      surveys: surveyData,
+      responses,
     },
   };
 };
 
-export default SurverResponse;
+export default ResponseSurveyPage;

@@ -1,6 +1,7 @@
 import { Box, Text } from "@chakra-ui/react";
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import { Pie } from "react-chartjs-2";
+
 import { PIE_BORDER_COLORS, PIE_COLORS } from "./constants";
 
 interface ChartProps {
@@ -37,8 +38,8 @@ const PieChart: React.FC<ChartProps> = ({ labels, data, title }) => {
   };
 
   return (
-    <Box position={"relative"} display={"block"}>
-      <Text mb={5}>{title}</Text>
+    <Box backgroundColor={"white"} rounded={"md"} p={5} w={"full"}>
+      <Text mb={5} fontWeight={"semibold"}>{title}</Text>
       <Box h={"15rem"}>
         <Pie
           data={chartData}

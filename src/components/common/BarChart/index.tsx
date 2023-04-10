@@ -51,9 +51,11 @@ const BarChart: React.FC<ChartProps> = ({ labels, data, title }) => {
   };
 
   return (
-    <Box h={"15rem"}>
-      <Text mb={5}>{title}</Text>
-      <Bar data={chartData} options={options} />
+    <Box backgroundColor={"white"} rounded={"md"} p={5} w={"full"}>
+      <Text mb={5} fontWeight={"semibold"}>{title}</Text>
+      <Box h={"15rem"}>
+        <Bar data={chartData} options={options} />
+      </Box>
     </Box>
   );
 };

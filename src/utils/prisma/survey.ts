@@ -32,7 +32,7 @@ export const getSurveyData = async (surveyId: string) => {
   return { surveyData, questionData };
 };
 
-export const getSurveyAnswers = async (
+export const getSurveyResponse = async (
   surveyId: string
 ): Promise<SurveyAnswerCount[]> => {
   const responses = await prisma.response.findMany({
@@ -42,12 +42,14 @@ export const getSurveyAnswers = async (
   });
 
   const counts: { [question: string]: AnswerCounts } = {};
+  const types: { [question: string]: string } = {};
 
   responses.forEach((response: Response) => {
     const question = response.question;
 
     if (!counts[question]) {
       counts[question] = {};
+      types[question] = response.type;
     }
 
     response.answer.forEach((answer: string) => {
@@ -61,7 +63,7 @@ export const getSurveyAnswers = async (
       answer,
       count,
     }));
-    result.push({ question, response });
+    result.push({ question, type: types[question], response });
   });
 
   return result;

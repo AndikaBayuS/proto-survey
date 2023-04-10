@@ -15,5 +15,6 @@ export type AnswerCounts = {
 
 export type SurveyAnswerCount = {
   question: string;
+  type: string;
   response: { answer: string; count: number }[];
 };
