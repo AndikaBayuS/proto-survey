@@ -3,14 +3,18 @@ import { Fragment } from "react";
 
 import BarChart from "@/src/components/common/BarChart";
 import PieChart from "@/src/components/common/PieChart";
+import TextResponse from "./fragments/TextResponse";
 
 const ResponseSurvey = ({ surveys, responses }: any) => {
   const renderChart = (type: any, labels: any, data: any, title: any) => {
-    return type === "radio" ? (
-      <PieChart labels={labels} data={data} title={title} />
-    ) : (
-      <BarChart labels={labels} data={data} title={title} />
-    );
+    switch (type) {
+      case "radio":
+        return <PieChart labels={labels} data={data} title={title} />;
+      case "checkbox":
+        return <BarChart labels={labels} data={data} title={title} />;
+      default:
+        return <TextResponse labels={labels} title={title} />;
+    }
   };
 
   return (
