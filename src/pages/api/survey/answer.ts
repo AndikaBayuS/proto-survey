@@ -3,8 +3,12 @@ import { getSession } from "next-auth/react";
 
 import { prisma } from "@/src/lib/prisma";
 import { countQuestions } from "@/src/utils/gamification";
-import { addExperience } from "@/src/utils/prisma/gamification";
-import { getUserId } from "@/src/utils/prisma/user";
+import {
+  addExperience,
+  addLevel,
+  addMaxPoints,
+} from "@/src/utils/prisma/gamification";
+import { getGamification, getUserId } from "@/src/utils/prisma/user";
 
 export default async function handle(
   req: NextApiRequest,
@@ -22,5 +26,15 @@ export default async function handle(
     })),
   });
   await addExperience(String(userId), points);
+
+  const gamification = await getGamification(String(userId));
+  if (
+    gamification?.points != undefined &&
+    gamification.points >= gamification.maxPoints
+  ) {
+    await addLevel(String(userId));
+    await addMaxPoints(String(userId));
+  }
+
   res.json(surveys);
 }

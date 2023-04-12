@@ -13,7 +13,7 @@ const TextResponse: React.FC<ChartProps> = ({ labels, title }) => {
       <VStack alignItems={"start"}>
         {labels.map((item, index) => (
           <Box
-            backgroundColor={"blue.100"}
+            backgroundColor={"blue.50"}
             w={"full"}
             p={3}
             rounded={"md"}

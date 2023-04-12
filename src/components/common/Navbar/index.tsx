@@ -37,6 +37,7 @@ const Navbar = () => {
   const [gamification, setGamification] = useState({
     level: 0,
     points: 0,
+    maxPoints: 0,
   });
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -101,8 +102,9 @@ const Navbar = () => {
                 <HStack spacing={3}>
                   <Avatar size={"sm"} src={session?.user?.image!} />
                   <Stats
-                    level={gamification?.level}
+                    level={gamification.level}
                     experience={gamification.points}
+                    maxPoints={gamification.maxPoints}
                   />
                 </HStack>
               </MenuButton>
@@ -148,6 +150,7 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
   const [gamification, setGamification] = useState({
     level: 0,
     points: 0,
+    maxPoints: 0,
   });
 
   useEffect(() => {
@@ -170,8 +173,9 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
               size={"sm"}
             />
             <Stats
-              level={gamification?.level}
-              experience={gamification?.points}
+              level={gamification.level}
+              experience={gamification.points}
+              maxPoints={gamification.maxPoints}
             />
           </HStack>
 

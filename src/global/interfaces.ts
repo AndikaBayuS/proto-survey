@@ -60,6 +60,7 @@ export interface EditSurveyPageProps {
 export interface StatsProps {
   experience: number;
   level: number;
+  maxPoints: number;
 }
 
 export interface UserCardProps {

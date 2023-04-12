@@ -74,17 +74,17 @@ model Surveys {
 }
 
 model Questions {
-  id             String     @id @default(cuid())
-  question       String
-  type           String
-  options        Json?
-  surveyId       String
-  survey         Surveys    @relation(fields: [surveyId], references: [id])
-  response       Response[]
+  id       String     @id @default(cuid())
+  question String
+  type     String
+  options  Json?
+  surveyId String
+  survey   Surveys    @relation(fields: [surveyId], references: [id])
+  response Response[]
 }
 
 model Response {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   answer        String[]
   type          String
   options       Json?
@@ -93,14 +93,15 @@ model Response {
   surveyId      String
   questionsId   String?
   questions     Questions? @relation(fields: [questionsId], references: [id])
-  user          User      @relation(fields: [participantId], references: [id])
-  survey        Surveys   @relation(fields: [surveyId], references: [id])
+  user          User       @relation(fields: [participantId], references: [id])
+  survey        Surveys    @relation(fields: [surveyId], references: [id])
 }
 
 model Gamification {
-  id     String @id @default(cuid())
-  userId String
-  level  Int    @default(1)
-  points Int    @default(0)
-  user   User   @relation(fields: [userId], references: [id])
+  id        String @id @default(cuid())
+  userId    String
+  level     Int    @default(1)
+  points    Int    @default(0)
+  maxPoints Int    @default(1000)
+  user      User   @relation(fields: [userId], references: [id])
 }
