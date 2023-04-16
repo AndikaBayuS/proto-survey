@@ -23,8 +23,10 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
+import { gamificationState } from "@/src/atoms/gamification";
 import Stats from "@/src/components/common/Stats";
 import { getGamificationData } from "@/src/utils/fetch";
 
@@ -34,21 +36,29 @@ const NavigationItem = [
 ];
 
 const Navbar = () => {
-  const [gamification, setGamification] = useState({
-    level: 0,
-    points: 0,
-    maxPoints: 0,
-  });
+  const { isLoading, gamification } = useRecoilValue(gamificationState);
+  const setGamificationState = useSetRecoilState(gamificationState);
+
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  useEffect(() => {
-    getGamificationData().then((res) => {
-      setGamification(res.data);
-    });
-  }, []);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    getGamificationData()
+      .then((res) => {
+        setGamificationState((prev) => ({
+          ...prev,
+          gamification: res.data,
+        }));
+      })
+      .then(() => {
+        setGamificationState((prev) => ({
+          ...prev,
+          isLoading: false,
+        }));
+      });
+  }, [setGamificationState]);
 
   return (
     <Box bgColor={"white"} width={"full"}>
@@ -104,6 +114,7 @@ const Navbar = () => {
                   <Stats
                     level={gamification.level}
                     experience={gamification.points}
+                    isLoading={isLoading}
                     maxPoints={gamification.maxPoints}
                   />
                 </HStack>
@@ -122,6 +133,7 @@ const Navbar = () => {
         ) : (
           <Button
             colorScheme="telegram"
+            display={{ base: "none", md: "inline-flex" }}
             size={"md"}
             onClick={() =>
               signIn("google", { callbackUrl: "http://localhost:3000" })
@@ -145,19 +157,26 @@ const Navbar = () => {
 };
 
 const MobileNavbar = ({ isOpen, onClose }: any) => {
+  const { isLoading, gamification } = useRecoilValue(gamificationState);
+  const setGamificationState = useSetRecoilState(gamificationState);
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [gamification, setGamification] = useState({
-    level: 0,
-    points: 0,
-    maxPoints: 0,
-  });
 
   useEffect(() => {
-    getGamificationData().then((res) => {
-      setGamification(res.data);
-    });
-  }, []);
+    getGamificationData()
+      .then((res) => {
+        setGamificationState((prev) => ({
+          ...prev,
+          gamification: res.data,
+        }));
+      })
+      .then(() => {
+        setGamificationState((prev) => ({
+          ...prev,
+          isLoading: false,
+        }));
+      });
+  }, [setGamificationState]);
 
   return (
     <Drawer onClose={onClose} isOpen={isOpen} size={"full"}>
@@ -166,18 +185,32 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
         <DrawerCloseButton />
         <DrawerHeader>Menu</DrawerHeader>
         <DrawerBody>
-          <HStack rounded={"md"} bgColor={"gray.100"} p={2} spacing={3}>
-            <Avatar
-              src={session?.user?.image!}
-              name={session?.user?.name!}
-              size={"sm"}
-            />
-            <Stats
-              level={gamification.level}
-              experience={gamification.points}
-              maxPoints={gamification.maxPoints}
-            />
-          </HStack>
+          {status === "authenticated" ? (
+            <HStack rounded={"md"} bgColor={"gray.100"} p={2} spacing={3}>
+              <Avatar
+                src={session?.user?.image!}
+                name={session?.user?.name!}
+                size={"sm"}
+              />
+              <Stats
+                level={gamification.level}
+                isLoading={isLoading}
+                experience={gamification?.points}
+                maxPoints={gamification?.maxPoints}
+              />
+            </HStack>
+          ) : (
+            <Button
+              colorScheme="telegram"
+              size={"md"}
+              width={"full"}
+              onClick={() =>
+                signIn("google", { callbackUrl: "http://localhost:3000" })
+              }
+            >
+              Masuk
+            </Button>
+          )}
 
           <VStack alignItems={"flex-start"} mt={5}>
             {NavigationItem.map((item) => (

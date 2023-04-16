@@ -1,16 +1,15 @@
 import type { AppProps } from "next/app";
-import { useRouter } from "next/router";
 import { SessionProvider } from "next-auth/react";
 import { ChakraProvider } from "@chakra-ui/react";
+import { RecoilRoot } from "recoil";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const router = useRouter();
-  const auth = router.pathname === "/auth/signin" ? false : true;
-
   return (
     <SessionProvider session={session}>
       <ChakraProvider>
-        <Component {...pageProps} />
+        <RecoilRoot>
+          <Component {...pageProps} />
+        </RecoilRoot>
       </ChakraProvider>
     </SessionProvider>
   );

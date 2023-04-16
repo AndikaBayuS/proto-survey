@@ -61,6 +61,7 @@ export interface StatsProps {
   experience: number;
   level: number;
   maxPoints: number;
+  isLoading: boolean;
 }
 
 export interface UserCardProps {
