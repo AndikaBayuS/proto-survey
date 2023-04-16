@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { Box } from "@chakra-ui/react";
 
+import Skeleton from "@/src/components/common/Skeleton";
 import PageBase from "@/src/components/layouts/PageBase";
 import EditSurvey from "@/src/components/pages/Survey/EditSurvey";
 import { EditSurveyPageProps } from "@/src/global/interfaces";
@@ -27,18 +28,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 const EditSurveyPage = ({ questions, survey }: EditSurveyPageProps) => {
-  if (questions) {
-    return (
-      <Box>
-        <Head>
-          <title>ProtoSurvey - Edit Survei</title>
-        </Head>
-        <PageBase>
-          <EditSurvey questions={questions} survey={survey} />
-        </PageBase>
-      </Box>
-    );
-  }
+  if (!questions) return <Skeleton />;
+
+  return (
+    <Box>
+      <Head>
+        <title>ProtoSurvey - Edit Survei</title>
+      </Head>
+      <PageBase>
+        <EditSurvey questions={questions} survey={survey} />
+      </PageBase>
+    </Box>
+  );
 };
 
 export default EditSurveyPage;

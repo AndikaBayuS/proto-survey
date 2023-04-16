@@ -12,7 +12,6 @@ import {
   getUserId,
   setGamification,
 } from "@/src/utils/prisma/user";
-
 const SurveyPage: React.FC<PagesProps> = ({ surveys }) => {
   return (
     <Box>

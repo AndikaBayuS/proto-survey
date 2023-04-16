@@ -1,8 +1,21 @@
-import { Box, Progress, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, Progress, Spinner, Text, VStack } from "@chakra-ui/react";
 
 import { StatsProps } from "@/src/global/interfaces";
 
-const Stats: React.FC<StatsProps> = ({ experience, level, maxPoints }) => {
+const Stats: React.FC<StatsProps> = ({
+  experience,
+  level,
+  maxPoints,
+  isLoading,
+}) => {
+  if (isLoading) {
+    return (
+      <Center>
+        <Spinner />
+      </Center>
+    );
+  }
+
   return (
     <Box width={"5rem"}>
       <VStack alignItems={"flex-start"}>
