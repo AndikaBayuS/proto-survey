@@ -11,7 +11,7 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
+import { Field, FieldArray, Form, Formik } from "formik";
 import React from "react";
 
 import CreateQuestion from "@/src/components/forms/CreateQuestion";
@@ -36,14 +36,8 @@ const CreateSurvey = () => {
           description: "",
           questions: [{ question: "", type: "text" }],
         }}
-        onSubmit={(
-          values: CreateValues,
-          { setSubmitting }: FormikHelpers<CreateValues>
-        ) => {
-          setTimeout(() => {
-            createSurvey(values);
-            setSubmitting(false);
-          }, 500);
+        onSubmit={(values: CreateValues) => {
+          createSurvey(values);
           router.push("/");
         }}
       >
@@ -56,6 +50,7 @@ const CreateSurvey = () => {
                 id="title"
                 name="title"
                 placeholder="Masukkan judul survei"
+                variant="filled"
               />
             </FormControl>
             <FormControl isRequired>
@@ -65,16 +60,16 @@ const CreateSurvey = () => {
                 id="description"
                 name="description"
                 placeholder="Masukkan deskripsi survei"
+                variant="filled"
               />
             </FormControl>
 
             <Box w="full">
               <FieldArray name="questions">
                 {({ remove, push, form }) => {
-                  const { values, setFieldValue } = form;
                   return (
                     <VStack alignItems={"start"} spacing={3}>
-                      {values.questions.map(
+                      {form.values.questions.map(
                         (_question: QuestionValues, index: number) => (
                           <FormControl key={index} isRequired>
                             <FormLabel htmlFor={`questions.${index}`}>
@@ -85,7 +80,7 @@ const CreateSurvey = () => {
                                 type={_question.type}
                                 name={`questions[${index}].question`}
                                 options={_question.options}
-                                setFieldValue={setFieldValue}
+                                setFieldValue={form.setFieldValue}
                                 target={`questions[${index}].options`}
                               />
                               <IconButton

@@ -5,8 +5,7 @@ export const handleAddOption = (
   setFieldValue: any,
   target: any
 ) => {
-  const newOptions = [...values, { id: uuidv4(), value: "" }];
-  setFieldValue(target, newOptions);
+  setFieldValue(target, [...values, { id: uuidv4(), value: "" }]);
 };
 
 export const handleEditOption = (
@@ -16,10 +15,13 @@ export const handleEditOption = (
   updatedValue: any,
   id: any
 ) => {
-  const index = values.findIndex((option: any) => option.id === id);
-  const newOptions = [...values];
-  newOptions[index].value = updatedValue;
-  setFieldValue(target, newOptions);
+  const updatedOptions = values.map((option: any) => {
+    if (option.id === id) {
+      return { ...option, value: updatedValue };
+    }
+    return option;
+  });
+  setFieldValue(target, updatedOptions);
 };
 
 export const handleDeleteOption = (
@@ -28,8 +30,8 @@ export const handleDeleteOption = (
   target: any,
   id: any
 ) => {
-  const index = values.findIndex((option: any) => option.id === id);
-  const newOptions = [...values];
-  newOptions.splice(index, 1);
-  setFieldValue(target, newOptions);
+  setFieldValue(
+    target,
+    values.filter((option: any) => option.id !== id)
+  );
 };

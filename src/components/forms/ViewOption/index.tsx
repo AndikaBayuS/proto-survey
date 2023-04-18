@@ -22,6 +22,7 @@ const ViewOption = ({ options, type, fieldProps }: ViewOptionInterface) => {
             name={fieldProps.name}
             onChange={fieldProps.onChange}
             onBlur={fieldProps.onBlur}
+            variant="filled"
           />
         );
     }

@@ -14,7 +14,12 @@ const CreateQuestion = ({
   return (
     <Box w="full">
       {type === "text" ? (
-        <Field as={Input} name={name} placeholder="Masukkan pertanyaan" />
+        <Field
+          as={Input}
+          name={name}
+          placeholder="Masukkan pertanyaan"
+          variant={"filled"}
+        />
       ) : (
         <CreateOption
           name={name}

@@ -27,8 +27,8 @@ const CreateOption = ({
 }: CreateOptionInterface) => {
   const [updatedValue, setUpdatedValue] = useState("");
 
-  const checkValue = (id: string) => {
-    if (updatedValue !== "") {
+  const checkValue = (id: any) => {
+    if (updatedValue) {
       handleEditOption(options, setFieldValue, target, updatedValue, id);
       setUpdatedValue("");
     }
@@ -38,7 +38,7 @@ const CreateOption = ({
 
   return (
     <Box>
-      <VStack alignItems={"start"} gap={3}>
+      <VStack alignItems="start" gap={3}>
         <FormControl isInvalid={isError}>
           <Field
             as={Input}
@@ -51,31 +51,22 @@ const CreateOption = ({
         {options.map((option) => (
           <Flex key={option.id} gap={3}>
             <Input
-              key={option.id}
               defaultValue={option.value}
               variant="filled"
               placeholder="Masukkan pilihan"
-              onChange={(value) => {
-                setUpdatedValue(value.target.value);
-              }}
-              onBlur={() => {
-                checkValue(option.id);
-              }}
+              onChange={(e) => setUpdatedValue(e.target.value)}
+              onBlur={() => checkValue(option.id)}
             />
             <IconButton
               aria-label="delete-button"
               icon={<DeleteIcon />}
-              onClick={() => {
-                handleDeleteOption(options, setFieldValue, target, option.id);
-              }}
+              onClick={() =>
+                handleDeleteOption(options, setFieldValue, target, option.id)
+              }
             />
           </Flex>
         ))}
-        <Button
-          onClick={() => {
-            handleAddOption(options, setFieldValue, target);
-          }}
-        >
+        <Button onClick={() => handleAddOption(options, setFieldValue, target)}>
           Tambah Pilihan
         </Button>
       </VStack>

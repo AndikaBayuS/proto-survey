@@ -77,6 +77,7 @@ const EditSurvey = ({ questions, survey }: EditSurveyProps) => {
                 id="title"
                 name="title"
                 placeholder="Masukkan judul survei"
+                variant={"filled"}
               />
             </FormControl>
             <FormControl isRequired>
@@ -86,6 +87,7 @@ const EditSurvey = ({ questions, survey }: EditSurveyProps) => {
                 id="description"
                 name="description"
                 placeholder="Masukkan deskripsi survei"
+                variant={"filled"}
               />
             </FormControl>
 
