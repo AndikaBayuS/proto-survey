@@ -40,7 +40,7 @@ export interface ProfileProps {
     image: string;
     surveys: Surveys[];
     gamification: Gamification;
-  }
+  };
 }
 
 export interface EditSurveyPageProps {
@@ -76,7 +76,9 @@ export interface SurveyQuestion {
 export interface CreateValues {
   title: string;
   description: string;
-  questions: [{ question: string; type: string; options?: string[] }];
+  questions: [
+    { question: string; type: string; options?: { id: string; value: string }[] }
+  ];
 }
 
 export interface CreateOptionInterface {
