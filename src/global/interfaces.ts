@@ -34,10 +34,6 @@ export interface QuestionValues {
   type: string;
 }
 // Page Interface
-export interface PagesProps {
-  surveys: Surveys[];
-}
-
 export interface ProfileProps {
   userData: {
     name: string;
@@ -45,10 +41,6 @@ export interface ProfileProps {
     surveys: Surveys[];
     gamification: Gamification;
   }
-}
-
-export interface LeaderboardProps {
-  leaderboard: Gamification[];
 }
 
 export interface EditSurveyPageProps {

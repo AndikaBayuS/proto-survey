@@ -2,9 +2,11 @@ import { useRouter } from "next/router";
 import { Box, Button, FormControl, FormLabel, VStack } from "@chakra-ui/react";
 import { Field, FieldArray, Form, Formik } from "formik";
 import { useState } from "react";
+import useSWR from "swr";
 
 import ViewOption from "@/src/components/forms/ViewOption";
-import { SurveyProps, SurveyQuestion } from "@/src/global/interfaces";
+import { SurveyQuestion } from "@/src/global/interfaces";
+import fetcher from "@/src/lib/fetcher";
 
 interface AnswerValues {
   questionsId: string;
@@ -15,9 +17,24 @@ interface AnswerValues {
   answer: string;
 }
 
-const AnswerSurvey = ({ questions }: SurveyProps) => {
+interface Questions {
+  id?: string;
+  questionsId: string;
+  surveyId: string;
+  question: string;
+  options: any;
+  answer?: string;
+  type: string;
+}
+
+const AnswerSurvey = () => {
   const router = useRouter();
+  const { id } = router.query;
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { data, error } = useSWR<Questions[]>(`/api/survey/${id}`, fetcher);
+
+  if (!data?.length) return <div>Loading...</div>;
+  if (error) return <div>Failed to load</div>;
 
   const submitAnswer = async (values: AnswerValues[]) => {
     try {
@@ -44,7 +61,7 @@ const AnswerSurvey = ({ questions }: SurveyProps) => {
     <Box bgColor={"white"} p={5} rounded={"lg"}>
       <Formik
         initialValues={{
-          questions: questions?.map((question: SurveyQuestion) => ({
+          questions: data?.map((question: SurveyQuestion) => ({
             questionsId: question.id || "",
             surveyId: question.surveyId,
             question: question.question,
@@ -55,18 +72,15 @@ const AnswerSurvey = ({ questions }: SurveyProps) => {
         }}
         onSubmit={(values) => {
           setIsSubmitting(true);
-          submitAnswer(values.questions);
+          submitAnswer(values.questions!);
         }}
       >
         <Form>
           <FieldArray name="questions">
             {(arrayHelpers) => (
               <VStack alignItems={"start"} spacing={3}>
-                {questions.map((question: SurveyQuestion, index: number) => (
-                  <Field
-                    name={`questions.${index}.answer`}
-                    key={question.questionsId}
-                  >
+                {data?.map((question: SurveyQuestion, index: number) => (
+                  <Field name={`questions.${index}.answer`} key={index}>
                     {({ field }: { field: any }) => (
                       <FormControl id={`questions.${index}.answer`}>
                         <FormLabel

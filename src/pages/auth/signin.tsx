@@ -5,15 +5,6 @@ import { Box, Button, Center, HStack, Text } from "@chakra-ui/react";
 import GoogleIcon from "@/src/components/icons/GoogleIcon/GoogleIcon";
 import { SigninProps } from "@/src/global/interfaces";
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const providers = await getProviders();
-  return {
-    props: {
-      providers,
-    },
-  };
-};
-
 const SignIn: React.FC<SigninProps> = ({ providers }) => {
   return (
     <Center minHeight={"100vh"}>
@@ -37,6 +28,15 @@ const SignIn: React.FC<SigninProps> = ({ providers }) => {
       ))}
     </Center>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const providers = await getProviders();
+  return {
+    props: {
+      providers,
+    },
+  };
 };
 
 export default SignIn;

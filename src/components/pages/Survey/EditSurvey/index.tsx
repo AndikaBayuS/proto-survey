@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
 import React from "react";
+import useSWR from "swr";
 
 import CreateQuestion from "@/src/components/forms/CreateQuestion";
 import {
@@ -21,17 +22,28 @@ import {
   SurveyProps,
   SurveyQuestion,
 } from "@/src/global/interfaces";
+import fetcher from "@/src/lib/fetcher";
 import { updateSurvey } from "@/src/utils/fetch";
 
 import { buttonAttributes } from "./constants";
 
-const EditSurvey = ({ questions, survey }: EditSurveyProps) => {
+const EditSurvey = () => {
   const router = useRouter();
+  const { id } = router.query;
+  const { data, error } = useSWR<EditSurveyProps>(
+    `/api/survey/edit/${id}`,
+    fetcher
+  );
+
+  if (!data?.questions.length) return <div>Loading...</div>;
+  if (error) return <div>Failed to load</div>;
+
   const handleEnterKey = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
     }
   };
+
   const handleDeleteQuestion = (
     values: SurveyProps,
     index: number,
@@ -46,16 +58,16 @@ const EditSurvey = ({ questions, survey }: EditSurveyProps) => {
     <Box bgColor={"white"} rounded={"lg"} p={5}>
       <Formik
         initialValues={{
-          title: survey.title,
-          description: survey.description,
-          questions: questions?.map((question: SurveyQuestion) => ({
+          title: data?.survey?.title,
+          description: data?.survey?.description,
+          questions: data?.questions.map((question: SurveyQuestion) => ({
             questionsId: question.id || "",
             surveyId: question.surveyId,
             question: question.question,
             type: question.type,
             options: question.options,
             deleteQuestion: false,
-          })),
+          })) || [],
         }}
         onSubmit={(
           values: SurveyProps,

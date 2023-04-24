@@ -1,13 +1,45 @@
+import { useRouter } from "next/router";
 import { Box, Text, VStack } from "@chakra-ui/react";
 import { Fragment } from "react";
+import useSWR from "swr";
 
 import BarChart from "@/src/components/common/BarChart";
 import PieChart from "@/src/components/common/PieChart";
+import fetcher from "@/src/lib/fetcher";
 
 import TextResponse from "./fragments/TextResponse";
 
-const ResponseSurvey = ({ surveys, responses }: any) => {
-  const renderChart = (type: any, labels: any, data: any, title: any) => {
+interface Response {
+  survey: {
+    title: string;
+    description: string;
+  };
+  responses: {
+    question: string;
+    response: {
+      answer: string;
+      count: number;
+    };
+  }[];
+}
+
+const ResponseSurvey = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const { data, error } = useSWR<Response>(
+    `/api/survey/response/${id}`,
+    fetcher
+  );
+
+  if (!data?.responses.length) return <div>Loading...</div>;
+  if (error) return <div>Failed to load</div>;
+
+  const renderChart = (
+    type: string,
+    labels: string[],
+    data: number[],
+    title: string
+  ) => {
     switch (type) {
       case "radio":
         return <PieChart labels={labels} data={data} title={title} />;
@@ -22,10 +54,10 @@ const ResponseSurvey = ({ surveys, responses }: any) => {
     <Box>
       <VStack gap={3}>
         <Box backgroundColor={"white"} p={5} rounded={"md"} w={"full"}>
-          <Text>{surveys.title}</Text>
-          <Text>{surveys.description}</Text>
+          <Text>{data?.survey.title}</Text>
+          <Text>{data?.survey.description}</Text>
         </Box>
-        {responses.map((surveyAnswer: any) => (
+        {data?.responses.map((surveyAnswer: any) => (
           <Fragment key={surveyAnswer.question}>
             {renderChart(
               surveyAnswer.type,
