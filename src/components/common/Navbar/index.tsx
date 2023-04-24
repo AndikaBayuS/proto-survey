@@ -23,7 +23,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { gamificationState } from "@/src/atoms/gamification";
@@ -36,11 +36,12 @@ const NavigationItem = [
 ];
 
 const Navbar = () => {
+  const router = useRouter();
+  const [showCreateButton, setShowCreateButton] = useState(false);
   const { isLoading, gamification } = useRecoilValue(gamificationState);
   const setGamificationState = useSetRecoilState(gamificationState);
 
   const { data: session, status } = useSession();
-  const router = useRouter();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -59,6 +60,12 @@ const Navbar = () => {
         }));
       });
   }, [setGamificationState]);
+
+  useEffect(() => {
+    if (router.pathname === "/") {
+      setShowCreateButton(true);
+    }
+  }, [router.pathname]);
 
   return (
     <Box bgColor={"white"} width={"full"}>
@@ -106,7 +113,20 @@ const Navbar = () => {
             py={1.5}
             rounded={"md"}
             display={{ base: "none", md: "inline-flex" }}
+            border={"1px solid #EDF2F7"}
+            transition={"all 0.2s ease-in-out"}
+            _hover={{
+              borderColor: "blue.500",
+            }}
           >
+            {showCreateButton && (
+              <Button
+                colorScheme={"blue"}
+                onClick={() => router.push("/survey/create")}
+              >
+                Buat Survei
+              </Button>
+            )}
             <Menu>
               <MenuButton>
                 <HStack spacing={3}>
@@ -120,9 +140,6 @@ const Navbar = () => {
                 </HStack>
               </MenuButton>
               <MenuList>
-                <MenuItem onClick={() => router.push("/survey/create")}>
-                  Buat Survey
-                </MenuItem>
                 <MenuItem onClick={() => router.push("/profile")}>
                   Profil
                 </MenuItem>
@@ -158,25 +175,8 @@ const Navbar = () => {
 
 const MobileNavbar = ({ isOpen, onClose }: any) => {
   const { isLoading, gamification } = useRecoilValue(gamificationState);
-  const setGamificationState = useSetRecoilState(gamificationState);
   const { data: session, status } = useSession();
   const router = useRouter();
-
-  useEffect(() => {
-    getGamificationData()
-      .then((res) => {
-        setGamificationState((prev) => ({
-          ...prev,
-          gamification: res.data,
-        }));
-      })
-      .then(() => {
-        setGamificationState((prev) => ({
-          ...prev,
-          isLoading: false,
-        }));
-      });
-  }, [setGamificationState]);
 
   return (
     <Drawer onClose={onClose} isOpen={isOpen} size={"full"}>
