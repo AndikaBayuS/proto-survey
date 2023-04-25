@@ -12,7 +12,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
-import React from "react";
 import useSWR from "swr";
 
 import CreateQuestion from "@/src/components/forms/CreateQuestion";

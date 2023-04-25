@@ -30,10 +30,7 @@ import { gamificationState } from "@/src/atoms/gamification";
 import Stats from "@/src/components/common/Stats";
 import { getGamificationData } from "@/src/utils/fetch";
 
-const NavigationItem = [
-  { name: "Survei", href: "/" },
-  { name: "Peringkat", href: "/leaderboard" },
-];
+import { navigationItem, validPathnames } from "./constants";
 
 const Navbar = () => {
   const router = useRouter();
@@ -62,11 +59,8 @@ const Navbar = () => {
   }, [setGamificationState]);
 
   useEffect(() => {
-    if (router.pathname === "/") {
-      setShowCreateButton(true);
-    }
+    setShowCreateButton(validPathnames.includes(router.pathname));
   }, [router.pathname]);
-
   return (
     <Box bgColor={"white"} width={"full"}>
       <Flex
@@ -86,7 +80,7 @@ const Navbar = () => {
               </Text>
             </Box>
           </NextLink>
-          {NavigationItem.map((item) => (
+          {navigationItem.map((item) => (
             <Button
               key={item.name}
               _hover={{
@@ -213,7 +207,7 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
           )}
 
           <VStack alignItems={"flex-start"} mt={5}>
-            {NavigationItem.map((item) => (
+            {navigationItem.map((item) => (
               <Button
                 key={item.name}
                 variant={"ghost"}

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 
 import { prisma } from "@/src/lib/prisma";
-import { countQuestions } from "@/src/utils/gamification";
+import { countPoints } from "@/src/utils/gamification";
 import {
   addExperience,
   addLevel,
@@ -15,7 +15,7 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const { questions } = req.body;
-  const points = countQuestions(questions);
+  const points = countPoints(questions);
   const session = await getSession({ req });
   const userId = await getUserId(String(session?.user?.email));
   const surveys = await prisma.response.createMany({
