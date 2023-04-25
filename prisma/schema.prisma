@@ -68,7 +68,7 @@ model Surveys {
   description String
   createdAt   DateTime    @default(now()) @db.Timestamp(3)
   updatedAt   DateTime    @updatedAt
-  user        User        @relation(fields: [ownerId], references: [id])
+  user        User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   questions   Questions[]
   response    Response[]
 }
@@ -79,7 +79,7 @@ model Questions {
   type     String
   options  Json?
   surveyId String
-  survey   Surveys    @relation(fields: [surveyId], references: [id])
+  survey   Surveys    @relation(fields: [surveyId], references: [id], onDelete: Cascade)
   response Response[]
 }
 
@@ -92,9 +92,9 @@ model Response {
   participantId String
   surveyId      String
   questionsId   String?
-  questions     Questions? @relation(fields: [questionsId], references: [id])
-  user          User       @relation(fields: [participantId], references: [id])
-  survey        Surveys    @relation(fields: [surveyId], references: [id])
+  questions     Questions? @relation(fields: [questionsId], references: [id], onDelete: Cascade)
+  user          User       @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  survey        Surveys    @relation(fields: [surveyId], references: [id], onDelete: Cascade)
 }
 
 model Gamification {
@@ -103,5 +103,5 @@ model Gamification {
   level     Int    @default(1)
   points    Int    @default(0)
   maxPoints Int    @default(1000)
-  user      User   @relation(fields: [userId], references: [id])
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
