@@ -8,10 +8,13 @@ import {
   HStack,
   IconButton,
   Input,
+  Select,
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { Field, FieldArray, Form, Formik } from "formik";
+import { Field, FieldArray, Form, Formik, FormikProps } from "formik";
+import { ChangeEvent } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import CreateQuestion from "@/src/components/forms/CreateQuestion";
 import { CreateValues, QuestionValues } from "@/src/global/interfaces";
@@ -22,6 +25,24 @@ import { buttonAttributes } from "./constants";
 
 const CreateSurvey = () => {
   const router = useRouter();
+
+  const handleQuestionTypeChange = (
+    event: ChangeEvent<HTMLSelectElement>,
+    index: number,
+    form: FormikProps<CreateValues>
+  ) => {
+    const selectedType = event.target.value;
+    form.setFieldValue(`questions[${index}].type`, selectedType);
+
+    if (selectedType === "radio" || selectedType === "checkbox") {
+      form.setFieldValue(`questions[${index}].options`, [
+        { id: uuidv4(), value: "" },
+        { id: uuidv4(), value: "" },
+      ]);
+    } else {
+      form.setFieldValue(`questions[${index}].options`, undefined);
+    }
+  };
 
   const areFieldsEmpty = (values: CreateValues) => {
     if (!values.title || !values.description) {
@@ -91,7 +112,7 @@ const CreateSurvey = () => {
                               <FormLabel htmlFor={`questions.${index}`}>
                                 Pertanyaan {index + 1}
                               </FormLabel>
-                              <HStack w={"full"}>
+                              <HStack w={"full"} alignItems={"start"}>
                                 <CreateQuestion
                                   type={_question.type}
                                   name={`questions[${index}].question`}
@@ -99,12 +120,24 @@ const CreateSurvey = () => {
                                   setFieldValue={form.setFieldValue}
                                   target={`questions[${index}].options`}
                                 />
+                                <Select
+                                  w={"40%"}
+                                  value={_question.type}
+                                  onChange={(e) =>
+                                    handleQuestionTypeChange(e, index, form)
+                                  }
+                                >
+                                  {buttonAttributes.map((attribute, idx) => (
+                                    <option key={idx} value={attribute.type}>
+                                      {attribute.label}
+                                    </option>
+                                  ))}
+                                </Select>
                                 <IconButton
                                   icon={<CloseIcon />}
                                   aria-label="Hapus Pertanyaan"
                                   colorScheme={"red"}
                                   variant={"outline"}
-                                  size={"sm"}
                                   disabled={index === 0}
                                   onClick={() => remove(index)}
                                 />
@@ -112,23 +145,11 @@ const CreateSurvey = () => {
                             </FormControl>
                           )
                         )}
-                        <HStack>
-                          {buttonAttributes.map((attribute, index) => (
-                            <Button
-                              key={index}
-                              size="md"
-                              onClick={() =>
-                                push({
-                                  question: "",
-                                  type: attribute.type,
-                                  options: attribute.options,
-                                })
-                              }
-                            >
-                              {attribute.label}
-                            </Button>
-                          ))}
-                        </HStack>
+                        <Button
+                          onClick={() => push({ question: "", type: "text" })}
+                        >
+                          Tambah Pertanyaan
+                        </Button>
                       </VStack>
                     );
                   }}
