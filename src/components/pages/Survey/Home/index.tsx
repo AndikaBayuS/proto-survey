@@ -16,9 +16,12 @@ interface Survey {
 }
 
 const Home = () => {
-  const { data, error, isLoading } = useSWR<Survey[]>('/api/survey', fetcher);
-  if(isLoading) return <div>Loading...</div>
-  if(error) return <div>Error</div>
+  const { data, error, isLoading } = useSWR<Survey[]>("/api/survey", fetcher, {
+    revalidateOnMount: true,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error</div>;
 
   return (
     <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing={4}>
