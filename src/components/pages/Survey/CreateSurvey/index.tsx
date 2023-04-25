@@ -17,17 +17,12 @@ import React from "react";
 import CreateQuestion from "@/src/components/forms/CreateQuestion";
 import { CreateValues, QuestionValues } from "@/src/global/interfaces";
 import { createSurvey } from "@/src/utils/fetch";
+import { handleEnterKey } from "@/src/utils/helper";
 
 import { buttonAttributes } from "./constants";
 
 const CreateSurvey = () => {
   const router = useRouter();
-
-  const handleEnterKey = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-    }
-  };
 
   const areFieldsEmpty = (values: CreateValues) => {
     if (!values.title || !values.description) {

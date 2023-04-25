@@ -35,3 +35,10 @@ export const handleDeleteOption = (
     values.filter((option: any) => option.id !== id)
   );
 };
+
+
+export const handleEnterKey = (e: React.KeyboardEvent) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+  }
+};

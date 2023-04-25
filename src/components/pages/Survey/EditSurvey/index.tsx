@@ -24,6 +24,7 @@ import {
 } from "@/src/global/interfaces";
 import fetcher from "@/src/lib/fetcher";
 import { updateSurvey } from "@/src/utils/fetch";
+import { handleEnterKey } from "@/src/utils/helper";
 
 import { buttonAttributes } from "./constants";
 
@@ -37,12 +38,6 @@ const EditSurvey = () => {
 
   if (!data?.questions.length) return <div>Loading...</div>;
   if (error) return <div>Failed to load</div>;
-
-  const handleEnterKey = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-    }
-  };
 
   const handleDeleteQuestion = (
     values: SurveyProps,

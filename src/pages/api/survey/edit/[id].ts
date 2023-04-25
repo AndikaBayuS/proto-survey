@@ -9,5 +9,5 @@ export default async function handler(
   const surveyId = req.query.id as string;
   const { surveyData, questionData } = await getSurveyData(surveyId);
 
-  res.status(200).json({ questions: questionData, survey: surveyData });
+  res.status(200).json({ survey: surveyData, questions: questionData });
 }
