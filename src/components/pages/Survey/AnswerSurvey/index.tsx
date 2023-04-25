@@ -1,7 +1,20 @@
 import { useRouter } from "next/router";
-import { Box, Button, FormControl, FormLabel, VStack } from "@chakra-ui/react";
-import { Field, FieldArray, Form, Formik } from "formik";
-import { useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react";
+import { Field, FieldArray, Form, Formik, useFormikContext } from "formik";
+import { Fragment, useRef, useState } from "react";
 import useSWR from "swr";
 
 import ViewOption from "@/src/components/forms/ViewOption";
@@ -27,10 +40,16 @@ interface Questions {
   type: string;
 }
 
+interface SubmitAlert {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 const AnswerSurvey = () => {
   const router = useRouter();
   const { id } = router.query;
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { data, error } = useSWR<Questions[]>(`/api/survey/${id}`, fetcher);
 
   if (!data?.length) return <div>Loading...</div>;
@@ -75,47 +94,83 @@ const AnswerSurvey = () => {
           submitAnswer(values.questions!);
         }}
       >
-        <Form>
-          <FieldArray name="questions">
-            {(arrayHelpers) => (
-              <VStack alignItems={"start"} spacing={3}>
-                {data?.map((question: SurveyQuestion, index: number) => (
-                  <Field name={`questions.${index}.answer`} key={index}>
-                    {({ field }: { field: any }) => (
-                      <FormControl id={`questions.${index}.answer`}>
-                        <FormLabel
-                          htmlFor={`questions.${index}.answer`}
-                          fontWeight={"semibold"}
-                        >
-                          {index + 1}. {question.question}
-                        </FormLabel>
-                        <ViewOption
-                          options={question.options}
-                          type={question.type}
-                          fieldProps={field}
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
-                ))}
-                <Button
-                  type="submit"
-                  size={"md"}
-                  colorScheme={"telegram"}
-                  isLoading={isSubmitting}
-                  disabled={
-                    !isFormFullyFilled(arrayHelpers.form.values.questions) ||
-                    isSubmitting
-                  }
-                >
-                  Submit
-                </Button>
-              </VStack>
-            )}
-          </FieldArray>
-        </Form>
+        <Fragment>
+          <Form>
+            <FieldArray name="questions">
+              {(arrayHelpers) => (
+                <VStack alignItems={"start"} spacing={3}>
+                  {data?.map((question: SurveyQuestion, index: number) => (
+                    <Field name={`questions.${index}.answer`} key={index}>
+                      {({ field }: { field: any }) => (
+                        <FormControl id={`questions.${index}.answer`}>
+                          <FormLabel
+                            htmlFor={`questions.${index}.answer`}
+                            fontWeight={"semibold"}
+                          >
+                            {index + 1}. {question.question}
+                          </FormLabel>
+                          <ViewOption
+                            options={question.options}
+                            type={question.type}
+                            fieldProps={field}
+                          />
+                        </FormControl>
+                      )}
+                    </Field>
+                  ))}
+                  <Button
+                    size={"md"}
+                    colorScheme={"telegram"}
+                    isLoading={isSubmitting}
+                    disabled={
+                      !isFormFullyFilled(arrayHelpers.form.values.questions) ||
+                      isSubmitting
+                    }
+                    onClick={onOpen}
+                  >
+                    Submit
+                  </Button>
+                </VStack>
+              )}
+            </FieldArray>
+          </Form>
+          <SubmitAlert isOpen={isOpen} onClose={onClose} />
+        </Fragment>
       </Formik>
     </Box>
+  );
+};
+
+const SubmitAlert = ({ isOpen, onClose }: SubmitAlert) => {
+  const cancelRef = useRef(null);
+  const { submitForm } = useFormikContext() ?? {};
+
+  return (
+    <AlertDialog
+      isOpen={isOpen}
+      onClose={onClose}
+      leastDestructiveRef={cancelRef}
+      isCentered
+      closeOnOverlayClick={false}
+    >
+      <AlertDialogOverlay>
+        <AlertDialogContent>
+          <AlertDialogHeader>Submit Jawaban</AlertDialogHeader>
+          <AlertDialogBody>
+            Anda hampir selesai! Apakah Anda ingin melihat kembali jawaban Anda
+            sebelum submit?
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose}>
+              Batal
+            </Button>
+            <Button colorScheme="blue" onClick={submitForm} ml={3}>
+              Ya, Submit
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
+    </AlertDialog>
   );
 };
 
