@@ -1,11 +1,5 @@
 import { useRouter } from "next/router";
 import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogOverlay,
   Box,
   Button,
   FormControl,
@@ -15,14 +9,18 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { Field, FieldArray, Form, Formik, useFormikContext } from "formik";
-import { Fragment, useRef, useState } from "react";
+import { Field, FieldArray, Form, Formik } from "formik";
+import { Fragment, useState } from "react";
 import useSWR from "swr";
 
 import ViewOption from "@/src/components/forms/ViewOption";
 import { SurveyQuestion } from "@/src/global/interfaces";
 import fetcher from "@/src/lib/fetcher";
+import { countPoints } from "@/src/utils/gamification";
 import { handleEnterKey } from "@/src/utils/helper";
+
+import SubmitAlert from "./SubmitAlert";
+import SuccessAlert from "./SuccessAlert";
 
 interface AnswerValues {
   questionsId: string;
@@ -51,16 +49,16 @@ interface AnswerSurvey {
   questions: Questions[];
 }
 
-interface SubmitAlert {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
 const AnswerSurvey = () => {
   const router = useRouter();
   const { id } = router.query;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: successIsOpen,
+    onOpen: successOnOpen,
+    onClose: successOnClose,
+  } = useDisclosure();
   const { data, error } = useSWR<AnswerSurvey>(`/api/survey/${id}`, fetcher);
 
   if (!data?.questions.length) return <div>Loading...</div>;
@@ -74,7 +72,8 @@ const AnswerSurvey = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      await router.push("/");
+      onClose();
+      successOnOpen();
     } catch {
       console.log("error");
     }
@@ -169,43 +168,15 @@ const AnswerSurvey = () => {
               </FieldArray>
             </Form>
             <SubmitAlert isOpen={isOpen} onClose={onClose} />
+            <SuccessAlert
+              isOpen={successIsOpen}
+              onClose={successOnClose}
+              points={countPoints(data?.questions)}
+            />
           </Fragment>
         </Formik>
       </Box>
     </VStack>
-  );
-};
-
-const SubmitAlert = ({ isOpen, onClose }: SubmitAlert) => {
-  const cancelRef = useRef(null);
-  const { submitForm } = useFormikContext() ?? {};
-
-  return (
-    <AlertDialog
-      isOpen={isOpen}
-      onClose={onClose}
-      leastDestructiveRef={cancelRef}
-      isCentered
-      closeOnOverlayClick={false}
-    >
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader>Submit Jawaban</AlertDialogHeader>
-          <AlertDialogBody>
-            Anda hampir selesai! Apakah Anda ingin melihat kembali jawaban Anda
-            sebelum submit?
-          </AlertDialogBody>
-          <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
-              Batal
-            </Button>
-            <Button colorScheme="blue" onClick={submitForm} ml={3}>
-              Ya, Submit
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
   );
 };
 
