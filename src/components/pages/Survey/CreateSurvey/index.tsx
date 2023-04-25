@@ -10,21 +10,31 @@ import {
   Input,
   Select,
   Textarea,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { Field, FieldArray, Form, Formik, FormikProps } from "formik";
 import { ChangeEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import SubmitAlert from "@/src/components/common/SubmitAlert";
+import SuccessAlert from "@/src/components/common/SuccessAlert";
 import CreateQuestion from "@/src/components/forms/CreateQuestion";
 import { CreateValues, QuestionValues } from "@/src/global/interfaces";
 import { createSurvey } from "@/src/utils/fetch";
+import { countPoints } from "@/src/utils/gamification";
 import { handleEnterKey } from "@/src/utils/helper";
 
 import { buttonAttributes } from "./constants";
 
 const CreateSurvey = () => {
   const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: successIsOpen,
+    onOpen: successOnOpen,
+    onClose: successOnClose,
+  } = useDisclosure();
 
   const handleQuestionTypeChange = (
     event: ChangeEvent<HTMLSelectElement>,
@@ -72,9 +82,10 @@ const CreateSurvey = () => {
           description: "",
           questions: [{ question: "", type: "text" }],
         }}
-        onSubmit={(values: CreateValues) => {
-          createSurvey(values);
-          router.push("/");
+        onSubmit={async (values: CreateValues) => {
+          await createSurvey(values);
+          onClose();
+          successOnOpen();
         }}
       >
         {({ values }) => (
@@ -167,14 +178,28 @@ const CreateSurvey = () => {
                 Batal
               </Button>
               <Button
-                type="submit"
                 colorScheme={"telegram"}
                 disabled={areFieldsEmpty(values)}
                 size={"md"}
+                onClick={onOpen}
               >
                 Buat Survei
               </Button>
             </HStack>
+
+            <SubmitAlert
+              title="Buat Survei"
+              description="Apakah anda yakin ingin membuat survei ini? Jika anda setuju, survei akan segera diterbitkan."
+              btnSubmitText="Ya, Buat Survei"
+              isOpen={isOpen}
+              onClose={onClose}
+            />
+            <SuccessAlert
+              description="Terimakasih telah mengisi survei ini."
+              isOpen={successIsOpen}
+              onClose={successOnClose}
+              points={countPoints(values.questions)}
+            />
           </Form>
         )}
       </Formik>

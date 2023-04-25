@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -7,17 +8,18 @@ import {
   AlertDialogOverlay,
   Button,
 } from "@chakra-ui/react";
-import { useFormikContext } from "formik";
 import { useRef } from "react";
 
-interface SubmitAlert {
+interface SuccessAlert {
+  description: string;
   isOpen: boolean;
   onClose: () => void;
+  points: number;
 }
 
-const SubmitAlert = ({ isOpen, onClose }: SubmitAlert) => {
+const SuccessAlert = ({ isOpen, onClose, points, description }: SuccessAlert) => {
+  const router = useRouter();
   const cancelRef = useRef(null);
-  const { submitForm } = useFormikContext() ?? {};
 
   return (
     <AlertDialog
@@ -29,17 +31,14 @@ const SubmitAlert = ({ isOpen, onClose }: SubmitAlert) => {
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader>Submit Jawaban</AlertDialogHeader>
+          <AlertDialogHeader>Berhasil!</AlertDialogHeader>
           <AlertDialogBody>
-            Anda hampir selesai! Apakah Anda ingin melihat kembali jawaban Anda
-            sebelum submit?
+            {description} Anda mendapatkan{" "}
+            <b>{points}</b> Poin!.
           </AlertDialogBody>
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
-              Batal
-            </Button>
-            <Button colorScheme="blue" onClick={submitForm} ml={3}>
-              Ya, Submit
+            <Button colorScheme={"blue"} onClick={() => router.push("/")}>
+              Kembali
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -48,4 +47,4 @@ const SubmitAlert = ({ isOpen, onClose }: SubmitAlert) => {
   );
 };
 
-export default SubmitAlert;
+export default SuccessAlert;

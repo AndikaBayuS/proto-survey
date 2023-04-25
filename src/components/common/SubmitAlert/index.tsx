@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -8,17 +7,26 @@ import {
   AlertDialogOverlay,
   Button,
 } from "@chakra-ui/react";
+import { useFormikContext } from "formik";
 import { useRef } from "react";
 
-interface SuccessAlert {
+interface SubmitAlert {
+  title: string;
+  description: string;
+  btnSubmitText: string;
   isOpen: boolean;
   onClose: () => void;
-  points: number;
 }
 
-const SuccessAlert = ({ isOpen, onClose, points }: SuccessAlert) => {
-  const router = useRouter();
+const SubmitAlert = ({
+  isOpen,
+  onClose,
+  title,
+  description,
+  btnSubmitText,
+}: SubmitAlert) => {
   const cancelRef = useRef(null);
+  const { submitForm } = useFormikContext() ?? {};
 
   return (
     <AlertDialog
@@ -30,14 +38,14 @@ const SuccessAlert = ({ isOpen, onClose, points }: SuccessAlert) => {
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader>Berhasil!</AlertDialogHeader>
-          <AlertDialogBody>
-            Terimakasih telah mengisi survey ini. Anda mendapatkan{" "}
-            <b>{points}</b> Poin!.
-          </AlertDialogBody>
+          <AlertDialogHeader>{title}</AlertDialogHeader>
+          <AlertDialogBody>{description}</AlertDialogBody>
           <AlertDialogFooter>
-            <Button colorScheme={"blue"} onClick={() => router.push("/")}>
-              Kembali
+            <Button ref={cancelRef} onClick={onClose}>
+              Batal
+            </Button>
+            <Button colorScheme="blue" onClick={submitForm} ml={3}>
+              {btnSubmitText}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -46,4 +54,4 @@ const SuccessAlert = ({ isOpen, onClose, points }: SuccessAlert) => {
   );
 };
 
-export default SuccessAlert;
+export default SubmitAlert;

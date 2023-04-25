@@ -13,14 +13,13 @@ import { Field, FieldArray, Form, Formik } from "formik";
 import { Fragment, useState } from "react";
 import useSWR from "swr";
 
+import SubmitAlert from "@/src/components/common/SubmitAlert";
+import SuccessAlert from "@/src/components/common/SuccessAlert";
 import ViewOption from "@/src/components/forms/ViewOption";
 import { SurveyQuestion } from "@/src/global/interfaces";
 import fetcher from "@/src/lib/fetcher";
 import { countPoints } from "@/src/utils/gamification";
 import { handleEnterKey } from "@/src/utils/helper";
-
-import SubmitAlert from "./SubmitAlert";
-import SuccessAlert from "./SuccessAlert";
 
 interface AnswerValues {
   questionsId: string;
@@ -167,8 +166,15 @@ const AnswerSurvey = () => {
                 )}
               </FieldArray>
             </Form>
-            <SubmitAlert isOpen={isOpen} onClose={onClose} />
+            <SubmitAlert
+              title="Submit Jawaban"
+              description="Anda hampir selesai! Apakah Anda ingin melihat kembali jawaban Anda sebelum submit?"
+              btnSubmitText="Ya, Submit"
+              isOpen={isOpen}
+              onClose={onClose}
+            />
             <SuccessAlert
+              description="Terimakasih telah mengisi survei ini."
               isOpen={successIsOpen}
               onClose={successOnClose}
               points={countPoints(data?.questions)}
