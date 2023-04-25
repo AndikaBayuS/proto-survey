@@ -6,7 +6,7 @@ import {
 
 import { ProfileCardProps } from "@/src/global/interfaces";
 
-const ProfileCard = ({ name, image, surveyCount }: ProfileCardProps) => {
+const ProfileCard = ({ name, image, level }: ProfileCardProps) => {
   return (
     <Box>
       <Box
@@ -38,7 +38,7 @@ const ProfileCard = ({ name, image, surveyCount }: ProfileCardProps) => {
         <Text fontSize={"xl"} fontWeight={"semibold"}>
           {name}
         </Text>
-        <Text color={"gray.600"}>Level 1</Text>
+        <Text color={"gray.600"}>Level {level}</Text>
         <Text>Di sini harusnya badge atau konten lain</Text>
       </Box>
     </Box>

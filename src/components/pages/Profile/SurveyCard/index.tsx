@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { DeleteIcon, EditIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Card,
   CardBody,
@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Fragment } from "react";
 
+import ChartIcon from "@/src/components/icons/ChartIcon/ChartIcon";
 import { SurveyCardProps } from "@/src/global/interfaces";
 import { deleteSurvey } from "@/src/utils/fetch";
 
@@ -55,7 +56,7 @@ const SurveyCard = ({ title, description, surveyId }: SurveyCardProps) => {
             />
             <IconButton
               aria-label="Info"
-              icon={<InfoOutlineIcon />}
+              icon={<ChartIcon />}
               onClick={() => {
                 router.push(`/survey/response/${surveyId}`);
               }}

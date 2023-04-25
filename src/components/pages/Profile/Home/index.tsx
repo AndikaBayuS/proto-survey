@@ -1,7 +1,9 @@
 import { Box, SimpleGrid, Text } from "@chakra-ui/react";
 import { Gamification, Surveys } from "@prisma/client";
+import { useRecoilValue } from "recoil";
 import useSWR from "swr";
 
+import { gamificationState } from "@/src/atoms/gamification";
 import fetcher from "@/src/lib/fetcher";
 
 import ProfileCard from "../ProfileCard";
@@ -15,8 +17,8 @@ interface Profile {
 }
 
 const Profile = () => {
+  const { gamification } = useRecoilValue(gamificationState);
   const { data, error, isLoading } = useSWR<Profile>("/api/profile", fetcher);
-  const surveyCount = data?.surveys.length;
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
@@ -26,7 +28,7 @@ const Profile = () => {
       <ProfileCard
         image={data?.image!}
         name={data?.name!}
-        surveyCount={surveyCount!}
+        level={gamification.level}
       />
       <Box mt={5} p={5} bgColor={"white"} rounded={"md"}>
         <Text fontWeight={"semibold"} fontSize={"xl"}>

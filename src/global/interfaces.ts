@@ -111,7 +111,7 @@ export interface SurveyCardProps {
 export interface ProfileCardProps {
   name: string;
   image: string;
-  surveyCount: number;
+  level: number;
 }
 
 export interface EditSurveyProps {
