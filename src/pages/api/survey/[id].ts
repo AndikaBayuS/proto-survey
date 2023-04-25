@@ -7,7 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const surveyId = req.query.id as string;
-  const { questionData } = await getSurveyData(surveyId);
+  const { surveyData, questionData } = await getSurveyData(surveyId);
 
-  res.status(200).json(questionData);
+  res.status(200).json({ survey: surveyData, questions: questionData });
 }

@@ -10,6 +10,8 @@ import {
   Button,
   FormControl,
   FormLabel,
+  HStack,
+  Text,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
@@ -20,6 +22,7 @@ import useSWR from "swr";
 import ViewOption from "@/src/components/forms/ViewOption";
 import { SurveyQuestion } from "@/src/global/interfaces";
 import fetcher from "@/src/lib/fetcher";
+import { handleEnterKey } from "@/src/utils/helper";
 
 interface AnswerValues {
   questionsId: string;
@@ -40,6 +43,14 @@ interface Questions {
   type: string;
 }
 
+interface AnswerSurvey {
+  survey: {
+    title: string;
+    description: string;
+  };
+  questions: Questions[];
+}
+
 interface SubmitAlert {
   isOpen: boolean;
   onClose: () => void;
@@ -50,9 +61,9 @@ const AnswerSurvey = () => {
   const { id } = router.query;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data, error } = useSWR<Questions[]>(`/api/survey/${id}`, fetcher);
+  const { data, error } = useSWR<AnswerSurvey>(`/api/survey/${id}`, fetcher);
 
-  if (!data?.length) return <div>Loading...</div>;
+  if (!data?.questions.length) return <div>Loading...</div>;
   if (error) return <div>Failed to load</div>;
 
   const submitAnswer = async (values: AnswerValues[]) => {
@@ -77,67 +88,91 @@ const AnswerSurvey = () => {
   };
 
   return (
-    <Box bgColor={"white"} p={5} rounded={"lg"}>
-      <Formik
-        initialValues={{
-          questions: data?.map((question: SurveyQuestion) => ({
-            questionsId: question.id || "",
-            surveyId: question.surveyId,
-            question: question.question,
-            type: question.type,
-            options: question.options,
-            answer: "",
-          })),
-        }}
-        onSubmit={(values) => {
-          setIsSubmitting(true);
-          submitAnswer(values.questions!);
-        }}
-      >
-        <Fragment>
-          <Form>
-            <FieldArray name="questions">
-              {(arrayHelpers) => (
-                <VStack alignItems={"start"} spacing={3}>
-                  {data?.map((question: SurveyQuestion, index: number) => (
-                    <Field name={`questions.${index}.answer`} key={index}>
-                      {({ field }: { field: any }) => (
-                        <FormControl id={`questions.${index}.answer`}>
-                          <FormLabel
-                            htmlFor={`questions.${index}.answer`}
-                            fontWeight={"semibold"}
-                          >
-                            {index + 1}. {question.question}
-                          </FormLabel>
-                          <ViewOption
-                            options={question.options}
-                            type={question.type}
-                            fieldProps={field}
-                          />
-                        </FormControl>
-                      )}
-                    </Field>
-                  ))}
-                  <Button
-                    size={"md"}
-                    colorScheme={"telegram"}
-                    isLoading={isSubmitting}
-                    disabled={
-                      !isFormFullyFilled(arrayHelpers.form.values.questions) ||
-                      isSubmitting
-                    }
-                    onClick={onOpen}
-                  >
-                    Submit
-                  </Button>
-                </VStack>
-              )}
-            </FieldArray>
-          </Form>
-          <SubmitAlert isOpen={isOpen} onClose={onClose} />
-        </Fragment>
-      </Formik>
-    </Box>
+    <VStack spacing={5}>
+      <Box bgColor={"white"} p={5} rounded={"lg"} w={"full"}>
+        <VStack alignItems={"start"}>
+          <Text fontSize={"lg"} fontWeight={"semibold"}>
+            {data?.survey.title}
+          </Text>
+          <Text>{data?.survey.description}</Text>
+        </VStack>
+      </Box>
+      <Box bgColor={"white"} p={5} rounded={"lg"} w={"full"}>
+        <Formik
+          initialValues={{
+            questions: data?.questions.map((question: SurveyQuestion) => ({
+              questionsId: question.id || "",
+              surveyId: question.surveyId,
+              question: question.question,
+              type: question.type,
+              options: question.options,
+              answer: "",
+            })),
+          }}
+          onSubmit={(values) => {
+            setIsSubmitting(true);
+            submitAnswer(values.questions!);
+          }}
+        >
+          <Fragment>
+            <Form onKeyDown={handleEnterKey}>
+              <FieldArray name="questions">
+                {(arrayHelpers) => (
+                  <VStack alignItems={"start"} spacing={3}>
+                    {data?.questions.map(
+                      (question: SurveyQuestion, index: number) => (
+                        <Field name={`questions.${index}.answer`} key={index}>
+                          {({ field }: { field: any }) => (
+                            <FormControl id={`questions.${index}.answer`}>
+                              <FormLabel
+                                htmlFor={`questions.${index}.answer`}
+                                fontWeight={"semibold"}
+                              >
+                                {index + 1}. {question.question}
+                              </FormLabel>
+                              <ViewOption
+                                options={question.options}
+                                type={question.type}
+                                fieldProps={field}
+                              />
+                            </FormControl>
+                          )}
+                        </Field>
+                      )
+                    )}
+
+                    <HStack marginTop={10} justifyContent={"end"} w={"full"}>
+                      <Button
+                        colorScheme={"red"}
+                        variant={"outline"}
+                        size={"md"}
+                        onClick={() => router.push("/")}
+                      >
+                        Batal
+                      </Button>
+                      <Button
+                        size={"md"}
+                        colorScheme={"telegram"}
+                        isLoading={isSubmitting}
+                        disabled={
+                          !isFormFullyFilled(
+                            arrayHelpers.form.values.questions
+                          ) || isSubmitting
+                        }
+                        onClick={onOpen}
+                      >
+                        Submit
+                      </Button>
+                    </HStack>
+                  </VStack>
+                )}
+              </FieldArray>
+            </Form>
+            <SubmitAlert isOpen={isOpen} onClose={onClose} />
+          </Fragment>
+        </Formik>
+      </Box>
+    </VStack>
   );
 };
 
