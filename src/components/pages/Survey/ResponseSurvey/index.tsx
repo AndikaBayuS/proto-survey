@@ -13,6 +13,9 @@ interface Response {
   survey: {
     title: string;
     description: string;
+    owner: {
+      email: string;
+    };
   };
   responses: {
     question: string;
@@ -26,13 +29,13 @@ interface Response {
 const ResponseSurvey = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { data, error } = useSWR<Response>(
+  const { data, error, isLoading } = useSWR<Response>(
     `/api/survey/response/${id}`,
     fetcher
   );
 
-  if (!data?.responses.length) return <div>Loading...</div>;
-  if (error) return <div>Failed to load</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) router.push("/404");
 
   const renderChart = (
     type: string,
@@ -54,10 +57,12 @@ const ResponseSurvey = () => {
     <Box>
       <VStack gap={3}>
         <Box backgroundColor={"white"} p={5} rounded={"md"} w={"full"}>
-          <Text>{data?.survey.title}</Text>
-          <Text>{data?.survey.description}</Text>
+          <Text fontSize={"lg"} fontWeight={"semibold"}>
+            {data?.survey?.title}
+          </Text>
+          <Text>{data?.survey?.description}</Text>
         </Box>
-        {data?.responses.map((surveyAnswer: any) => (
+        {data?.responses?.map((surveyAnswer: any) => (
           <Fragment key={surveyAnswer.question}>
             {renderChart(
               surveyAnswer.type,
