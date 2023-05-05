@@ -195,7 +195,7 @@ const CreateSurvey = () => {
               onClose={onClose}
             />
             <SuccessAlert
-              description="Terimakasih telah mengisi survei ini."
+              description="Survey anda berhasil dibuat!"
               isOpen={successIsOpen}
               onClose={successOnClose}
               points={countPoints(values.questions)}
