@@ -53,6 +53,23 @@ const ResponseSurvey = () => {
     }
   };
 
+  const renderResponse = (() => {
+    return data?.responses.length ? (
+      data?.responses?.map((surveyAnswer: any) => (
+        <Fragment key={surveyAnswer.question}>
+          {renderChart(
+            surveyAnswer.type,
+            surveyAnswer.response.map((res: any) => res.answer),
+            surveyAnswer.response.map((res: any) => res.count),
+            surveyAnswer.question
+          )}
+        </Fragment>
+      ))
+    ) : (
+      <Text>Belum ada respon</Text>
+    );
+  })();
+
   return (
     <Box>
       <VStack gap={3}>
@@ -62,16 +79,7 @@ const ResponseSurvey = () => {
           </Text>
           <Text>{data?.survey?.description}</Text>
         </Box>
-        {data?.responses?.map((surveyAnswer: any) => (
-          <Fragment key={surveyAnswer.question}>
-            {renderChart(
-              surveyAnswer.type,
-              surveyAnswer.response.map((res: any) => res.answer),
-              surveyAnswer.response.map((res: any) => res.count),
-              surveyAnswer.question
-            )}
-          </Fragment>
-        ))}
+        {renderResponse}
       </VStack>
     </Box>
   );
