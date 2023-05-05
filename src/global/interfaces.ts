@@ -117,6 +117,7 @@ export interface ProfileCardProps {
 export interface EditSurveyProps {
   questions: SurveyQuestion[];
   survey: surveyType;
+  responses: any;
 }
 
 // Forms interface

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { getSurveyData } from "@/src/utils/prisma/survey";
+import { getSurveyData, getSurveyResponse } from "@/src/utils/prisma/survey";
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,6 +8,9 @@ export default async function handler(
 ) {
   const surveyId = req.query.id as string;
   const { surveyData, questionData } = await getSurveyData(surveyId);
+  const responses = await getSurveyResponse(surveyId);
 
-  res.status(200).json({ survey: surveyData, questions: questionData });
+  res
+    .status(200)
+    .json({ survey: surveyData, questions: questionData, responses });
 }

@@ -3,11 +3,14 @@ import { CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
+  Center,
   FormControl,
   FormLabel,
   HStack,
   IconButton,
+  Image,
   Input,
+  Text,
   Textarea,
   VStack,
 } from "@chakra-ui/react";
@@ -48,20 +51,32 @@ const EditSurvey = () => {
     setFieldValue("questions", questions);
   };
 
-  return (
+  return data?.responses.length ? (
+    <Center flexDirection={"column"} gap={5}>
+      <Image boxSize="300px" src="/images/not-allowed.svg" alt="Warning" />
+      <Text fontSize={"lg"}>
+        Anda tidak bisa mengubah survei ini karena sudah ada responden yang
+        mengisi survei anda!
+      </Text>
+      <Button colorScheme={"blue"} onClick={() => router.push("/profile")}>
+        Kembali
+      </Button>
+    </Center>
+  ) : (
     <Box bgColor={"white"} rounded={"lg"} p={5}>
       <Formik
         initialValues={{
           title: data?.survey?.title,
           description: data?.survey?.description,
-          questions: data?.questions.map((question: SurveyQuestion) => ({
-            questionsId: question.id || "",
-            surveyId: question.surveyId,
-            question: question.question,
-            type: question.type,
-            options: question.options,
-            deleteQuestion: false,
-          })) || [],
+          questions:
+            data?.questions.map((question: SurveyQuestion) => ({
+              questionsId: question.id || "",
+              surveyId: question.surveyId,
+              question: question.question,
+              type: question.type,
+              options: question.options,
+              deleteQuestion: false,
+            })) || [],
         }}
         onSubmit={(
           values: SurveyProps,
@@ -101,7 +116,6 @@ const EditSurvey = () => {
               <FieldArray name="questions">
                 {({ remove, push, form }) => {
                   const { values, setFieldValue } = form;
-                  console.log(values);
                   return (
                     <VStack alignItems={"start"} spacing={3}>
                       {values.questions.map(
