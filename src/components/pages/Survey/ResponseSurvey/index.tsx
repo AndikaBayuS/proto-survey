@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Box, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, Image, Text, VStack } from "@chakra-ui/react";
 import { Fragment } from "react";
 import useSWR from "swr";
 
@@ -66,7 +66,10 @@ const ResponseSurvey = () => {
         </Fragment>
       ))
     ) : (
-      <Text>Belum ada respon</Text>
+      <Center flexDirection={"column"} gap={5}>
+        <Image boxSize="300px" src="/images/empty-response.svg" alt="Empty" />
+        <Text fontSize={"lg"}>Belum ada respon</Text>
+      </Center>
     );
   })();
 
