@@ -58,10 +58,14 @@ const AnswerSurvey = () => {
     onOpen: successOnOpen,
     onClose: successOnClose,
   } = useDisclosure();
-  const { data, error } = useSWR<AnswerSurvey>(`/api/survey/${id}`, fetcher);
+  const { data, error, isLoading } = useSWR<AnswerSurvey>(
+    `/api/survey/${id}`,
+    fetcher
+  );
 
-  if (!data?.questions.length) return <div>Loading...</div>;
-  if (error) return <div>Failed to load</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error?.status == 403) return <div>Gabisa Ngisi Punya Sendiri</div>;
+  if (error?.status == 404) return <div>Survey Tidak Ditemukan</div>;
 
   const submitAnswer = async (values: AnswerValues[]) => {
     try {
@@ -98,14 +102,15 @@ const AnswerSurvey = () => {
       <Box bgColor={"white"} p={5} rounded={"lg"} w={"full"}>
         <Formik
           initialValues={{
-            questions: data?.questions.map((question: SurveyQuestion) => ({
-              questionsId: question.id || "",
-              surveyId: question.surveyId,
-              question: question.question,
-              type: question.type,
-              options: question.options,
-              answer: "",
-            })),
+            questions:
+              data?.questions.map((question: SurveyQuestion) => ({
+                questionsId: question.id || "",
+                surveyId: question.surveyId,
+                question: question.question,
+                type: question.type,
+                options: question.options,
+                answer: "",
+              })) || [],
           }}
           onSubmit={(values) => {
             setIsSubmitting(true);
@@ -177,7 +182,7 @@ const AnswerSurvey = () => {
               description="Terimakasih telah mengisi survei ini."
               isOpen={successIsOpen}
               onClose={successOnClose}
-              points={countPoints(data?.questions)}
+              points={countPoints(data?.questions || [])}
             />
           </Fragment>
         </Formik>
