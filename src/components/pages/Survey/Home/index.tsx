@@ -3,6 +3,7 @@ import { Prisma } from "@prisma/client";
 import useSWR from "swr";
 
 import Card from "@/src/components/common/Card";
+import Skeleton from "@/src/components/common/Skeleton";
 import fetcher from "@/src/lib/fetcher";
 
 interface Survey {
@@ -20,7 +21,7 @@ const Home = () => {
     revalidateOnMount: true,
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Skeleton />;
   if (error) return <div>Error</div>;
 
   return (

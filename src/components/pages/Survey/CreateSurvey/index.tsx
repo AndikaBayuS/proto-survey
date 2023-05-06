@@ -80,6 +80,7 @@ const CreateSurvey = () => {
         initialValues={{
           title: "",
           description: "",
+          isAnonymous: false,
           questions: [{ question: "", type: "text" }],
         }}
         onSubmit={async (values: CreateValues) => {
@@ -178,7 +179,7 @@ const CreateSurvey = () => {
                 Batal
               </Button>
               <Button
-                colorScheme={"telegram"}
+                colorScheme="messenger"
                 disabled={areFieldsEmpty(values)}
                 size={"md"}
                 onClick={onOpen}

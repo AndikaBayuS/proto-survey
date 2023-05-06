@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import {
   Box,
   Button,
+  Center,
   FormControl,
   FormLabel,
   HStack,
@@ -13,9 +14,11 @@ import { Field, FieldArray, Form, Formik } from "formik";
 import { Fragment, useState } from "react";
 import useSWR from "swr";
 
+import Skeleton from "@/src/components/common/Skeleton";
 import SubmitAlert from "@/src/components/common/SubmitAlert";
 import SuccessAlert from "@/src/components/common/SuccessAlert";
 import ViewOption from "@/src/components/forms/ViewOption";
+import PageNotFound from "@/src/components/pages/Error/PageNotFound";
 import { SurveyQuestion } from "@/src/global/interfaces";
 import fetcher from "@/src/lib/fetcher";
 import { countPoints } from "@/src/utils/gamification";
@@ -63,9 +66,17 @@ const AnswerSurvey = () => {
     fetcher
   );
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error?.status == 403) return <div>Gabisa Ngisi Punya Sendiri</div>;
-  if (error?.status == 404) return <div>Survey Tidak Ditemukan</div>;
+  if (isLoading) return <Skeleton />;
+  if (error?.status == 403)
+    return (
+      <Center flexDir={"column"} gap={2} mt={50}>
+        <Text fontSize={"2xl"} fontWeight={"semibold"}>
+          Aksi Tidak Diijinkan
+        </Text>
+        <Text>Anda tidak bisa mengisi survei yang anda buat</Text>
+      </Center>
+    );
+  if (error?.status == 404) return <PageNotFound />;
 
   const submitAnswer = async (values: AnswerValues[]) => {
     try {
@@ -155,7 +166,7 @@ const AnswerSurvey = () => {
                       </Button>
                       <Button
                         size={"md"}
-                        colorScheme={"telegram"}
+                        colorScheme="messenger"
                         isLoading={isSubmitting}
                         disabled={
                           !isFormFullyFilled(

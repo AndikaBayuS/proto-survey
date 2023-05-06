@@ -8,7 +8,6 @@ import {
   FormLabel,
   HStack,
   IconButton,
-  Image,
   Input,
   Text,
   Textarea,
@@ -53,12 +52,11 @@ const EditSurvey = () => {
 
   return data?.responses.length ? (
     <Center flexDirection={"column"} gap={5}>
-      <Image boxSize="300px" src="/images/not-allowed.svg" alt="Warning" />
       <Text fontSize={"lg"}>
         Anda tidak bisa mengubah survei ini karena sudah ada responden yang
         mengisi survei anda!
       </Text>
-      <Button colorScheme={"blue"} onClick={() => router.push("/profile")}>
+      <Button colorScheme="messenger" onClick={() => router.push("/profile")}>
         Kembali
       </Button>
     </Center>
@@ -184,7 +182,7 @@ const EditSurvey = () => {
             >
               Batal
             </Button>
-            <Button type="submit" colorScheme={"telegram"} size={"md"}>
+            <Button type="submit" colorScheme="messenger" size={"md"}>
               Perbarui Survei
             </Button>
           </HStack>

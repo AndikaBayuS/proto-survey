@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { User } from "@prisma/client";
 import useSWR from "swr";
 
+import Skeleton from "@/src/components/common/Skeleton";
 import fetcher from "@/src/lib/fetcher";
 
 import UserCard from "../UserCard";
@@ -20,7 +21,7 @@ const Home = () => {
     "/api/leaderboard",
     fetcher
   );
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Skeleton />;
   if (error) return <div>Error</div>;
 
   return (

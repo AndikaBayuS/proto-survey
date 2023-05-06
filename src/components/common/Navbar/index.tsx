@@ -73,7 +73,7 @@ const Navbar = () => {
           <NextLink href="/">
             <Box p={2} rounded="md" _hover={{ backgroundColor: "blue.50" }}>
               <Text fontSize={"xl"} fontWeight={"semibold"} cursor={"pointer"}>
-                <Text as={"span"} color="telegram.500">
+                <Text as={"span"} color="messenger.500">
                   Proto
                 </Text>
                 Survey
@@ -85,7 +85,7 @@ const Navbar = () => {
               key={item.name}
               _hover={{
                 textDecoration: "none",
-                color: "telegram.500",
+                color: "messenger.500",
                 backgroundColor: "blue.50",
               }}
               p={2}
@@ -110,12 +110,12 @@ const Navbar = () => {
             border={"1px solid #EDF2F7"}
             transition={"all 0.2s ease-in-out"}
             _hover={{
-              borderColor: "blue.500",
+              borderColor: "messenger.500",
             }}
           >
             {showCreateButton && (
               <Button
-                colorScheme={"blue"}
+                colorScheme="messenger"
                 onClick={() => router.push("/survey/create")}
               >
                 Buat Survei
@@ -143,7 +143,7 @@ const Navbar = () => {
           </HStack>
         ) : (
           <Button
-            colorScheme="telegram"
+            colorScheme="messenger"
             display={{ base: "none", md: "inline-flex" }}
             size={"md"}
             onClick={() =>
@@ -195,7 +195,7 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
             </HStack>
           ) : (
             <Button
-              colorScheme="telegram"
+              colorScheme="messenger"
               size={"md"}
               width={"full"}
               onClick={() =>

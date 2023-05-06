@@ -37,7 +37,7 @@ const SuccessAlert = ({ isOpen, onClose, points, description }: SuccessAlert) =>
             <b>{points}</b> Poin!.
           </AlertDialogBody>
           <AlertDialogFooter>
-            <Button colorScheme={"blue"} onClick={() => router.push("/")}>
+            <Button colorScheme="messenger" onClick={() => router.push("/")}>
               Kembali
             </Button>
           </AlertDialogFooter>

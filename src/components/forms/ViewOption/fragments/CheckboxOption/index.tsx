@@ -4,7 +4,7 @@ import { FormComponentProps } from "@/src/global/interfaces";
 
 const CheckboxOption = ({ options, fieldProps }: FormComponentProps) => {
   return (
-    <CheckboxGroup colorScheme="blue">
+    <CheckboxGroup colorScheme="messenger">
       <VStack alignItems={"start"}>
         {options.map((option) => (
           <Checkbox

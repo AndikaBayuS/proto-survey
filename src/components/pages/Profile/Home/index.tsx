@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import useSWR from "swr";
 
 import { gamificationState } from "@/src/atoms/gamification";
+import Skeleton from "@/src/components/common/Skeleton";
 import fetcher from "@/src/lib/fetcher";
 
 import ProfileCard from "../ProfileCard";
@@ -20,7 +21,7 @@ const Profile = () => {
   const { gamification } = useRecoilValue(gamificationState);
   const { data, error, isLoading } = useSWR<Profile>("/api/profile", fetcher);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Skeleton />;
   if (error) return <div>Error</div>;
 
   return (

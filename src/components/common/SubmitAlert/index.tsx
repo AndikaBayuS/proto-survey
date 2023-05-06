@@ -44,7 +44,7 @@ const SubmitAlert = ({
             <Button ref={cancelRef} onClick={onClose}>
               Batal
             </Button>
-            <Button colorScheme="blue" onClick={submitForm} ml={3}>
+            <Button colorScheme="messenger" onClick={submitForm} ml={3}>
               {btnSubmitText}
             </Button>
           </AlertDialogFooter>

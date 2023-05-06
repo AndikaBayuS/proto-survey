@@ -23,7 +23,7 @@ const Card: React.FC<CardProps> = ({
         border={"1px solid #E2E8F0"}
         transition={"all 0.2s ease-in-out"}
         _hover={{
-          borderColor: "blue.500",
+          borderColor: "messenger.500",
         }}
       >
         <VStack spacing={3.5} alignItems={"start"}>
@@ -39,12 +39,12 @@ const Card: React.FC<CardProps> = ({
           </HStack>
 
           <HStack spacing={0.1}>
-            <Text color={"blue.500"} fontWeight={"semibold"}>
+            <Text color={"messenger.500"} fontWeight={"semibold"}>
               Lihat Survei
             </Text>
             <ChevronRightIcon
               pt={1}
-              color={"blue.500"}
+              color={"messenger.500"}
               fontWeight={"semibold"}
               fontSize={"xl"}
             />

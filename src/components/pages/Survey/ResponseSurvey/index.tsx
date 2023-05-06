@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
-import { Box, Center, Image, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, Text, VStack } from "@chakra-ui/react";
 import { Fragment } from "react";
 import useSWR from "swr";
 
 import BarChart from "@/src/components/common/BarChart";
 import PieChart from "@/src/components/common/PieChart";
+import Skeleton from "@/src/components/common/Skeleton";
 import fetcher from "@/src/lib/fetcher";
 
 import TextResponse from "./fragments/TextResponse";
@@ -34,7 +35,7 @@ const ResponseSurvey = () => {
     fetcher
   );
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Skeleton />;
   if (error) router.push("/404");
 
   const renderChart = (
@@ -66,9 +67,11 @@ const ResponseSurvey = () => {
         </Fragment>
       ))
     ) : (
-      <Center flexDirection={"column"} gap={5}>
-        <Image boxSize="300px" src="/images/empty-response.svg" alt="Empty" />
-        <Text fontSize={"lg"}>Belum ada respon</Text>
+      <Center flexDir={"column"} gap={2} mt={50}>
+        <Text fontSize={"2xl"} fontWeight={"semibold"}>
+          Belum Ada Respon
+        </Text>
+        <Text>Jawaban dari responden akan ditampilkan di sini</Text>
       </Center>
     );
   })();
