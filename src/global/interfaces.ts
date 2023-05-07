@@ -76,6 +76,7 @@ export interface SurveyQuestion {
 export interface CreateValues {
   title: string;
   description: string;
+  surveyMode: string;
   questions: [
     { question: string; type: string; options?: { id: string; value: string }[] }
   ];

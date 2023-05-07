@@ -9,12 +9,13 @@ import {
   IconButton,
   Input,
   Select,
+  Text,
   Textarea,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { Field, FieldArray, Form, Formik, FormikProps } from "formik";
-import { ChangeEvent } from "react";
+import { ChangeEvent, Fragment } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import SubmitAlert from "@/src/components/common/SubmitAlert";
@@ -24,6 +25,9 @@ import { CreateValues, QuestionValues } from "@/src/global/interfaces";
 import { createSurvey } from "@/src/utils/fetch";
 import { countPoints } from "@/src/utils/gamification";
 import { handleEnterKey } from "@/src/utils/helper";
+
+import RadioCard from "../AnswerSurvey/fragments/RadioCard";
+import RadioGroup from "../AnswerSurvey/fragments/RadioGroup";
 
 import { buttonAttributes } from "./constants";
 
@@ -74,13 +78,18 @@ const CreateSurvey = () => {
     return false;
   };
 
+  const SURVEY_MODE = [
+    { name: "Normal", value: "normal" },
+    { name: "Anonim", value: "anonim" },
+  ];
+
   return (
     <Box bgColor={"white"} rounded={"lg"} p={5}>
       <Formik
         initialValues={{
           title: "",
           description: "",
-          isAnonymous: false,
+          surveyMode: "normal",
           questions: [{ question: "", type: "text" }],
         }}
         onSubmit={async (values: CreateValues) => {
@@ -113,6 +122,38 @@ const CreateSurvey = () => {
                 />
               </FormControl>
 
+              <Box w="full" bgColor={"messenger.50"} rounded={"md"} p={5}>
+                {values.surveyMode === "anonim" ? (
+                  <Fragment>
+                    <Text fontWeight={"semibold"}>Mode Anonimus</Text>
+                    <Text>
+                      Ketika survey ini berada dalam mode anonimus, maka data
+                      dari responden tidak akan ditampilkan untuk melindungi
+                      privasi mereka.
+                    </Text>
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <Text fontWeight={"semibold"}>Mode Normal</Text>
+                    <Text>
+                      Ketika survey berada dalam mode normal, maka data dari
+                      responden akan ditampilkan secara terbuka, sehingga
+                      identitas mereka dapat diketahui.
+                    </Text>
+                  </Fragment>
+                )}
+              </Box>
+
+              <RadioGroup
+                name="surveyMode"
+                py={2}
+                display="flex"
+                gridColumnGap={2}
+              >
+                {SURVEY_MODE.map(({ name, value }) => {
+                  return <RadioCard key={name} value={value} label={name} />;
+                })}
+              </RadioGroup>
               <Box w="full">
                 <FieldArray name="questions">
                   {({ remove, push, form }) => {
