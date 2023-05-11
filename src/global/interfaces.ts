@@ -17,6 +17,7 @@ export interface CardProps {
   ownerImage: Prisma.JsonValue | undefined;
   title: string;
   description: string;
+  surveyMode: string
 }
 
 export interface SigninProps {
@@ -77,6 +78,7 @@ export interface CreateValues {
   title: string;
   description: string;
   surveyMode: string;
+  terms?: string | null;
   questions: [
     { question: string; type: string; options?: { id: string; value: string }[] }
   ];

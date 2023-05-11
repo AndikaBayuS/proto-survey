@@ -18,3 +18,8 @@ export const buttonAttributes = [
     options: defaultOption,
   },
 ];
+
+export const SURVEY_MODE = [
+  { name: "Normal", value: "normal" },
+  { name: "Anonim", value: "anonim" },
+];

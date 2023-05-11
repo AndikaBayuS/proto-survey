@@ -10,6 +10,7 @@ interface Survey {
   id: string;
   title: string;
   description: string;
+  surveyMode: string;
   owner: {
     name: string;
     image: string;
@@ -36,6 +37,7 @@ const Home = () => {
             ownerImage={owner.image}
             title={survey.title}
             description={survey.description}
+            surveyMode={survey.surveyMode}
           />
         );
       })}

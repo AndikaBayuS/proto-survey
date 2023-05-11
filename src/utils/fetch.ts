@@ -5,10 +5,12 @@ import { CreateValues, SurveyProps } from "@/src/global/interfaces";
 export const createSurvey = async ({
   title,
   description,
+  surveyMode,
+  terms,
   questions,
 }: CreateValues) => {
   try {
-    const body = { title, description, questions };
+    const body = { title, description, surveyMode, terms, questions };
     await fetch("/api/survey/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

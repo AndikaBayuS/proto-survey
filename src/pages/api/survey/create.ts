@@ -11,7 +11,7 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { title, description, questions } = req.body;
+  const { title, description, surveyMode, terms, questions } = req.body;
   const points = countPoints(questions);
   const session = await getSession({ req });
   const userId = await getUserId(String(session?.user?.email));
@@ -27,6 +27,8 @@ export default async function handle(
       ownerId: String(userId),
       owner: ownerData,
       description,
+      surveyMode,
+      terms,
       questions: {
         create: questions,
       },

@@ -1,7 +1,16 @@
 import Link from "next/link";
 import { ChevronRightIcon } from "@chakra-ui/icons";
-import { Avatar, Box, HStack, Text, VStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Circle,
+  Flex,
+  HStack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 
+import IncognitoIcon from "@/src/components/icons/IncognitoIcon";
 import { CardProps } from "@/src/global/interfaces";
 
 const Card: React.FC<CardProps> = ({
@@ -10,6 +19,7 @@ const Card: React.FC<CardProps> = ({
   ownerImage,
   title,
   description,
+  surveyMode,
 }) => {
   return (
     <Link href={`/survey/${surveyId}`}>
@@ -27,9 +37,16 @@ const Card: React.FC<CardProps> = ({
         }}
       >
         <VStack spacing={3.5} alignItems={"start"}>
-          <Text size={"sm"} fontWeight={"semibold"} noOfLines={1}>
-            {title}
-          </Text>
+          <Flex justifyContent={"space-between"} w={"full"}>
+            <Text size={"sm"} fontWeight={"semibold"} noOfLines={1}>
+              {title}
+            </Text>
+            {surveyMode === "anonim" && (
+              <Circle size={"25px"} bg={"messenger.50"} p={1}>
+                <IncognitoIcon />
+              </Circle>
+            )}
+          </Flex>
           <Text noOfLines={2}>{description}</Text>
           <HStack>
             <Avatar size={"xs"} src={String(ownerImage)} />

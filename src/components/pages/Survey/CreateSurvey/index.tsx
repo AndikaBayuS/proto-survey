@@ -14,9 +14,8 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { Field, FieldArray, Form, Formik, FormikProps } from "formik";
-import { ChangeEvent, Fragment } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { Field, FieldArray, Form, Formik } from "formik";
+import { Fragment } from "react";
 
 import SubmitAlert from "@/src/components/common/SubmitAlert";
 import SuccessAlert from "@/src/components/common/SuccessAlert";
@@ -26,10 +25,10 @@ import { createSurvey } from "@/src/utils/fetch";
 import { countPoints } from "@/src/utils/gamification";
 import { handleEnterKey } from "@/src/utils/helper";
 
-import RadioCard from "../AnswerSurvey/fragments/RadioCard";
-import RadioGroup from "../AnswerSurvey/fragments/RadioGroup";
-
-import { buttonAttributes } from "./constants";
+import RadioCard from "./fragments/RadioCard";
+import RadioGroup from "./fragments/RadioGroup";
+import { areFieldsEmpty, handleQuestionTypeChange } from "./actions";
+import { buttonAttributes, SURVEY_MODE } from "./constants";
 
 const CreateSurvey = () => {
   const router = useRouter();
@@ -40,49 +39,6 @@ const CreateSurvey = () => {
     onClose: successOnClose,
   } = useDisclosure();
 
-  const handleQuestionTypeChange = (
-    event: ChangeEvent<HTMLSelectElement>,
-    index: number,
-    form: FormikProps<CreateValues>
-  ) => {
-    const selectedType = event.target.value;
-    form.setFieldValue(`questions[${index}].type`, selectedType);
-
-    if (selectedType === "radio" || selectedType === "checkbox") {
-      form.setFieldValue(`questions[${index}].options`, [
-        { id: uuidv4(), value: "" },
-        { id: uuidv4(), value: "" },
-      ]);
-    } else {
-      form.setFieldValue(`questions[${index}].options`, undefined);
-    }
-  };
-
-  const areFieldsEmpty = (values: CreateValues) => {
-    if (!values.title || !values.description) {
-      return true;
-    }
-
-    for (const question of values.questions) {
-      if (!question.question) {
-        return true;
-      }
-
-      if (question.options && question.options.length > 0) {
-        for (const option of question.options) {
-          if (!option.value.trim()) return true;
-        }
-      }
-    }
-
-    return false;
-  };
-
-  const SURVEY_MODE = [
-    { name: "Normal", value: "normal" },
-    { name: "Anonim", value: "anonim" },
-  ];
-
   return (
     <Box bgColor={"white"} rounded={"lg"} p={5}>
       <Formik
@@ -90,6 +46,7 @@ const CreateSurvey = () => {
           title: "",
           description: "",
           surveyMode: "normal",
+          terms: null,
           questions: [{ question: "", type: "text" }],
         }}
         onSubmit={async (values: CreateValues) => {
@@ -123,27 +80,19 @@ const CreateSurvey = () => {
               </FormControl>
 
               <Box w="full" bgColor={"messenger.50"} rounded={"md"} p={5}>
-                {values.surveyMode === "anonim" ? (
-                  <Fragment>
-                    <Text fontWeight={"semibold"}>Mode Anonimus</Text>
-                    <Text>
-                      Ketika survey ini berada dalam mode anonimus, maka data
-                      dari responden tidak akan ditampilkan untuk melindungi
-                      privasi mereka.
-                    </Text>
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <Text fontWeight={"semibold"}>Mode Normal</Text>
-                    <Text>
-                      Ketika survey berada dalam mode normal, maka data dari
-                      responden akan ditampilkan secara terbuka, sehingga
-                      identitas mereka dapat diketahui.
-                    </Text>
-                  </Fragment>
-                )}
+                <Fragment>
+                  <Text fontWeight={"semibold"}>
+                    {values.surveyMode === "anonim"
+                      ? "Mode Anonim"
+                      : "Mode Normal"}
+                  </Text>
+                  <Text>
+                    {values.surveyMode === "anonim"
+                      ? "Ketika survey ini berada dalam mode anonim, maka data dari responden tidak akan ditampilkan untuk melindungi privasi mereka."
+                      : "Ketika survey berada dalam mode normal, maka data dari responden akan ditampilkan secara terbuka, sehingga identitas mereka dapat diketahui."}
+                  </Text>
+                </Fragment>
               </Box>
-
               <RadioGroup
                 name="surveyMode"
                 py={2}
@@ -154,6 +103,20 @@ const CreateSurvey = () => {
                   return <RadioCard key={name} value={value} label={name} />;
                 })}
               </RadioGroup>
+
+              {values.surveyMode === "anonim" && (
+                <FormControl>
+                  <FormLabel htmlFor="terms">Persetujuan</FormLabel>
+                  <Field
+                    as={Textarea}
+                    id="terms"
+                    name="terms"
+                    placeholder="Masukkan persetujuan"
+                    variant="filled"
+                  />
+                </FormControl>
+              )}
+
               <Box w="full">
                 <FieldArray name="questions">
                   {({ remove, push, form }) => {
