@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
 import {
   Alert,
+  AlertDescription,
   AlertIcon,
+  AlertTitle,
   Box,
   Button,
   Center,
@@ -131,21 +133,44 @@ const AnswerSurvey = () => {
 
       {data?.survey.surveyMode === "anonim" && (
         <Box bgColor={"white"} p={3} rounded={"md"}>
+          <Text fontWeight={"semibold"}>Persetujuan Responden</Text>
           <Box
             maxH={"12rem"}
             overflowX={"auto"}
             w={"full"}
             bgColor={"messenger.50"}
             p={5}
+            mt={3}
             rounded={"md"}
           >
-            <Text fontWeight={"semibold"}>Persetujuan Responden</Text>
             <Text>{data?.survey.terms}</Text>
           </Box>
           <Checkbox mt={3} onChange={() => setAcceptTerms(!acceptTerms)}>
             Saya Setuju
           </Checkbox>
         </Box>
+      )}
+
+      {!acceptTerms && (
+        <Alert
+          status={"info"}
+          variant={"subtle"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          textAlign={"center"}
+          height={"15rem"}
+          rounded={"md"}
+        >
+          <AlertIcon boxSize="40px" mr={0} />
+          <AlertTitle mt={4} mb={1} fontSize="lg">
+            Informasi
+          </AlertTitle>
+          <AlertDescription maxWidth="sm">
+            Pertanyaan survei akan muncul ketika anda setuju dengan{" "}
+            <b>Persetujuan Responden</b>
+          </AlertDescription>
+        </Alert>
       )}
 
       {acceptTerms && (

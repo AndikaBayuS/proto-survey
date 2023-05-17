@@ -67,6 +67,8 @@ model Surveys {
   title       String
   description String
   surveyMode  String
+  category    String[]
+  subCategory String[]
   terms       String?
   createdAt   DateTime    @default(now()) @db.Timestamp(3)
   updatedAt   DateTime    @updatedAt
@@ -89,7 +91,6 @@ model Response {
   id            String     @id @default(cuid())
   answer        String[]
   type          String
-  options       Json?
   question      String
   participantId String
   surveyId      String
@@ -105,5 +106,6 @@ model Gamification {
   level     Int    @default(1)
   points    Int    @default(0)
   maxPoints Int    @default(1000)
+  minPoints Int    @default(0)
   user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -39,7 +39,9 @@ export const addMaxPoints = async (id: string) => {
       maxPoints: {
         increment: 1000,
       },
-      points: 0,
+      minPoints: {
+        increment: 1000,
+      },
     },
   });
 

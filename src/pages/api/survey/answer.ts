@@ -19,11 +19,13 @@ export default async function handle(
   const session = await getSession({ req });
   const userId = await getUserId(String(session?.user?.email));
   const surveys = await prisma.response.createMany({
-    data: [...questions].map((question) => ({
-      ...question,
-      participantId: userId,
-      options: question.options || undefined,
-    })),
+    data: [...questions].map((question) => {
+      const { options, ...rest } = question;
+      return {
+        ...rest,
+        participantId: userId,
+      };
+    }),
   });
   await addExperience(String(userId), points);
 

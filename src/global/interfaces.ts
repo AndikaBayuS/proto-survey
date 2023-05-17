@@ -79,6 +79,8 @@ export interface CreateValues {
   description: string;
   surveyMode: string;
   terms?: string | null;
+  surveyCategory: string[] | null;
+  surveySubCategory: string[] | null;
   questions: [
     { question: string; type: string; options?: { id: string; value: string }[] }
   ];

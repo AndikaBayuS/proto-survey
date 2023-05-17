@@ -23,3 +23,13 @@ export const SURVEY_MODE = [
   { name: "Normal", value: "normal" },
   { name: "Anonim", value: "anonim" },
 ];
+
+export const SURVEY_CATEGORY = [
+  { name: "Pendidikan", value: "pendidikan", color: "gray" },
+  { name: "Kesehatan", value: "kesehatan", color: "red" },
+  { name: "Pariwisata", value: "pariwisata", color: "orange" },
+  { name: "Pertanian", value: "pertanian", color: "yellow" },
+  { name: "Teknologi", value: "teknologi", color: "green" },
+];
+
+export const SURVEY_SUBCATEGORY = [];
