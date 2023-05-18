@@ -1,4 +1,12 @@
-import { Badge, Box, HStack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  HStack,
+  Tag,
+  TagCloseButton,
+  TagLabel,
+  Text,
+} from "@chakra-ui/react";
 
 import { SURVEY_CATEGORY } from "../../constants";
 
@@ -17,45 +25,49 @@ const CategoryField = ({ setFieldValue, surveyCategory }: any) => {
   return (
     <Box w={"full"}>
       <Text fontWeight={"semibold"}>Kategori</Text>
-      <Box bgColor={"gray.100"} w={"full"} p={2} rounded={"md"}>
-        {surveyCategory.length === 0 && (
-          <Text color={"gray.500"}>Belum ada kategori yang dipilih</Text>
-        )}
-        {surveyCategory.map((item: any) => (
-          <Badge
-            key={item}
-            colorScheme={"messenger"}
-            cursor={"pointer"}
-            rounded={"md"}
-            p={1}
-            mr={1}
-            onClick={() => handleRemoveCategory(item)}
-          >
-            {item}
-          </Badge>
-        ))}
-      </Box>
-      <HStack mt={2}>
-        {SURVEY_CATEGORY.map(({ name, value, color }) => {
-          const isCategorySelected = surveyCategory.includes(value);
-          if (isCategorySelected) {
-            return null; // Hide the selected category
-          }
-
-          return (
-            <Badge
-              key={name}
-              colorScheme={color}
-              rounded={"md"}
-              p={1}
+      <Box></Box>
+      <Box bgColor={"gray.100"} w={"full"} p={2} rounded={"md"} mt={3}>
+        <Box>
+          {surveyCategory.length === 0 && (
+            <Text color={"gray.500"}>Belum ada kategori yang dipilih</Text>
+          )}
+          {surveyCategory.map((item: any) => (
+            <Tag
+              key={item}
+              colorScheme={"messenger"}
               cursor={"pointer"}
-              onClick={() => handleSelectedCategory(value)}
+              borderRadius={"full"}
+              mr={1}
+              size={"md"}
+              variant={"subtle"}
             >
-              {name}
-            </Badge>
-          );
-        })}
-      </HStack>
+              <TagLabel textTransform={"capitalize"}>{item}</TagLabel>
+              <TagCloseButton onClick={() => handleRemoveCategory(item)} />
+            </Tag>
+          ))}
+        </Box>
+        <Divider borderColor={"blackAlpha.500"} my={3} variant={"dashed"} />
+        <HStack mt={2}>
+          {SURVEY_CATEGORY.map(({ name, value, color }) => {
+            const isCategorySelected = surveyCategory.includes(value);
+            if (isCategorySelected) {
+              return null;
+            }
+
+            return (
+              <Tag
+                key={name}
+                colorScheme={color}
+                borderRadius={"full"}
+                cursor={"pointer"}
+                onClick={() => handleSelectedCategory(value)}
+              >
+                <TagLabel>{name}</TagLabel>
+              </Tag>
+            );
+          })}
+        </HStack>
+      </Box>
     </Box>
   );
 };
