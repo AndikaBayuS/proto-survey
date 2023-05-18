@@ -26,7 +26,7 @@ const CategoryField = ({ setFieldValue, surveyCategory }: any) => {
     <Box w={"full"}>
       <Text fontWeight={"semibold"}>Kategori</Text>
       <Box></Box>
-      <Box bgColor={"gray.100"} w={"full"} p={2} rounded={"md"} mt={3}>
+      <Box bgColor={"gray.100"} mt={3} p={2} rounded={"md"} w={"full"}>
         <Box>
           {surveyCategory.length === 0 && (
             <Text color={"gray.500"}>Belum ada kategori yang dipilih</Text>
@@ -34,9 +34,9 @@ const CategoryField = ({ setFieldValue, surveyCategory }: any) => {
           {surveyCategory.map((item: any) => (
             <Tag
               key={item}
+              borderRadius={"full"}
               colorScheme={"messenger"}
               cursor={"pointer"}
-              borderRadius={"full"}
               mr={1}
               size={"md"}
               variant={"subtle"}
@@ -57,8 +57,8 @@ const CategoryField = ({ setFieldValue, surveyCategory }: any) => {
             return (
               <Tag
                 key={name}
-                colorScheme={color}
                 borderRadius={"full"}
+                colorScheme={color}
                 cursor={"pointer"}
                 onClick={() => handleSelectedCategory(value)}
               >

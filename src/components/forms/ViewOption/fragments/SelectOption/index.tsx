@@ -5,10 +5,10 @@ import { FormComponentProps } from "@/src/global/interfaces";
 const SelectOption = ({ options, fieldProps }: FormComponentProps) => {
   return (
     <Select
-      placeholder="Pilih Jawaban"
       name={fieldProps.name}
-      onChange={fieldProps.onChange}
+      placeholder="Pilih Jawaban"
       onBlur={fieldProps.onBlur}
+      onChange={fieldProps.onChange}
     >
       {options.map((option) => (
         <option key={option.id} value={option.value}>

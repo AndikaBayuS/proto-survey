@@ -46,9 +46,9 @@ const ResponseSurvey = () => {
   ) => {
     switch (type) {
       case "radio":
-        return <PieChart labels={labels} data={data} title={title} />;
+        return <PieChart data={data} labels={labels} title={title} />;
       case "checkbox":
-        return <BarChart labels={labels} data={data} title={title} />;
+        return <BarChart data={data} labels={labels} title={title} />;
       default:
         return <TextResponse labels={labels} title={title} />;
     }

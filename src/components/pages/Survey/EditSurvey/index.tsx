@@ -64,7 +64,7 @@ const EditSurvey = () => {
       </Button>
     </Center>
   ) : (
-    <Box bgColor={"white"} rounded={"lg"} p={5}>
+    <Box bgColor={"white"} p={5} rounded={"lg"}>
       <Formik
         initialValues={{
           title: data?.survey?.title,
@@ -143,19 +143,19 @@ const EditSurvey = () => {
                                 </FormLabel>
                                 <HStack w={"full"}>
                                   <CreateQuestion
-                                    type={_question.type}
                                     name={`questions[${index}].question`}
                                     options={_question.options}
                                     setFieldValue={setFieldValue}
                                     target={`questions[${index}].options`}
+                                    type={_question.type}
                                   />
                                   <IconButton
-                                    icon={<CloseIcon />}
                                     aria-label="Hapus Pertanyaan"
                                     colorScheme={"red"}
-                                    variant={"outline"}
-                                    size={"sm"}
                                     disabled={index === 0}
+                                    icon={<CloseIcon />}
+                                    size={"sm"}
+                                    variant={"outline"}
                                     onClick={() =>
                                       handleDeleteQuestion(
                                         values,
@@ -192,16 +192,16 @@ const EditSurvey = () => {
                 </Box>
               </VStack>
 
-              <HStack marginTop={10} justifyContent={"end"}>
+              <HStack justifyContent={"end"} marginTop={10}>
                 <Button
                   colorScheme={"red"}
-                  variant={"outline"}
                   size={"md"}
+                  variant={"outline"}
                   onClick={() => router.push("/")}
                 >
                   Batal
                 </Button>
-                <Button type="submit" colorScheme="messenger" size={"md"}>
+                <Button colorScheme="messenger" size={"md"} type="submit">
                   Perbarui Survei
                 </Button>
               </HStack>

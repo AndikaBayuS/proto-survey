@@ -10,8 +10,8 @@ const SignIn: React.FC<SigninProps> = ({ providers }) => {
     <Center minHeight={"100vh"}>
       {Object.values(providers).map((provider) => (
         <Button
-          colorScheme={"gray"}
           key={provider.name}
+          colorScheme={"gray"}
           onClick={() =>
             signIn(provider.id, {
               callbackUrl: "http://localhost:3000/",

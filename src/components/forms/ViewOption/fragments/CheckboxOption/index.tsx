@@ -9,10 +9,10 @@ const CheckboxOption = ({ options, fieldProps }: FormComponentProps) => {
         {options.map((option) => (
           <Checkbox
             key={option.id}
-            value={option.value}
             name={fieldProps.name}
-            onChange={fieldProps.onChange}
+            value={option.value}
             onBlur={fieldProps.onBlur}
+            onChange={fieldProps.onChange}
           >
             {option.value}
           </Checkbox>

@@ -23,12 +23,12 @@ const Stats: React.FC<StatsProps> = ({
         <Text fontWeight={"semibold"}>Lv. {level}</Text>
         <Progress
           backgroundColor={"gray.300"}
-          value={experience}
           max={maxPoints}
           min={minPoints}
-          width={"full"}
           rounded={"md"}
           size={"sm"}
+          value={experience}
+          width={"full"}
         />
       </VStack>
     </Box>

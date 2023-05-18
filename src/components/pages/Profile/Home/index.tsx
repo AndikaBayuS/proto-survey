@@ -28,20 +28,20 @@ const Profile = () => {
     <Box>
       <ProfileCard
         image={data?.image!}
-        name={data?.name!}
         level={gamification.level}
+        name={data?.name!}
       />
-      <Box mt={5} p={5} bgColor={"white"} rounded={"md"}>
-        <Text fontWeight={"semibold"} fontSize={"xl"}>
+      <Box bgColor={"white"} mt={5} p={5} rounded={"md"}>
+        <Text fontSize={"xl"} fontWeight={"semibold"}>
           Daftar Survei
         </Text>
-        <SimpleGrid columns={[1, 2, 4]} spacing={4} mt={5}>
+        <SimpleGrid columns={[1, 2, 4]} mt={5} spacing={4}>
           {data?.surveys.map((survey) => (
             <SurveyCard
               key={survey.id}
-              title={survey.title}
               description={survey.description}
               surveyId={survey.id}
+              title={survey.title}
             />
           ))}
         </SimpleGrid>

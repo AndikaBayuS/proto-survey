@@ -4,15 +4,15 @@ const Skeleton = () => {
   return (
     <Center>
       <Flex
-        flexDirection={"column"}
-        justifyContent={"center"}
         alignItems={"center"}
+        flexDirection={"column"}
         gap={5}
+        justifyContent={"center"}
       >
         <Spinner
           color={"messenger.500"}
-          size={"lg"}
           justifyContent={"center"}
+          size={"lg"}
         />
         <Text textAlign={"center"}>Memuat Data</Text>
       </Flex>

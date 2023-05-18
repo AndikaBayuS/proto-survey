@@ -29,9 +29,9 @@ const Home = () => {
       {data?.map((leaderboard, index) => (
         <UserCard
           key={leaderboard.id}
-          user={leaderboard.user}
-          points={leaderboard.points}
           index={index}
+          points={leaderboard.points}
+          user={leaderboard.user}
         />
       ))}
     </Box>

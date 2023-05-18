@@ -32,12 +32,12 @@ const Home = () => {
         return (
           <Card
             key={survey.id}
-            surveyId={survey.id}
-            ownerName={owner.name}
-            ownerImage={owner.image}
-            title={survey.title}
             description={survey.description}
+            ownerImage={owner.image}
+            ownerName={owner.name}
+            surveyId={survey.id}
             surveyMode={survey.surveyMode}
+            title={survey.title}
           />
         );
       })}

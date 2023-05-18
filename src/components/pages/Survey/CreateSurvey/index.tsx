@@ -38,7 +38,7 @@ const CreateSurvey = () => {
   } = useDisclosure();
 
   return (
-    <Box bgColor={"white"} rounded={"lg"} p={5}>
+    <Box bgColor={"white"} p={5} rounded={"lg"}>
       <Formik
         initialValues={{
           title: "",
@@ -102,17 +102,17 @@ const CreateSurvey = () => {
                                 <FormLabel htmlFor={`questions.${index}`}>
                                   Pertanyaan {index + 1}
                                 </FormLabel>
-                                <HStack w={"full"} alignItems={"start"}>
+                                <HStack alignItems={"start"} w={"full"}>
                                   <CreateQuestion
-                                    type={_question.type}
                                     name={`questions[${index}].question`}
                                     options={_question.options}
                                     setFieldValue={form.setFieldValue}
                                     target={`questions[${index}].options`}
+                                    type={_question.type}
                                   />
                                   <Select
-                                    w={"40%"}
                                     value={_question.type}
+                                    w={"40%"}
                                     onChange={(e) =>
                                       handleQuestionTypeChange(e, index, form)
                                     }
@@ -124,11 +124,11 @@ const CreateSurvey = () => {
                                     ))}
                                   </Select>
                                   <IconButton
-                                    icon={<CloseIcon />}
                                     aria-label="Hapus Pertanyaan"
                                     colorScheme={"red"}
-                                    variant={"outline"}
                                     disabled={index === 0}
+                                    icon={<CloseIcon />}
+                                    variant={"outline"}
                                     onClick={() => remove(index)}
                                   />
                                 </HStack>
@@ -147,11 +147,11 @@ const CreateSurvey = () => {
                 </Box>
               </VStack>
 
-              <HStack marginTop={10} justifyContent={"end"}>
+              <HStack justifyContent={"end"} marginTop={10}>
                 <Button
                   colorScheme={"red"}
-                  variant={"outline"}
                   size={"md"}
+                  variant={"outline"}
                   onClick={() => router.push("/")}
                 >
                   Batal
@@ -167,17 +167,17 @@ const CreateSurvey = () => {
               </HStack>
 
               <SubmitAlert
-                title="Buat Survei"
-                description="Apakah anda yakin ingin membuat survei ini? Jika anda setuju, survei akan segera diterbitkan."
                 btnSubmitText="Ya, Buat Survei"
+                description="Apakah anda yakin ingin membuat survei ini? Jika anda setuju, survei akan segera diterbitkan."
                 isOpen={isOpen}
+                title="Buat Survei"
                 onClose={onClose}
               />
               <SuccessAlert
                 description="Survey anda berhasil dibuat!"
                 isOpen={successIsOpen}
-                onClose={successOnClose}
                 points={countPoints(values.questions)}
+                onClose={successOnClose}
               />
             </Form>
           );

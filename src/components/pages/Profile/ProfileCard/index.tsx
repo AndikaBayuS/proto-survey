@@ -11,28 +11,28 @@ const ProfileCard = ({ name, image, level }: ProfileCardProps) => {
     <Box>
       <Box
         position={"relative"}
+        roundedTop={"md"}
         bgGradient={
           "linear(109.6deg,  rgba(45,116,213,1) 11.2%, rgba(121,137,212,1) 91.2%)"
         }
-        roundedTop={"md"}
       >
         <Avatar
-          src={image}
-          name={name}
-          size={"2xl"}
-          top={50}
+          border={"3px solid"}
+          borderColor={"white"}
+          display={"block"}
           ml={["auto", 5]}
           mr={["auto", 0]}
-          border={"3px solid"}
-          display={"block"}
-          borderColor={"white"}
+          name={name}
+          size={"2xl"}
+          src={image}
+          top={50}
         />
       </Box>
       <Box
         backgroundColor={"white"}
-        pt={55}
-        pl={5}
         pb={"5"}
+        pl={5}
+        pt={55}
         roundedBottom={"md"}
       >
         <Text fontSize={"xl"} fontWeight={"semibold"}>

@@ -30,11 +30,11 @@ const SubmitAlert = ({
 
   return (
     <AlertDialog
-      isOpen={isOpen}
-      onClose={onClose}
-      leastDestructiveRef={cancelRef}
       isCentered
       closeOnOverlayClick={false}
+      isOpen={isOpen}
+      leastDestructiveRef={cancelRef}
+      onClose={onClose}
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
@@ -44,7 +44,7 @@ const SubmitAlert = ({
             <Button ref={cancelRef} onClick={onClose}>
               Batal
             </Button>
-            <Button colorScheme="messenger" onClick={submitForm} ml={3}>
+            <Button colorScheme="messenger" ml={3} onClick={submitForm}>
               {btnSubmitText}
             </Button>
           </AlertDialogFooter>

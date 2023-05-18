@@ -20,11 +20,11 @@ const DeleteAlert = ({ isOpen, onClose, handleDelete }: DeleteAlert) => {
 
   return (
     <AlertDialog
-      isOpen={isOpen}
-      onClose={onClose}
-      leastDestructiveRef={cancelRef}
       isCentered
       closeOnOverlayClick={false}
+      isOpen={isOpen}
+      leastDestructiveRef={cancelRef}
+      onClose={onClose}
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
@@ -36,7 +36,7 @@ const DeleteAlert = ({ isOpen, onClose, handleDelete }: DeleteAlert) => {
             <Button ref={cancelRef} onClick={onClose}>
               Batal
             </Button>
-            <Button colorScheme="red" onClick={handleDelete} ml={3}>
+            <Button colorScheme="red" ml={3} onClick={handleDelete}>
               Ya, Hapus
             </Button>
           </AlertDialogFooter>

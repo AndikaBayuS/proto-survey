@@ -64,15 +64,15 @@ const Navbar = () => {
   return (
     <Box bgColor={"white"} width={"full"}>
       <Flex
-        justifyContent={"space-between"}
         alignItems={"center"}
         height={20}
+        justifyContent={"space-between"}
         px={{ base: 4, md: 8, lg: 16 }}
       >
-        <HStack spacing={4} alignItems={"center"}>
+        <HStack alignItems={"center"} spacing={4}>
           <NextLink href="/">
-            <Box p={2} rounded="md" _hover={{ backgroundColor: "blue.50" }}>
-              <Text fontSize={"xl"} fontWeight={"semibold"} cursor={"pointer"}>
+            <Box _hover={{ backgroundColor: "blue.50" }} p={2} rounded="md">
+              <Text cursor={"pointer"} fontSize={"xl"} fontWeight={"semibold"}>
                 <Text as={"span"} color="messenger.500">
                   Proto
                 </Text>
@@ -83,16 +83,16 @@ const Navbar = () => {
           {navigationItem.map((item) => (
             <Button
               key={item.name}
+              display={{ base: "none", md: "inline-flex" }}
+              fontSize={"md"}
+              fontWeight={"semibold"}
+              p={2}
+              variant={"ghost"}
               _hover={{
                 textDecoration: "none",
                 color: "messenger.500",
                 backgroundColor: "blue.50",
               }}
-              p={2}
-              fontSize={"md"}
-              fontWeight={"semibold"}
-              variant={"ghost"}
-              display={{ base: "none", md: "inline-flex" }}
               onClick={() => router.push(item.href)}
             >
               {item.name}
@@ -103,11 +103,11 @@ const Navbar = () => {
         {status === "authenticated" ? (
           <HStack
             backgroundColor={"gray.100"}
+            border={"1px solid #EDF2F7"}
+            display={{ base: "none", md: "inline-flex" }}
             px={2}
             py={1.5}
             rounded={"md"}
-            display={{ base: "none", md: "inline-flex" }}
-            border={"1px solid #EDF2F7"}
             transition={"all 0.2s ease-in-out"}
             _hover={{
               borderColor: "messenger.500",
@@ -126,9 +126,9 @@ const Navbar = () => {
                 <HStack spacing={3}>
                   <Avatar size={"sm"} src={session?.user?.image!} />
                   <Stats
-                    level={gamification?.level}
                     experience={gamification?.points}
                     isLoading={isLoading}
+                    level={gamification?.level}
                     maxPoints={gamification?.maxPoints}
                     minPoints={gamification?.minPoints}
                   />
@@ -156,9 +156,9 @@ const Navbar = () => {
         )}
 
         <IconButton
+          aria-label="HamburgerIcon"
           display={{ base: "inline-flex", md: "none" }}
           icon={<HamburgerIcon />}
-          aria-label="HamburgerIcon"
           onClick={onOpen}
         />
 
@@ -174,23 +174,23 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
   const router = useRouter();
 
   return (
-    <Drawer onClose={onClose} isOpen={isOpen} size={"full"}>
+    <Drawer isOpen={isOpen} size={"full"} onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
         <DrawerHeader>Menu</DrawerHeader>
         <DrawerBody>
           {status === "authenticated" ? (
-            <HStack rounded={"md"} bgColor={"gray.100"} p={2} spacing={3}>
+            <HStack bgColor={"gray.100"} p={2} rounded={"md"} spacing={3}>
               <Avatar
-                src={session?.user?.image!}
                 name={session?.user?.name!}
                 size={"sm"}
+                src={session?.user?.image!}
               />
               <Stats
-                level={gamification.level}
-                isLoading={isLoading}
                 experience={gamification?.points}
+                isLoading={isLoading}
+                level={gamification.level}
                 maxPoints={gamification?.maxPoints}
                 minPoints={gamification?.minPoints}
               />
@@ -212,9 +212,9 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
             {navigationItem.map((item) => (
               <Button
                 key={item.name}
+                justifyContent={"start"}
                 variant={"ghost"}
                 width={"full"}
-                justifyContent={"start"}
                 onClick={() => {
                   router.push(item.href);
                   onClose();

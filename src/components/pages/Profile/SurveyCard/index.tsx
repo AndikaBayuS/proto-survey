@@ -29,13 +29,13 @@ const SurveyCard = ({ title, description, surveyId }: SurveyCardProps) => {
     <Fragment>
       <Card
         bgColor={"white"}
-        rounded={"xl"}
         cursor={"default"}
+        rounded={"xl"}
         shadow={"sm"}
         variant={"outline"}
       >
         <CardBody>
-          <Text size={"sm"} fontWeight={"semibold"}>
+          <Text fontWeight={"semibold"} size={"sm"}>
             {title}
           </Text>
           <Text noOfLines={2}>{description}</Text>
@@ -66,9 +66,9 @@ const SurveyCard = ({ title, description, surveyId }: SurveyCardProps) => {
       </Card>
 
       <DeleteAlert
+        handleDelete={() => handleDeleteSurvey(surveyId)}
         isOpen={isOpen}
         onClose={onClose}
-        handleDelete={() => handleDeleteSurvey(surveyId)}
       />
     </Fragment>
   );

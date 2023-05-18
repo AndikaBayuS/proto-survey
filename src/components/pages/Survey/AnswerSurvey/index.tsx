@@ -115,7 +115,7 @@ const AnswerSurvey = () => {
   return (
     <VStack spacing={5}>
       {data?.survey.surveyMode === "anonim" && (
-        <Alert status="warning" rounded={"md"}>
+        <Alert rounded={"md"} status="warning">
           <AlertIcon />
           <Text fontWeight={"semibold"}>
             Data diri anda tidak akan dikirimkan saat mengisi survei ini.
@@ -135,13 +135,13 @@ const AnswerSurvey = () => {
         <Box bgColor={"white"} p={3} rounded={"md"}>
           <Text fontWeight={"semibold"}>Persetujuan Responden</Text>
           <Box
-            maxH={"12rem"}
-            overflowX={"auto"}
-            w={"full"}
             bgColor={"messenger.50"}
-            p={5}
+            maxH={"12rem"}
             mt={3}
+            overflowX={"auto"}
+            p={5}
             rounded={"md"}
+            w={"full"}
           >
             <Text>{data?.survey.terms}</Text>
           </Box>
@@ -153,17 +153,17 @@ const AnswerSurvey = () => {
 
       {!acceptTerms && (
         <Alert
-          status={"info"}
-          variant={"subtle"}
-          flexDirection={"column"}
           alignItems={"center"}
-          justifyContent={"center"}
-          textAlign={"center"}
+          flexDirection={"column"}
           height={"15rem"}
+          justifyContent={"center"}
           rounded={"md"}
+          status={"info"}
+          textAlign={"center"}
+          variant={"subtle"}
         >
           <AlertIcon boxSize="40px" mr={0} />
-          <AlertTitle mt={4} mb={1} fontSize="lg">
+          <AlertTitle fontSize="lg" mb={1} mt={4}>
             Informasi
           </AlertTitle>
           <AlertDescription maxWidth="sm">
@@ -199,19 +199,19 @@ const AnswerSurvey = () => {
                     <VStack alignItems={"start"} spacing={3}>
                       {data?.questions.map(
                         (question: SurveyQuestion, index: number) => (
-                          <Field name={`questions.${index}.answer`} key={index}>
+                          <Field key={index} name={`questions.${index}.answer`}>
                             {({ field }: { field: any }) => (
                               <FormControl id={`questions.${index}.answer`}>
                                 <FormLabel
-                                  htmlFor={`questions.${index}.answer`}
                                   fontWeight={"semibold"}
+                                  htmlFor={`questions.${index}.answer`}
                                 >
                                   {index + 1}. {question.question}
                                 </FormLabel>
                                 <ViewOption
+                                  fieldProps={field}
                                   options={question.options}
                                   type={question.type}
-                                  fieldProps={field}
                                 />
                               </FormControl>
                             )}
@@ -219,19 +219,19 @@ const AnswerSurvey = () => {
                         )
                       )}
 
-                      <HStack marginTop={10} justifyContent={"end"} w={"full"}>
+                      <HStack justifyContent={"end"} marginTop={10} w={"full"}>
                         <Button
                           colorScheme={"red"}
-                          variant={"outline"}
                           size={"md"}
+                          variant={"outline"}
                           onClick={() => router.push("/")}
                         >
                           Batal
                         </Button>
                         <Button
-                          size={"md"}
                           colorScheme="messenger"
                           isLoading={isSubmitting}
+                          size={"md"}
                           disabled={
                             !isFormFullyFilled(
                               arrayHelpers.form.values.questions
@@ -247,17 +247,17 @@ const AnswerSurvey = () => {
                 </FieldArray>
               </Form>
               <SubmitAlert
-                title="Submit Jawaban"
-                description="Anda hampir selesai! Apakah Anda ingin melihat kembali jawaban Anda sebelum submit?"
                 btnSubmitText="Ya, Submit"
+                description="Anda hampir selesai! Apakah Anda ingin melihat kembali jawaban Anda sebelum submit?"
                 isOpen={isOpen}
+                title="Submit Jawaban"
                 onClose={onClose}
               />
               <SuccessAlert
                 description="Terimakasih telah mengisi survei ini."
                 isOpen={successIsOpen}
-                onClose={successOnClose}
                 points={countPoints(data?.questions || [])}
+                onClose={successOnClose}
               />
             </Fragment>
           </Formik>

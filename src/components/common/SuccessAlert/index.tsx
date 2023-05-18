@@ -23,11 +23,11 @@ const SuccessAlert = ({ isOpen, onClose, points, description }: SuccessAlert) =>
 
   return (
     <AlertDialog
-      isOpen={isOpen}
-      onClose={onClose}
-      leastDestructiveRef={cancelRef}
       isCentered
       closeOnOverlayClick={false}
+      isOpen={isOpen}
+      leastDestructiveRef={cancelRef}
+      onClose={onClose}
     >
       <AlertDialogOverlay>
         <AlertDialogContent>

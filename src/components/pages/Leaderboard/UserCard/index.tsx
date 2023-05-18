@@ -8,13 +8,13 @@ export default function UserCard({ user, points, index }: UserCardProps) {
   return (
     <Flex
       alignItems="center"
-      p={3}
       bgColor={bgClass}
+      gap={3}
+      p={3}
       rounded={"md"}
       w={"full"}
-      gap={3}
     >
-      <Text fontWeight={"semibold"} fontSize={"lg"}>
+      <Text fontSize={"lg"} fontWeight={"semibold"}>
         {index + 1}.
       </Text>
       <Avatar src={String(user.image)} />

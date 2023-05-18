@@ -52,10 +52,10 @@ const CreateOption = ({
           <Flex key={option.id} gap={3}>
             <Input
               defaultValue={option.value}
-              variant="filled"
               placeholder="Masukkan pilihan"
-              onChange={(e) => setUpdatedValue(e.target.value)}
+              variant="filled"
               onBlur={() => checkValue(option.id)}
+              onChange={(e) => setUpdatedValue(e.target.value)}
             />
             <IconButton
               aria-label="delete-button"

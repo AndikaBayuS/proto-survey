@@ -24,25 +24,25 @@ const Card: React.FC<CardProps> = ({
   return (
     <Link href={`/survey/${surveyId}`}>
       <Box
-        maxWidth={"sm"}
-        rounded={"xl"}
         bgColor={"white"}
-        shadow={"sm"}
-        p={4}
-        cursor={"pointer"}
         border={"1px solid #E2E8F0"}
+        cursor={"pointer"}
+        maxWidth={"sm"}
+        p={4}
+        rounded={"xl"}
+        shadow={"sm"}
         transition={"all 0.2s ease-in-out"}
         _hover={{
           borderColor: "messenger.500",
         }}
       >
-        <VStack spacing={3.5} alignItems={"start"}>
+        <VStack alignItems={"start"} spacing={3.5}>
           <Flex justifyContent={"space-between"} w={"full"}>
-            <Text size={"sm"} fontWeight={"semibold"} noOfLines={1}>
+            <Text fontWeight={"semibold"} noOfLines={1} size={"sm"}>
               {title}
             </Text>
             {surveyMode === "anonim" && (
-              <Circle size={"25px"} bg={"messenger.50"} p={1}>
+              <Circle bg={"messenger.50"} p={1} size={"25px"}>
                 <IncognitoIcon />
               </Circle>
             )}
@@ -50,7 +50,7 @@ const Card: React.FC<CardProps> = ({
           <Text noOfLines={2}>{description}</Text>
           <HStack>
             <Avatar size={"xs"} src={String(ownerImage)} />
-            <Text fontSize={"xs"} color={"gray.600"} noOfLines={1}>
+            <Text color={"gray.600"} fontSize={"xs"} noOfLines={1}>
               {String(ownerName)}
             </Text>
           </HStack>
@@ -60,10 +60,10 @@ const Card: React.FC<CardProps> = ({
               Lihat Survei
             </Text>
             <ChevronRightIcon
-              pt={1}
               color={"messenger.500"}
-              fontWeight={"semibold"}
               fontSize={"xl"}
+              fontWeight={"semibold"}
+              pt={1}
             />
           </HStack>
         </VStack>

@@ -9,8 +9,8 @@ const SurveyPage = () => {
     <Box>
       <Head>
         <title>ProtoSurvey - Page Not Found</title>
-        <meta name="description" content="ProtoSurvey" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta content="ProtoSurvey" name="description" />
+        <link href="/favicon.ico" rel="icon" />
       </Head>
       <PageBase>
         <PageNotFound />

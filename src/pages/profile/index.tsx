@@ -9,8 +9,8 @@ const ProfilePage = () => {
     <Box>
       <Head>
         <title>ProtoSurvey - Profil</title>
-        <meta name="description" content="ProtoSurvey" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta content="ProtoSurvey" name="description" />
+        <link href="/favicon.ico" rel="icon" />
       </Head>
       <PageBase>
         <Profile />

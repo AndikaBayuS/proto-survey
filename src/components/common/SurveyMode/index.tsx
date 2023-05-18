@@ -20,15 +20,15 @@ const SurveyMode = ({ surveyMode }: SurveyModeProps) => {
   return (
     <Box w={"full"}>
       <Text fontWeight={"semibold"}>Mode Survei</Text>
-      <Box w="full" bgColor={"messenger.50"} rounded={"md"} p={5} mt={3}>
+      <Box bgColor={"messenger.50"} mt={3} p={5} rounded={"md"} w="full">
         <Fragment>
           <Text fontWeight={"semibold"}>{modeTitle}</Text>
           <Text>{modeDescription}</Text>
         </Fragment>
       </Box>
-      <RadioGroup name="surveyMode" py={2} display="flex" gridColumnGap={2}>
+      <RadioGroup display="flex" gridColumnGap={2} name="surveyMode" py={2}>
         {SURVEY_MODE.map(({ name, value }) => {
-          return <RadioCard key={name} value={value} label={name} />;
+          return <RadioCard key={name} label={name} value={value} />;
         })}
       </RadioGroup>
 

@@ -38,13 +38,13 @@ const PieChart: React.FC<ChartProps> = ({ labels, data, title }) => {
   };
 
   return (
-    <Box backgroundColor={"white"} rounded={"md"} p={5} w={"full"}>
-      <Text mb={5} fontWeight={"semibold"}>{title}</Text>
+    <Box backgroundColor={"white"} p={5} rounded={"md"} w={"full"}>
+      <Text fontWeight={"semibold"} mb={5}>{title}</Text>
       <Box h={"15rem"}>
         <Pie
           data={chartData}
-          options={options}
           height={"50px"}
+          options={options}
           width={"50px"}
         />
       </Box>

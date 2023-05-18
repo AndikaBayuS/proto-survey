@@ -9,10 +9,10 @@ const RadioOption = ({ options, fieldProps }: FormComponentProps) => {
         {options.map((option) => (
           <Radio
             key={option.id}
-            value={option.value}
             name={fieldProps.name}
-            onChange={fieldProps.onChange}
+            value={option.value}
             onBlur={fieldProps.onBlur}
+            onChange={fieldProps.onChange}
           >
             {option.value}
           </Radio>
