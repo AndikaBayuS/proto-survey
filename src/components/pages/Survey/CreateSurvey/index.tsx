@@ -49,7 +49,7 @@ const CreateSurvey = () => {
           surveyMode: "normal",
           terms: null,
           surveyCategory: [],
-          surveySubCategory: null,
+          surveySubCategory: [],
           questions: [{ question: "", type: "text" }],
         }}
         onSubmit={async (values: CreateValues) => {

@@ -8,9 +8,10 @@ export const createSurvey = async ({
   surveyMode,
   terms,
   questions,
+  surveyCategory,
 }: CreateValues) => {
   try {
-    const body = { title, description, surveyMode, terms, questions };
+    const body = { title, description, surveyMode, surveyCategory, terms, questions };
     await fetch("/api/survey/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
