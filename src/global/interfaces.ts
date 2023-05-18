@@ -26,6 +26,8 @@ export interface SigninProps {
 
 export interface SurveyProps {
   id?: string;
+  surveyCategory: string[];
+  surveyMode: string;
   questions: SurveyQuestion[];
 }
 

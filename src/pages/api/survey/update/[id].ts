@@ -8,14 +8,21 @@ export default async function handle(
   res: NextApiResponse
 ) {
   try {
-    const { title, description, questions } = req.body;
+    const { title, description, surveyMode, surveyCategory, terms, questions } =
+      req.body;
     const surveyId = questions[0].surveyId;
     const { updates, deletes } = handleUpdateQuestion(questions);
 
     await prisma.$transaction([
       prisma.surveys.update({
         where: { id: surveyId },
-        data: { title, description },
+        data: {
+          title,
+          description,
+          surveyMode,
+          category: surveyCategory,
+          terms,
+        },
       }),
       ...updates.map((update: any) => prisma.questions.update(update)),
       ...deletes.map((del: any) => prisma.questions.delete(del)),

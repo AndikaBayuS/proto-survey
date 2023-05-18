@@ -7,6 +7,9 @@ export type OptionsType = {
 export type surveyType = {
   title: string;
   description: string;
+  terms: string;
+  category: string[];
+  surveyMode: string;
 }
 
 export type AnswerCounts = {
