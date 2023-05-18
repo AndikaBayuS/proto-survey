@@ -6,6 +6,7 @@ const Stats: React.FC<StatsProps> = ({
   experience,
   level,
   maxPoints,
+  minPoints,
   isLoading,
 }) => {
   if (isLoading) {
@@ -24,6 +25,7 @@ const Stats: React.FC<StatsProps> = ({
           backgroundColor={"gray.300"}
           value={experience}
           max={maxPoints}
+          min={minPoints}
           width={"full"}
           rounded={"md"}
           size={"sm"}

@@ -54,6 +54,7 @@ export interface StatsProps {
   experience: number;
   level: number;
   maxPoints: number;
+  minPoints: number;
   isLoading: boolean;
 }
 

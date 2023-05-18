@@ -126,10 +126,11 @@ const Navbar = () => {
                 <HStack spacing={3}>
                   <Avatar size={"sm"} src={session?.user?.image!} />
                   <Stats
-                    level={gamification.level}
-                    experience={gamification.points}
+                    level={gamification?.level}
+                    experience={gamification?.points}
                     isLoading={isLoading}
-                    maxPoints={gamification.maxPoints}
+                    maxPoints={gamification?.maxPoints}
+                    minPoints={gamification?.minPoints}
                   />
                 </HStack>
               </MenuButton>
@@ -191,6 +192,7 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
                 isLoading={isLoading}
                 experience={gamification?.points}
                 maxPoints={gamification?.maxPoints}
+                minPoints={gamification?.minPoints}
               />
             </HStack>
           ) : (

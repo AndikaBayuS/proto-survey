@@ -8,6 +8,7 @@ export const gamificationState = atom({
       level: 1,
       points: 0,
       maxPoints: 0,
+      minPoints: 0
     },
   },
 });
