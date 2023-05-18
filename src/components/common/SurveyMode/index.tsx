@@ -18,11 +18,11 @@ const SurveyMode = ({ surveyMode }: SurveyModeProps) => {
     : "Ketika survey berada dalam mode normal, maka data dari responden akan ditampilkan secara terbuka, sehingga identitas mereka dapat diketahui.";
 
   return (
-    <Box w={"full"}>
-      <Text fontWeight={"semibold"}>Mode Survei</Text>
-      <Box bgColor={"messenger.50"} mt={3} p={5} rounded={"md"} w="full">
+    <Box w="full">
+      <Text fontWeight="semibold">Mode Survei</Text>
+      <Box bgColor="messenger.50" mt={3} p={5} rounded="md" w="full">
         <Fragment>
-          <Text fontWeight={"semibold"}>{modeTitle}</Text>
+          <Text fontWeight="semibold">{modeTitle}</Text>
           <Text>{modeDescription}</Text>
         </Fragment>
       </Box>

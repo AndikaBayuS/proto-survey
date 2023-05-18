@@ -7,11 +7,11 @@ import { SigninProps } from "@/src/global/interfaces";
 
 const SignIn: React.FC<SigninProps> = ({ providers }) => {
   return (
-    <Center minHeight={"100vh"}>
+    <Center minHeight="100vh">
       {Object.values(providers).map((provider) => (
         <Button
           key={provider.name}
-          colorScheme={"gray"}
+          colorScheme="gray"
           onClick={() =>
             signIn(provider.id, {
               callbackUrl: "http://localhost:3000/",

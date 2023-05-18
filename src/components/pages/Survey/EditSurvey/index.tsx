@@ -54,8 +54,8 @@ const EditSurvey = () => {
   };
 
   return data?.responses.length ? (
-    <Center flexDirection={"column"} gap={5}>
-      <Text fontSize={"lg"}>
+    <Center flexDirection="column" gap={5}>
+      <Text fontSize="lg">
         Anda tidak bisa mengubah survei ini karena sudah ada responden yang
         mengisi survei anda!
       </Text>
@@ -64,7 +64,7 @@ const EditSurvey = () => {
       </Button>
     </Center>
   ) : (
-    <Box bgColor={"white"} p={5} rounded={"lg"}>
+    <Box bgColor="white" p={5} rounded="lg">
       <Formik
         initialValues={{
           title: data?.survey?.title,
@@ -96,7 +96,7 @@ const EditSurvey = () => {
         {({ values, setFieldValue }) => {
           return (
             <Form onKeyDown={handleEnterKey}>
-              <VStack alignItems={"start"} spacing={3}>
+              <VStack alignItems="start" spacing={3}>
                 <FormControl isRequired>
                   <FormLabel htmlFor="title">Judul Survei</FormLabel>
                   <Field
@@ -104,7 +104,7 @@ const EditSurvey = () => {
                     id="title"
                     name="title"
                     placeholder="Masukkan judul survei"
-                    variant={"filled"}
+                    variant="filled"
                   />
                 </FormControl>
                 <FormControl isRequired>
@@ -114,7 +114,7 @@ const EditSurvey = () => {
                     id="description"
                     name="description"
                     placeholder="Masukkan deskripsi survei"
-                    variant={"filled"}
+                    variant="filled"
                   />
                 </FormControl>
 
@@ -134,14 +134,14 @@ const EditSurvey = () => {
                     {({ remove, push, form }) => {
                       const { values, setFieldValue } = form;
                       return (
-                        <VStack alignItems={"start"} spacing={3}>
+                        <VStack alignItems="start" spacing={3}>
                           {values.questions.map(
                             (_question: QuestionValues, index: number) => (
                               <FormControl key={index} isRequired>
                                 <FormLabel htmlFor={`questions.${index}`}>
                                   Pertanyaan {index + 1}
                                 </FormLabel>
-                                <HStack w={"full"}>
+                                <HStack w="full">
                                   <CreateQuestion
                                     name={`questions[${index}].question`}
                                     options={_question.options}
@@ -151,11 +151,11 @@ const EditSurvey = () => {
                                   />
                                   <IconButton
                                     aria-label="Hapus Pertanyaan"
-                                    colorScheme={"red"}
+                                    colorScheme="red"
                                     disabled={index === 0}
                                     icon={<CloseIcon />}
-                                    size={"sm"}
-                                    variant={"outline"}
+                                    size="sm"
+                                    variant="outline"
                                     onClick={() =>
                                       handleDeleteQuestion(
                                         values,
@@ -192,16 +192,16 @@ const EditSurvey = () => {
                 </Box>
               </VStack>
 
-              <HStack justifyContent={"end"} marginTop={10}>
+              <HStack justifyContent="end" marginTop={10}>
                 <Button
-                  colorScheme={"red"}
-                  size={"md"}
-                  variant={"outline"}
+                  colorScheme="red"
+                  size="md"
+                  variant="outline"
                   onClick={() => router.push("/")}
                 >
                   Batal
                 </Button>
-                <Button colorScheme="messenger" size={"md"} type="submit">
+                <Button colorScheme="messenger" size="md" type="submit">
                   Perbarui Survei
                 </Button>
               </HStack>

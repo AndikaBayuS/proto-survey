@@ -18,17 +18,17 @@ const Stats: React.FC<StatsProps> = ({
   }
 
   return (
-    <Box width={"5rem"}>
-      <VStack alignItems={"flex-start"}>
-        <Text fontWeight={"semibold"}>Lv. {level}</Text>
+    <Box width="5rem">
+      <VStack alignItems="flex-start">
+        <Text fontWeight="semibold">Lv. {level}</Text>
         <Progress
-          backgroundColor={"gray.300"}
+          backgroundColor="gray.300"
           max={maxPoints}
           min={minPoints}
-          rounded={"md"}
-          size={"sm"}
+          rounded="md"
+          size="sm"
           value={experience}
-          width={"full"}
+          width="full"
         />
       </VStack>
     </Box>

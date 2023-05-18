@@ -67,8 +67,8 @@ const ResponseSurvey = () => {
         </Fragment>
       ))
     ) : (
-      <Center flexDir={"column"} gap={2} mt={50}>
-        <Text fontSize={"2xl"} fontWeight={"semibold"}>
+      <Center flexDir="column" gap={2} mt={50}>
+        <Text fontSize="2xl" fontWeight="semibold">
           Belum Ada Respon
         </Text>
         <Text>Jawaban dari responden akan ditampilkan di sini</Text>
@@ -79,8 +79,8 @@ const ResponseSurvey = () => {
   return (
     <Box>
       <VStack gap={3}>
-        <Box backgroundColor={"white"} p={5} rounded={"md"} w={"full"}>
-          <Text fontSize={"lg"} fontWeight={"semibold"}>
+        <Box backgroundColor="white" p={5} rounded="md" w="full">
+          <Text fontSize="lg" fontWeight="semibold">
             {data?.survey?.title}
           </Text>
           <Text>{data?.survey?.description}</Text>

@@ -39,9 +39,9 @@ const RadioCard = React.forwardRef((props: Props, ref) => {
         {...getCheckboxProps()}
         bg={state.isChecked ? "messenger.100" : "transparent"}
         p={3}
-        rounded={"md"}
+        rounded="md"
       >
-        <Text fontWeight={"semibold"}>{label}</Text>
+        <Text fontWeight="semibold">{label}</Text>
       </Box>
     </chakra.label>
   );

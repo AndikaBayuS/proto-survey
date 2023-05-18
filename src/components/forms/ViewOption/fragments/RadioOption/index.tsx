@@ -5,7 +5,7 @@ import { FormComponentProps } from "@/src/global/interfaces";
 const RadioOption = ({ options, fieldProps }: FormComponentProps) => {
   return (
     <RadioGroup colorScheme="messenger">
-      <VStack alignItems={"start"}>
+      <VStack alignItems="start">
         {options.map((option) => (
           <Radio
             key={option.id}

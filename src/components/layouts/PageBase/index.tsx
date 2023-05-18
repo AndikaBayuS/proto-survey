@@ -8,7 +8,7 @@ interface Props {
 
 const PageBase = ({ children }: Props) => {
   return (
-    <Box backgroundColor={"gray.100"} minH={"100vh"}>
+    <Box backgroundColor="gray.100" minH="100vh">
       <Navbar />
       <Box px={{ base: 4, md: 8, lg: 16 }} py={5}>
         {children}

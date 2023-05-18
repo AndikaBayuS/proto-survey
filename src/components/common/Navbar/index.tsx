@@ -62,18 +62,18 @@ const Navbar = () => {
     setShowCreateButton(validPathnames.includes(router.pathname));
   }, [router.pathname]);
   return (
-    <Box bgColor={"white"} width={"full"}>
+    <Box bgColor="white" width="full">
       <Flex
-        alignItems={"center"}
+        alignItems="center"
         height={20}
-        justifyContent={"space-between"}
+        justifyContent="space-between"
         px={{ base: 4, md: 8, lg: 16 }}
       >
-        <HStack alignItems={"center"} spacing={4}>
+        <HStack alignItems="center" spacing={4}>
           <NextLink href="/">
             <Box _hover={{ backgroundColor: "blue.50" }} p={2} rounded="md">
-              <Text cursor={"pointer"} fontSize={"xl"} fontWeight={"semibold"}>
-                <Text as={"span"} color="messenger.500">
+              <Text cursor="pointer" fontSize="xl" fontWeight="semibold">
+                <Text as="span" color="messenger.500">
                   Proto
                 </Text>
                 Survey
@@ -84,10 +84,10 @@ const Navbar = () => {
             <Button
               key={item.name}
               display={{ base: "none", md: "inline-flex" }}
-              fontSize={"md"}
-              fontWeight={"semibold"}
+              fontSize="md"
+              fontWeight="semibold"
               p={2}
-              variant={"ghost"}
+              variant="ghost"
               _hover={{
                 textDecoration: "none",
                 color: "messenger.500",
@@ -102,13 +102,13 @@ const Navbar = () => {
 
         {status === "authenticated" ? (
           <HStack
-            backgroundColor={"gray.100"}
-            border={"1px solid #EDF2F7"}
+            backgroundColor="gray.100"
+            border="1px solid #EDF2F7"
             display={{ base: "none", md: "inline-flex" }}
             px={2}
             py={1.5}
-            rounded={"md"}
-            transition={"all 0.2s ease-in-out"}
+            rounded="md"
+            transition="all 0.2s ease-in-out"
             _hover={{
               borderColor: "messenger.500",
             }}
@@ -124,7 +124,7 @@ const Navbar = () => {
             <Menu>
               <MenuButton>
                 <HStack spacing={3}>
-                  <Avatar size={"sm"} src={session?.user?.image!} />
+                  <Avatar size="sm" src={session?.user?.image!} />
                   <Stats
                     experience={gamification?.points}
                     isLoading={isLoading}
@@ -146,7 +146,7 @@ const Navbar = () => {
           <Button
             colorScheme="messenger"
             display={{ base: "none", md: "inline-flex" }}
-            size={"md"}
+            size="md"
             onClick={() =>
               signIn("google", { callbackUrl: "http://localhost:3000" })
             }
@@ -174,17 +174,17 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
   const router = useRouter();
 
   return (
-    <Drawer isOpen={isOpen} size={"full"} onClose={onClose}>
+    <Drawer isOpen={isOpen} size="full" onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
         <DrawerHeader>Menu</DrawerHeader>
         <DrawerBody>
           {status === "authenticated" ? (
-            <HStack bgColor={"gray.100"} p={2} rounded={"md"} spacing={3}>
+            <HStack bgColor="gray.100" p={2} rounded="md" spacing={3}>
               <Avatar
                 name={session?.user?.name!}
-                size={"sm"}
+                size="sm"
                 src={session?.user?.image!}
               />
               <Stats
@@ -198,8 +198,8 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
           ) : (
             <Button
               colorScheme="messenger"
-              size={"md"}
-              width={"full"}
+              size="md"
+              width="full"
               onClick={() =>
                 signIn("google", { callbackUrl: "http://localhost:3000" })
               }
@@ -208,13 +208,13 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
             </Button>
           )}
 
-          <VStack alignItems={"flex-start"} mt={5}>
+          <VStack alignItems="flex-start" mt={5}>
             {navigationItem.map((item) => (
               <Button
                 key={item.name}
-                justifyContent={"start"}
-                variant={"ghost"}
-                width={"full"}
+                justifyContent="start"
+                variant="ghost"
+                width="full"
                 onClick={() => {
                   router.push(item.href);
                   onClose();

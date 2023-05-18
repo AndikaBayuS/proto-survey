@@ -81,8 +81,8 @@ const AnswerSurvey = () => {
   if (isLoading) return <Skeleton />;
   if (error?.status == 403)
     return (
-      <Center flexDir={"column"} gap={2} mt={50}>
-        <Text fontSize={"2xl"} fontWeight={"semibold"}>
+      <Center flexDir="column" gap={2} mt={50}>
+        <Text fontSize="2xl" fontWeight="semibold">
           Aksi Tidak Diijinkan
         </Text>
         <Text>Anda tidak bisa mengisi survei yang anda buat</Text>
@@ -115,16 +115,16 @@ const AnswerSurvey = () => {
   return (
     <VStack spacing={5}>
       {data?.survey.surveyMode === "anonim" && (
-        <Alert rounded={"md"} status="warning">
+        <Alert rounded="md" status="warning">
           <AlertIcon />
-          <Text fontWeight={"semibold"}>
+          <Text fontWeight="semibold">
             Data diri anda tidak akan dikirimkan saat mengisi survei ini.
           </Text>
         </Alert>
       )}
-      <Box bgColor={"white"} p={5} rounded={"lg"} w={"full"}>
-        <VStack alignItems={"start"}>
-          <Text fontSize={"lg"} fontWeight={"semibold"}>
+      <Box bgColor="white" p={5} rounded="lg" w="full">
+        <VStack alignItems="start">
+          <Text fontSize="lg" fontWeight="semibold">
             {data?.survey.title}
           </Text>
           <Text>{data?.survey.description}</Text>
@@ -132,16 +132,16 @@ const AnswerSurvey = () => {
       </Box>
 
       {data?.survey.surveyMode === "anonim" && (
-        <Box bgColor={"white"} p={3} rounded={"md"}>
-          <Text fontWeight={"semibold"}>Persetujuan Responden</Text>
+        <Box bgColor="white" p={3} rounded="md">
+          <Text fontWeight="semibold">Persetujuan Responden</Text>
           <Box
-            bgColor={"messenger.50"}
-            maxH={"12rem"}
+            bgColor="messenger.50"
+            maxH="12rem"
             mt={3}
-            overflowX={"auto"}
+            overflowX="auto"
             p={5}
-            rounded={"md"}
-            w={"full"}
+            rounded="md"
+            w="full"
           >
             <Text>{data?.survey.terms}</Text>
           </Box>
@@ -153,14 +153,14 @@ const AnswerSurvey = () => {
 
       {!acceptTerms && (
         <Alert
-          alignItems={"center"}
-          flexDirection={"column"}
-          height={"15rem"}
-          justifyContent={"center"}
-          rounded={"md"}
-          status={"info"}
-          textAlign={"center"}
-          variant={"subtle"}
+          alignItems="center"
+          flexDirection="column"
+          height="15rem"
+          justifyContent="center"
+          rounded="md"
+          status="info"
+          textAlign="center"
+          variant="subtle"
         >
           <AlertIcon boxSize="40px" mr={0} />
           <AlertTitle fontSize="lg" mb={1} mt={4}>
@@ -174,7 +174,7 @@ const AnswerSurvey = () => {
       )}
 
       {acceptTerms && (
-        <Box bgColor={"white"} p={5} rounded={"lg"} w={"full"}>
+        <Box bgColor="white" p={5} rounded="lg" w="full">
           <Formik
             initialValues={{
               questions:
@@ -196,14 +196,14 @@ const AnswerSurvey = () => {
               <Form onKeyDown={handleEnterKey}>
                 <FieldArray name="questions">
                   {(arrayHelpers) => (
-                    <VStack alignItems={"start"} spacing={3}>
+                    <VStack alignItems="start" spacing={3}>
                       {data?.questions.map(
                         (question: SurveyQuestion, index: number) => (
                           <Field key={index} name={`questions.${index}.answer`}>
                             {({ field }: { field: any }) => (
                               <FormControl id={`questions.${index}.answer`}>
                                 <FormLabel
-                                  fontWeight={"semibold"}
+                                  fontWeight="semibold"
                                   htmlFor={`questions.${index}.answer`}
                                 >
                                   {index + 1}. {question.question}
@@ -219,11 +219,11 @@ const AnswerSurvey = () => {
                         )
                       )}
 
-                      <HStack justifyContent={"end"} marginTop={10} w={"full"}>
+                      <HStack justifyContent="end" marginTop={10} w="full">
                         <Button
-                          colorScheme={"red"}
-                          size={"md"}
-                          variant={"outline"}
+                          colorScheme="red"
+                          size="md"
+                          variant="outline"
                           onClick={() => router.push("/")}
                         >
                           Batal
@@ -231,7 +231,7 @@ const AnswerSurvey = () => {
                         <Button
                           colorScheme="messenger"
                           isLoading={isSubmitting}
-                          size={"md"}
+                          size="md"
                           disabled={
                             !isFormFullyFilled(
                               arrayHelpers.form.values.questions

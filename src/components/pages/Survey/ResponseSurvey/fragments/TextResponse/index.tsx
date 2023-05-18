@@ -6,20 +6,20 @@ interface ChartProps {
 }
 const TextResponse: React.FC<ChartProps> = ({ labels, title }) => {
   return (
-    <Box backgroundColor={"white"} p={5} rounded={"md"} w={"full"}>
-      <Text fontWeight={"semibold"} mb={5}>
+    <Box backgroundColor="white" p={5} rounded="md" w="full">
+      <Text fontWeight="semibold" mb={5}>
         {title}
       </Text>
-      <VStack alignItems={"start"}>
+      <VStack alignItems="start">
         {labels.map((item, index) => (
           <Box
             key={index}
-            backgroundColor={"blue.50"}
+            backgroundColor="blue.50"
             p={3}
-            rounded={"md"}
-            w={"full"}
+            rounded="md"
+            w="full"
           >
-            <Text fontWeight={"semibold"}>{item}</Text>
+            <Text fontWeight="semibold">{item}</Text>
           </Box>
         ))}
       </VStack>

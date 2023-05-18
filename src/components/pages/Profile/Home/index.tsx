@@ -31,8 +31,8 @@ const Profile = () => {
         level={gamification.level}
         name={data?.name!}
       />
-      <Box bgColor={"white"} mt={5} p={5} rounded={"md"}>
-        <Text fontSize={"xl"} fontWeight={"semibold"}>
+      <Box bgColor="white" mt={5} p={5} rounded="md">
+        <Text fontSize="xl" fontWeight="semibold">
           Daftar Survei
         </Text>
         <SimpleGrid columns={[1, 2, 4]} mt={5} spacing={4}>

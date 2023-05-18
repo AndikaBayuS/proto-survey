@@ -4,17 +4,17 @@ const Skeleton = () => {
   return (
     <Center>
       <Flex
-        alignItems={"center"}
-        flexDirection={"column"}
+        alignItems="center"
+        flexDirection="column"
         gap={5}
-        justifyContent={"center"}
+        justifyContent="center"
       >
         <Spinner
-          color={"messenger.500"}
-          justifyContent={"center"}
-          size={"lg"}
+          color="messenger.500"
+          justifyContent="center"
+          size="lg"
         />
-        <Text textAlign={"center"}>Memuat Data</Text>
+        <Text textAlign="center">Memuat Data</Text>
       </Flex>
     </Center>
   );

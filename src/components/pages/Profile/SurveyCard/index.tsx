@@ -28,14 +28,14 @@ const SurveyCard = ({ title, description, surveyId }: SurveyCardProps) => {
   return (
     <Fragment>
       <Card
-        bgColor={"white"}
-        cursor={"default"}
-        rounded={"xl"}
-        shadow={"sm"}
-        variant={"outline"}
+        bgColor="white"
+        cursor="default"
+        rounded="xl"
+        shadow="sm"
+        variant="outline"
       >
         <CardBody>
-          <Text fontWeight={"semibold"} size={"sm"}>
+          <Text fontWeight="semibold" size="sm">
             {title}
           </Text>
           <Text noOfLines={2}>{description}</Text>

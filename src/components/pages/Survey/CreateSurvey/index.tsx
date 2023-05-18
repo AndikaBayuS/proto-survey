@@ -38,7 +38,7 @@ const CreateSurvey = () => {
   } = useDisclosure();
 
   return (
-    <Box bgColor={"white"} p={5} rounded={"lg"}>
+    <Box bgColor="white" p={5} rounded="lg">
       <Formik
         initialValues={{
           title: "",
@@ -58,7 +58,7 @@ const CreateSurvey = () => {
         {({ values, setFieldValue }) => {
           return (
             <Form onKeyDown={handleEnterKey}>
-              <VStack alignItems={"start"} spacing={3}>
+              <VStack alignItems="start" spacing={3}>
                 <FormControl isRequired>
                   <FormLabel htmlFor="title">Judul Survei</FormLabel>
                   <Field
@@ -95,14 +95,14 @@ const CreateSurvey = () => {
                   <FieldArray name="questions">
                     {({ remove, push, form }) => {
                       return (
-                        <VStack alignItems={"start"} spacing={3}>
+                        <VStack alignItems="start" spacing={3}>
                           {form.values.questions.map(
                             (_question: QuestionValues, index: number) => (
                               <FormControl key={index} isRequired>
                                 <FormLabel htmlFor={`questions.${index}`}>
                                   Pertanyaan {index + 1}
                                 </FormLabel>
-                                <HStack alignItems={"start"} w={"full"}>
+                                <HStack alignItems="start" w="full">
                                   <CreateQuestion
                                     name={`questions[${index}].question`}
                                     options={_question.options}
@@ -112,7 +112,7 @@ const CreateSurvey = () => {
                                   />
                                   <Select
                                     value={_question.type}
-                                    w={"40%"}
+                                    w="40%"
                                     onChange={(e) =>
                                       handleQuestionTypeChange(e, index, form)
                                     }
@@ -125,10 +125,10 @@ const CreateSurvey = () => {
                                   </Select>
                                   <IconButton
                                     aria-label="Hapus Pertanyaan"
-                                    colorScheme={"red"}
+                                    colorScheme="red"
                                     disabled={index === 0}
                                     icon={<CloseIcon />}
-                                    variant={"outline"}
+                                    variant="outline"
                                     onClick={() => remove(index)}
                                   />
                                 </HStack>
@@ -147,11 +147,11 @@ const CreateSurvey = () => {
                 </Box>
               </VStack>
 
-              <HStack justifyContent={"end"} marginTop={10}>
+              <HStack justifyContent="end" marginTop={10}>
                 <Button
-                  colorScheme={"red"}
-                  size={"md"}
-                  variant={"outline"}
+                  colorScheme="red"
+                  size="md"
+                  variant="outline"
                   onClick={() => router.push("/")}
                 >
                   Batal
@@ -159,7 +159,7 @@ const CreateSurvey = () => {
                 <Button
                   colorScheme="messenger"
                   disabled={areFieldsEmpty(values)}
-                  size={"md"}
+                  size="md"
                   onClick={onOpen}
                 >
                   Buat Survei

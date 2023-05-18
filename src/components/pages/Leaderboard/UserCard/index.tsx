@@ -11,15 +11,15 @@ export default function UserCard({ user, points, index }: UserCardProps) {
       bgColor={bgClass}
       gap={3}
       p={3}
-      rounded={"md"}
-      w={"full"}
+      rounded="md"
+      w="full"
     >
-      <Text fontSize={"lg"} fontWeight={"semibold"}>
+      <Text fontSize="lg" fontWeight="semibold">
         {index + 1}.
       </Text>
       <Avatar src={String(user.image)} />
       <Text>{user.name}</Text>
-      <Text align={"right"} flex={1} fontSize={"lg"} fontWeight={"semibold"}>
+      <Text align="right" flex={1} fontSize="lg" fontWeight="semibold">
         {points}
       </Text>
       <Text>Poin</Text>

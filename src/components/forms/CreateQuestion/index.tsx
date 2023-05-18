@@ -18,7 +18,7 @@ const CreateQuestion = ({
           as={Input}
           name={name}
           placeholder="Masukkan pertanyaan"
-          variant={"filled"}
+          variant="filled"
         />
       ) : (
         <CreateOption
