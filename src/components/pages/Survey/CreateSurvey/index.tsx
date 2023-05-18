@@ -9,16 +9,15 @@ import {
   IconButton,
   Input,
   Select,
-  Text,
   Textarea,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { Field, FieldArray, Form, Formik } from "formik";
-import { Fragment } from "react";
 
 import SubmitAlert from "@/src/components/common/SubmitAlert";
 import SuccessAlert from "@/src/components/common/SuccessAlert";
+import SurveyMode from "@/src/components/common/SurveyMode";
 import CreateQuestion from "@/src/components/forms/CreateQuestion";
 import { CreateValues, QuestionValues } from "@/src/global/interfaces";
 import { createSurvey } from "@/src/utils/fetch";
@@ -26,10 +25,8 @@ import { countPoints } from "@/src/utils/gamification";
 import { handleEnterKey } from "@/src/utils/helper";
 
 import CategoryField from "./fragments/CategoryField";
-import RadioCard from "./fragments/RadioCard";
-import RadioGroup from "./fragments/RadioGroup";
 import { areFieldsEmpty, handleQuestionTypeChange } from "./actions";
-import { buttonAttributes, SURVEY_MODE } from "./constants";
+import { buttonAttributes } from "./constants";
 
 const CreateSurvey = () => {
   const router = useRouter();
@@ -47,7 +44,7 @@ const CreateSurvey = () => {
           title: "",
           description: "",
           surveyMode: "normal",
-          terms: null,
+          terms: "",
           surveyCategory: [],
           surveySubCategory: [],
           questions: [{ question: "", type: "text" }],
@@ -59,12 +56,6 @@ const CreateSurvey = () => {
         }}
       >
         {({ values, setFieldValue }) => {
-          const isAnonim = values.surveyMode === "anonim";
-          const modeTitle = isAnonim ? "Mode Anonim" : "Mode Normal";
-          const modeDescription = isAnonim
-            ? "Ketika survey ini berada dalam mode anonim, maka data dari responden tidak akan ditampilkan untuk melindungi privasi mereka."
-            : "Ketika survey berada dalam mode normal, maka data dari responden akan ditampilkan secara terbuka, sehingga identitas mereka dapat diketahui.";
-
           return (
             <Form onKeyDown={handleEnterKey}>
               <VStack alignItems={"start"} spacing={3}>
@@ -98,36 +89,7 @@ const CreateSurvey = () => {
                   )}
                 </Field>
 
-                <Text fontWeight={"semibold"}>Mode Survei</Text>
-                <Box w="full" bgColor={"messenger.50"} rounded={"md"} p={5}>
-                  <Fragment>
-                    <Text fontWeight={"semibold"}>{modeTitle}</Text>
-                    <Text>{modeDescription}</Text>
-                  </Fragment>
-                </Box>
-                <RadioGroup
-                  name="surveyMode"
-                  py={2}
-                  display="flex"
-                  gridColumnGap={2}
-                >
-                  {SURVEY_MODE.map(({ name, value }) => {
-                    return <RadioCard key={name} value={value} label={name} />;
-                  })}
-                </RadioGroup>
-
-                {values.surveyMode === "anonim" && (
-                  <FormControl>
-                    <FormLabel htmlFor="terms">Persetujuan Survei</FormLabel>
-                    <Field
-                      as={Textarea}
-                      id="terms"
-                      name="terms"
-                      placeholder="Masukkan persetujuan survei"
-                      variant="filled"
-                    />
-                  </FormControl>
-                )}
+                <SurveyMode surveyMode={values.surveyMode} />
 
                 <Box w="full">
                   <FieldArray name="questions">
