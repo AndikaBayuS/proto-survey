@@ -13,6 +13,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import { Select as ReactSelect } from "chakra-react-select";
 import { Field, FieldArray, Form, Formik } from "formik";
 
 import SubmitAlert from "@/src/components/common/SubmitAlert";
@@ -24,9 +25,12 @@ import { createSurvey } from "@/src/utils/fetch";
 import { countPoints } from "@/src/utils/gamification";
 import { handleEnterKey } from "@/src/utils/helper";
 
-import CategoryField from "./fragments/CategoryField";
 import { areFieldsEmpty, handleQuestionTypeChange } from "./actions";
-import { buttonAttributes } from "./constants";
+import {
+  buttonAttributes,
+  SURVEY_CATEGORY,
+  SURVEY_SUBCATEGORY,
+} from "./constants";
 
 const CreateSurvey = () => {
   const router = useRouter();
@@ -80,14 +84,36 @@ const CreateSurvey = () => {
                   />
                 </FormControl>
 
-                <Field name="surveyCategory">
-                  {({ field }: any) => (
-                    <CategoryField
-                      setFieldValue={setFieldValue}
-                      surveyCategory={field.value}
-                    />
-                  )}
-                </Field>
+                <FormControl>
+                  <FormLabel>Kategori Survei</FormLabel>
+                  <ReactSelect
+                    isMulti
+                    colorScheme="messenger"
+                    options={SURVEY_CATEGORY}
+                    variant="filled"
+                    onChange={(options: any) =>
+                      setFieldValue(
+                        "surveyCategory",
+                        options.map((o: any) => o.value)
+                      )
+                    }
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Sub-kategori Survei</FormLabel>
+                  <ReactSelect
+                    isMulti
+                    colorScheme="messenger"
+                    options={SURVEY_SUBCATEGORY}
+                    variant="filled"
+                    onChange={(options: any) =>
+                      setFieldValue(
+                        "surveySubCategory",
+                        options.map((o: any) => o.value)
+                      )
+                    }
+                  />
+                </FormControl>
 
                 <SurveyMode surveyMode={values.surveyMode} />
 

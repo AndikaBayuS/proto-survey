@@ -36,9 +36,14 @@ export const handleDeleteOption = (
   );
 };
 
-
 export const handleEnterKey = (e: React.KeyboardEvent) => {
   if (e.key === "Enter") {
     e.preventDefault();
   }
+};
+
+export const toTitleCase = (str: string) => {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
 };

@@ -27,6 +27,7 @@ export interface SigninProps {
 export interface SurveyProps {
   id?: string;
   surveyCategory: string[];
+  surveySubCategory: string[];
   surveyMode: string;
   questions: SurveyQuestion[];
 }
@@ -118,7 +119,9 @@ export interface SurveyCardProps {
 
 export interface ProfileCardProps {
   name: string;
+  email: string;
   image: string;
+  university: string;
   level: number;
 }
 

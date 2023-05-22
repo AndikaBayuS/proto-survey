@@ -13,6 +13,7 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
+import { Select as ReactSelect } from "chakra-react-select";
 import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
 import useSWR from "swr";
 
@@ -26,9 +27,9 @@ import {
 } from "@/src/global/interfaces";
 import fetcher from "@/src/lib/fetcher";
 import { updateSurvey } from "@/src/utils/fetch";
-import { handleEnterKey } from "@/src/utils/helper";
+import { handleEnterKey, toTitleCase } from "@/src/utils/helper";
 
-import CategoryField from "../CreateSurvey/fragments/CategoryField";
+import { SURVEY_CATEGORY, SURVEY_SUBCATEGORY } from "../CreateSurvey/constants";
 
 import { buttonAttributes } from "./constants";
 
@@ -71,6 +72,7 @@ const EditSurvey = () => {
           description: data?.survey?.description,
           terms: data?.survey?.terms || "",
           surveyCategory: data?.survey?.category || [],
+          surveySubCategory: data?.survey?.subCategory || [],
           surveyMode: data?.survey?.surveyMode,
           questions:
             data?.questions.map((question: SurveyQuestion) => ({
@@ -94,6 +96,7 @@ const EditSurvey = () => {
         }}
       >
         {({ values, setFieldValue }) => {
+          console.log(values);
           return (
             <Form onKeyDown={handleEnterKey}>
               <VStack alignItems="start" spacing={3}>
@@ -118,14 +121,44 @@ const EditSurvey = () => {
                   />
                 </FormControl>
 
-                <Field name="surveyCategory">
-                  {({ field }: any) => (
-                    <CategoryField
-                      setFieldValue={setFieldValue}
-                      surveyCategory={field.value}
-                    />
-                  )}
-                </Field>
+                <FormControl>
+                  <FormLabel>Kategori Survei</FormLabel>
+                  <ReactSelect
+                    isMulti
+                    colorScheme="messenger"
+                    options={SURVEY_CATEGORY}
+                    variant="filled"
+                    defaultValue={values.surveyCategory.map((category) => ({
+                      label: toTitleCase(category),
+                      value: category,
+                    }))}
+                    onChange={(options: any) =>
+                      setFieldValue(
+                        "surveyCategory",
+                        options.map((o: any) => o.value)
+                      )
+                    }
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Sub-kategori Survei</FormLabel>
+                  <ReactSelect
+                    isMulti
+                    colorScheme="messenger"
+                    options={SURVEY_SUBCATEGORY}
+                    variant="filled"
+                    defaultValue={values.surveySubCategory.map((category) => ({
+                      label: toTitleCase(category),
+                      value: category,
+                    }))}
+                    onChange={(options: any) =>
+                      setFieldValue(
+                        "surveySubCategory",
+                        options.map((o: any) => o.value)
+                      )
+                    }
+                  />
+                </FormControl>
 
                 <SurveyMode surveyMode={values.surveyMode} />
 
