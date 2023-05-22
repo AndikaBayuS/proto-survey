@@ -1,12 +1,25 @@
 import {
   Avatar,
   Box,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   Text,
 } from "@chakra-ui/react";
 
 import { ProfileCardProps } from "@/src/global/interfaces";
 
-const ProfileCard = ({ name, image, level }: ProfileCardProps) => {
+import ProfileSetting from "../ProfileSetting";
+
+const ProfileCard = ({
+  name,
+  email,
+  image,
+  university,
+  level,
+}: ProfileCardProps) => {
   return (
     <Box>
       <Box
@@ -26,18 +39,26 @@ const ProfileCard = ({ name, image, level }: ProfileCardProps) => {
           top={50}
         />
       </Box>
-      <Box
-        backgroundColor="white"
-        pb="5"
-        pl={5}
-        pt={55}
-        roundedBottom="md"
-      >
+      <Box backgroundColor="white" pb="5" pl={5} pt={55} roundedBottom="md">
         <Text fontSize="xl" fontWeight="semibold">
           {name}
         </Text>
         <Text color="gray.600">Level {level}</Text>
-        <Text>Di sini harusnya badge atau konten lain</Text>
+        <Tabs isFitted colorScheme="messenger">
+          <TabList>
+            <Tab>Pencapaian</Tab>
+            <Tab>Pengaturan</Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel>
+              <Text>Di sini harusnya badge atau konten lain</Text>
+            </TabPanel>
+            <TabPanel>
+              <ProfileSetting userData={{ name, image, email, university }} />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </Box>
     </Box>
   );

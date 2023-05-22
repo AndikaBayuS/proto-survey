@@ -12,6 +12,8 @@ import SurveyCard from "../SurveyCard";
 
 interface Profile {
   name: string;
+  email: string;
+  university: string;
   image: string;
   surveys: Surveys[];
   gamification: Gamification;
@@ -27,9 +29,11 @@ const Profile = () => {
   return (
     <Box>
       <ProfileCard
+        email={data?.email!}
         image={data?.image!}
         level={gamification.level}
         name={data?.name!}
+        university={data?.university!}
       />
       <Box bgColor="white" mt={5} p={5} rounded="md">
         <Text fontSize="xl" fontWeight="semibold">
