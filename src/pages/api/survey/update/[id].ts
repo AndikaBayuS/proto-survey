@@ -8,8 +8,15 @@ export default async function handle(
   res: NextApiResponse
 ) {
   try {
-    const { title, description, surveyMode, surveyCategory, terms, questions } =
-      req.body;
+    const {
+      title,
+      description,
+      surveyMode,
+      surveyCategory,
+      surveySubCategory,
+      terms,
+      questions,
+    } = req.body;
     const surveyId = questions[0].surveyId;
     const { updates, deletes } = handleUpdateQuestion(questions);
 
@@ -21,6 +28,7 @@ export default async function handle(
           description,
           surveyMode,
           category: surveyCategory,
+          subCategory: surveySubCategory,
           terms,
         },
       }),
