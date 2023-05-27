@@ -9,6 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 
+import { updateProfile } from "@/src/utils/fetch";
+
 const ProfileSetting = ({ userData }: any) => {
   return (
     <Box>
@@ -19,7 +21,8 @@ const ProfileSetting = ({ userData }: any) => {
           university: userData?.university || "",
         }}
         onSubmit={async (values: any) => {
-          alert(JSON.stringify(values, null, 2));
+          await updateProfile(values);
+          alert("Berhasil mengubah data!");
         }}
       >
         {({ values }) => {

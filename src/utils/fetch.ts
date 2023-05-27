@@ -56,3 +56,15 @@ export const deleteSurvey = async (id: string) => {
 export const getGamificationData = async () => {
   return axios.get("/api/gamification/get-gamification");
 };
+
+export const updateProfile = async (data: any) => {
+  try {
+    await fetch(`/api/profile/update`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+  } catch {
+    console.log("error");
+  }
+};
