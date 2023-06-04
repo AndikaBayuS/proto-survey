@@ -132,7 +132,7 @@ const AnswerSurvey = () => {
       </Box>
 
       {data?.survey.surveyMode === "anonim" && (
-        <Box bgColor="white" p={3} rounded="md">
+        <Box bgColor="white" p={3} rounded="md" w="full">
           <Text fontWeight="semibold">Persetujuan Responden</Text>
           <Box
             bgColor="messenger.50"

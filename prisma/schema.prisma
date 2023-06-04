@@ -52,6 +52,8 @@ model User {
   emailVerified DateTime?
   image         String?
   university    String?
+  badge         Json           @default("[]")
+  surveyCount   Json           @default("{}")
   createdAt     DateTime       @default(now()) @db.Timestamp(3)
   updatedAt     DateTime       @updatedAt
   surveys       Surveys[]

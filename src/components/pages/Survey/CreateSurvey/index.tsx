@@ -87,14 +87,13 @@ const CreateSurvey = () => {
                 <FormControl>
                   <FormLabel>Kategori Survei</FormLabel>
                   <ReactSelect
-                    isMulti
                     colorScheme="messenger"
                     options={SURVEY_CATEGORY}
                     variant="filled"
                     onChange={(options: any) =>
                       setFieldValue(
                         "surveyCategory",
-                        options.map((o: any) => o.value)
+                        options.value
                       )
                     }
                   />

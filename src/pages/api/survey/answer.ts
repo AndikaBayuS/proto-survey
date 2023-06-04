@@ -7,7 +7,9 @@ import {
   addExperience,
   addLevel,
   addMaxPoints,
+  countCategory,
 } from "@/src/utils/prisma/gamification";
+import { getSurveyData } from "@/src/utils/prisma/survey";
 import { getGamification, getUserId } from "@/src/utils/prisma/user";
 
 export default async function handle(
@@ -18,6 +20,8 @@ export default async function handle(
   const points = countPoints(questions);
   const session = await getSession({ req });
   const userId = await getUserId(String(session?.user?.email));
+  const { surveyData } = await getSurveyData(questions[0].surveyId);
+
   const surveys = await prisma.response.createMany({
     data: [...questions].map((question) => {
       const { options, ...rest } = question;
@@ -28,6 +32,7 @@ export default async function handle(
     }),
   });
   await addExperience(String(userId), points);
+  await countCategory(String(userId), surveyData);
 
   const gamification = await getGamification(String(userId));
   if (

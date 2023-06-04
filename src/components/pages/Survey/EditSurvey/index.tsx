@@ -124,7 +124,6 @@ const EditSurvey = () => {
                 <FormControl>
                   <FormLabel>Kategori Survei</FormLabel>
                   <ReactSelect
-                    isMulti
                     colorScheme="messenger"
                     options={SURVEY_CATEGORY}
                     variant="filled"
@@ -135,7 +134,7 @@ const EditSurvey = () => {
                     onChange={(options: any) =>
                       setFieldValue(
                         "surveyCategory",
-                        options.map((o: any) => o.value)
+                        options.value
                       )
                     }
                   />
@@ -147,9 +146,9 @@ const EditSurvey = () => {
                     colorScheme="messenger"
                     options={SURVEY_SUBCATEGORY}
                     variant="filled"
-                    defaultValue={values.surveySubCategory.map((category) => ({
-                      label: toTitleCase(category),
-                      value: category,
+                    defaultValue={values.surveySubCategory.map((subCategory) => ({
+                      label: toTitleCase(subCategory),
+                      value: subCategory,
                     }))}
                     onChange={(options: any) =>
                       setFieldValue(

@@ -1,3 +1,5 @@
+import { Prisma as PrismaClient } from "@prisma/client";
+
 import { prisma } from "@/src/lib/prisma";
 
 export const addExperience = async (id: string, points: number) => {
@@ -59,4 +61,57 @@ export const getLeaderboard = async () => {
   });
 
   return data;
+};
+
+export const countCategory = async (id: any, surveyData: any) => {
+  const userData = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  const surveyCount = userData?.surveyCount as PrismaClient.JsonObject;
+
+  if (surveyCount) {
+    let categoryToUpdate: keyof typeof surveyCount | undefined;
+
+    switch (surveyData.category[0]) {
+      case 'teknologi':
+        categoryToUpdate = 'teknologi';
+        break;
+      case 'pendidikan':
+        categoryToUpdate = 'pendidikan';
+        break;
+      case 'kesehatan':
+        categoryToUpdate = 'kesehatan';
+        break;
+      case 'pariwisata':
+        categoryToUpdate = 'pariwisata';
+        break;
+      case 'pertanian':
+        categoryToUpdate = 'pertanian';
+        break;
+      case 'agrikultur':
+        categoryToUpdate = 'agrikultur';
+        break;
+      default:
+        break;
+    }
+
+    if (categoryToUpdate) {
+      const updatedSurveyCount = {
+        ...surveyCount,
+        [categoryToUpdate]: surveyCount[categoryToUpdate] ? Number(surveyCount[categoryToUpdate]) + 1 : 1,
+      };
+
+      await prisma.user.update({
+        where: {
+          id,
+        },
+        data: {
+          surveyCount: updatedSurveyCount,
+        },
+      });
+    }
+  }
 };
