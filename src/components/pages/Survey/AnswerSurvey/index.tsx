@@ -88,6 +88,15 @@ const AnswerSurvey = () => {
         <Text>Anda tidak bisa mengisi survei yang anda buat</Text>
       </Center>
     );
+  if (error?.status == 406)
+    return (
+      <Center flexDir="column" gap={2} mt={50}>
+        <Text fontSize="2xl" fontWeight="semibold">
+          Aksi Tidak Diijinkan
+        </Text>
+        <Text>Anda harus menambahkan universitas pada profil</Text>
+      </Center>
+    );
   if (error?.status == 404) return <PageNotFound />;
 
   const submitAnswer = async (values: AnswerValues[]) => {

@@ -11,6 +11,8 @@ interface Survey {
   title: string;
   description: string;
   surveyMode: string;
+  category: string[];
+  subCategory: string[];
   owner: {
     name: string;
     image: string;
@@ -32,9 +34,11 @@ const Home = () => {
         return (
           <Card
             key={survey.id}
+            category={survey.category}
             description={survey.description}
             ownerImage={owner.image}
             ownerName={owner.name}
+            subCategory={survey.subCategory}
             surveyId={survey.id}
             surveyMode={survey.surveyMode}
             title={survey.title}
