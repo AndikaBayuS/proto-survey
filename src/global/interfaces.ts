@@ -125,6 +125,7 @@ export interface ProfileCardProps {
   image: string;
   university: string;
   level: number;
+  badges: any;
 }
 
 export interface EditSurveyProps {

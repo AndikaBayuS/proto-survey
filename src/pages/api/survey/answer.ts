@@ -4,13 +4,20 @@ import { getSession } from "next-auth/react";
 import { prisma } from "@/src/lib/prisma";
 import { countPoints } from "@/src/utils/gamification";
 import {
+  addBadge,
   addExperience,
   addLevel,
   addMaxPoints,
-  countCategory,
+  countAnsweredCategory,
 } from "@/src/utils/prisma/gamification";
 import { getSurveyData } from "@/src/utils/prisma/survey";
-import { getGamification, getUserId } from "@/src/utils/prisma/user";
+import {
+  getGamification,
+  getUserData,
+  getUserId,
+} from "@/src/utils/prisma/user";
+
+const targetList = ["teknologi", "pendidikan", "kesehatan", "agrikultur"];
 
 export default async function handle(
   req: NextApiRequest,
@@ -20,6 +27,7 @@ export default async function handle(
   const points = countPoints(questions);
   const session = await getSession({ req });
   const userId = await getUserId(String(session?.user?.email));
+  let userData = await getUserData(String(userId));
   const { surveyData } = await getSurveyData(questions[0].surveyId);
 
   const surveys = await prisma.response.createMany({
@@ -31,8 +39,6 @@ export default async function handle(
       };
     }),
   });
-  await addExperience(String(userId), points);
-  await countCategory(String(userId), surveyData);
 
   const gamification = await getGamification(String(userId));
   if (
@@ -42,6 +48,14 @@ export default async function handle(
     await addLevel(String(userId));
     await addMaxPoints(String(userId));
   }
+
+  await addExperience(String(userId), points);
+  await countAnsweredCategory(String(userId), surveyData);
+
+  userData = await getUserData(String(userId));
+  targetList.map(async (target) => {
+    await addBadge(userData, target);
+  });
 
   res.json(surveys);
 }

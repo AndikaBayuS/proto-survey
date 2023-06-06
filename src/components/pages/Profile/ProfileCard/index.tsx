@@ -1,6 +1,8 @@
 import {
   Avatar,
   Box,
+  HStack,
+  Image,
   Tab,
   TabList,
   TabPanel,
@@ -19,6 +21,7 @@ const ProfileCard = ({
   image,
   university,
   level,
+  badges,
 }: ProfileCardProps) => {
   return (
     <Box>
@@ -52,7 +55,21 @@ const ProfileCard = ({
 
           <TabPanels>
             <TabPanel>
-              <Text>Di sini harusnya badge atau konten lain</Text>
+              <HStack>
+                {badges.teknologi.map((badge: any, idx: any) => {
+                  const isAchieved = badge.achieved ? "" : "grayscale(100%)";
+                  return (
+                    <Image
+                      key={idx}
+                      alt={badge.image}
+                      boxSize="75"
+                      cursor="pointer"
+                      filter={isAchieved}
+                      src={badge.image}
+                    />
+                  );
+                })}
+              </HStack>
             </TabPanel>
             <TabPanel>
               <ProfileSetting userData={{ name, image, email, university }} />

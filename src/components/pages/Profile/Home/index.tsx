@@ -17,6 +17,7 @@ interface Profile {
   image: string;
   surveys: Surveys[];
   gamification: Gamification;
+  badge: any;
 }
 
 const Profile = () => {
@@ -29,6 +30,7 @@ const Profile = () => {
   return (
     <Box>
       <ProfileCard
+        badges={data?.badge!}
         email={data?.email!}
         image={data?.image!}
         level={gamification.level}

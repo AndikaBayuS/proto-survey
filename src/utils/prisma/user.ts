@@ -47,3 +47,53 @@ export const setGamification = async (id: string) => {
     },
   });
 };
+
+export const setBadges = async (id: string) => {
+  const badgesData = {
+    teknologi: [
+      {
+        image: "badges/teknologi/1.png",
+        achieved: false,
+        dateAchieved: "",
+      },
+      {
+        image: "badges/teknologi/1.png",
+        achieved: false,
+        dateAchieved: "",
+      },
+    ],
+    kesehatan: [
+      {
+        image: "badges/kesehatan/1.png",
+        achieved: false,
+        dateAchieved: "",
+      },
+      {
+        image: "badges/kesehatan/1.png",
+        achieved: false,
+        dateAchieved: "",
+      },
+    ],
+    pendidikan: [
+      {
+        image: "badges/pendidikan/1.png",
+        achieved: false,
+        dateAchieved: "",
+      },
+      {
+        image: "badges/pendidikan/1.png",
+        achieved: false,
+        dateAchieved: "",
+      },
+    ],
+  };
+
+  await prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      badge: badgesData,
+    },
+  });
+};

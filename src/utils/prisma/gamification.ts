@@ -63,7 +63,7 @@ export const getLeaderboard = async () => {
   return data;
 };
 
-export const countCategory = async (id: any, surveyData: any) => {
+export const countAnsweredCategory = async (id: any, surveyData: any) => {
   const userData = await prisma.user.findUnique({
     where: {
       id,
@@ -76,23 +76,23 @@ export const countCategory = async (id: any, surveyData: any) => {
     let categoryToUpdate: keyof typeof surveyCount | undefined;
 
     switch (surveyData.category[0]) {
-      case 'teknologi':
-        categoryToUpdate = 'teknologi';
+      case "teknologi":
+        categoryToUpdate = "teknologi";
         break;
-      case 'pendidikan':
-        categoryToUpdate = 'pendidikan';
+      case "pendidikan":
+        categoryToUpdate = "pendidikan";
         break;
-      case 'kesehatan':
-        categoryToUpdate = 'kesehatan';
+      case "kesehatan":
+        categoryToUpdate = "kesehatan";
         break;
-      case 'pariwisata':
-        categoryToUpdate = 'pariwisata';
+      case "pariwisata":
+        categoryToUpdate = "pariwisata";
         break;
-      case 'pertanian':
-        categoryToUpdate = 'pertanian';
+      case "pertanian":
+        categoryToUpdate = "pertanian";
         break;
-      case 'agrikultur':
-        categoryToUpdate = 'agrikultur';
+      case "agrikultur":
+        categoryToUpdate = "agrikultur";
         break;
       default:
         break;
@@ -101,7 +101,9 @@ export const countCategory = async (id: any, surveyData: any) => {
     if (categoryToUpdate) {
       const updatedSurveyCount = {
         ...surveyCount,
-        [categoryToUpdate]: surveyCount[categoryToUpdate] ? Number(surveyCount[categoryToUpdate]) + 1 : 1,
+        [categoryToUpdate]: surveyCount[categoryToUpdate]
+          ? Number(surveyCount[categoryToUpdate]) + 1
+          : 1,
       };
 
       await prisma.user.update({
@@ -113,5 +115,39 @@ export const countCategory = async (id: any, surveyData: any) => {
         },
       });
     }
+  }
+};
+
+export const addBadge = async (userData: any, target: any) => {
+  const activateBadge = (badges: any[], index: number) => {
+    return badges.map((badge, i) => {
+      if (i === index) {
+        return {
+          ...badge,
+          achieved: true,
+          dateAchieved: new Date().toISOString(),
+        };
+      }
+      return badge;
+    });
+  };
+
+  const targetValue = userData.surveyCount[target];
+
+  if (targetValue === 10 || targetValue === 50) {
+    const index = targetValue === 10 ? 0 : 1;
+    const updatedBadges = {
+      ...userData.badge,
+      [target]: activateBadge(userData.badge[target], index),
+    };
+
+    await prisma.user.update({
+      where: {
+        id: userData.id,
+      },
+      data: {
+        badge: updatedBadges,
+      },
+    });
   }
 };
