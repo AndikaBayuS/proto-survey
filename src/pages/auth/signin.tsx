@@ -12,9 +12,9 @@ const SignIn: React.FC<SigninProps> = ({ providers }) => {
         <Button
           key={provider.name}
           colorScheme="gray"
-          onClick={() =>
-            signIn(provider.id)
-          }
+          onClick={(e) => {
+            e.preventDefault(), signIn(provider.id);
+          }}
         >
           <HStack>
             <Box height={5} width={5}>

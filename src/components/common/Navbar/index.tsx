@@ -147,9 +147,10 @@ const Navbar = () => {
             colorScheme="messenger"
             display={{ base: "none", md: "inline-flex" }}
             size="md"
-            onClick={() =>
-              signIn("google")
-            }
+            onClick={(e) => {
+              e.preventDefault();
+              signIn("google");
+            }}
           >
             Masuk
           </Button>
@@ -200,9 +201,10 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
               colorScheme="messenger"
               size="md"
               width="full"
-              onClick={() =>
-                signIn("google")
-              }
+              onClick={() => {
+                e.preventDefault();
+                signIn("google");
+              }}
             >
               Masuk
             </Button>
