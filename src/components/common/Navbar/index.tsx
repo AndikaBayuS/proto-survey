@@ -149,9 +149,7 @@ const Navbar = () => {
             size="md"
             onClick={(e) => {
               e.preventDefault();
-              signIn("google", {
-                callbackUrl: "/",
-              });
+              signIn();
             }}
           >
             Masuk
@@ -205,9 +203,7 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
               width="full"
               onClick={(e) => {
                 e.preventDefault();
-                signIn("google", {
-                  callbackUrl: "/",
-                });
+                signIn();
               }}
             >
               Masuk
