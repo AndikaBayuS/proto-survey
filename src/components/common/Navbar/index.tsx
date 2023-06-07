@@ -201,7 +201,7 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
               colorScheme="messenger"
               size="md"
               width="full"
-              onClick={() => {
+              onClick={(e) => {
                 e.preventDefault();
                 signIn("google");
               }}
