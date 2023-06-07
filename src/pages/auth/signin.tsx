@@ -13,7 +13,7 @@ const SignIn: React.FC<SigninProps> = ({ providers }) => {
           key={provider.name}
           colorScheme="gray"
           onClick={(e) => {
-            e.preventDefault(), signIn(provider.id);
+            e.preventDefault(), signIn(provider.id, { callbackUrl: "/" });
           }}
         >
           <HStack>
