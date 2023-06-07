@@ -148,7 +148,7 @@ const Navbar = () => {
             display={{ base: "none", md: "inline-flex" }}
             size="md"
             onClick={() =>
-              signIn("google", { callbackUrl: "http://localhost:3000" })
+              signIn("google")
             }
           >
             Masuk
@@ -201,7 +201,7 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
               size="md"
               width="full"
               onClick={() =>
-                signIn("google", { callbackUrl: "http://localhost:3000" })
+                signIn("google")
               }
             >
               Masuk

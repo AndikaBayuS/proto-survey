@@ -6,7 +6,6 @@ import GoogleIcon from "@/src/components/icons/GoogleIcon/GoogleIcon";
 import { SigninProps } from "@/src/global/interfaces";
 
 const SignIn: React.FC<SigninProps> = ({ providers }) => {
-  const CALLBACK_URL = process.env.NEXT_PUBLIC_CALLBACK_URL;
   return (
     <Center minHeight="100vh">
       {Object.values(providers).map((provider) => (
@@ -14,9 +13,7 @@ const SignIn: React.FC<SigninProps> = ({ providers }) => {
           key={provider.name}
           colorScheme="gray"
           onClick={() =>
-            signIn(provider.id, {
-              callbackUrl: CALLBACK_URL,
-            })
+            signIn(provider.id)
           }
         >
           <HStack>
