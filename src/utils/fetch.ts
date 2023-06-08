@@ -60,7 +60,7 @@ export const getGamificationData = async () => {
 export const updateProfile = async (data: any) => {
   try {
     await fetch(`/api/profile/update`, {
-      method: "PATCH",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });

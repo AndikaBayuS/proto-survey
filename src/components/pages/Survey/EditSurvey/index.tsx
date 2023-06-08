@@ -127,10 +127,10 @@ const EditSurvey = () => {
                     colorScheme="messenger"
                     options={SURVEY_CATEGORY}
                     variant="filled"
-                    defaultValue={values.surveyCategory.map((category) => ({
-                      label: toTitleCase(category),
-                      value: category,
-                    }))}
+                    defaultValue={[{
+                      label: toTitleCase(values.surveyCategory[0]),
+                      value: values.surveyCategory[0],
+                    }]}
                     onChange={(options: any) =>
                       setFieldValue(
                         "surveyCategory",
