@@ -1,14 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 
 import { getSurveyData } from "@/src/utils/prisma/survey";
 import { getUserData, getUserId } from "@/src/utils/prisma/user";
+
+import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res, authOptions);
   const surveyId = req.query.id as string;
   const userId = await getUserId(String(session?.user?.email));
   const { surveyData, questionData } = await getSurveyData(surveyId);

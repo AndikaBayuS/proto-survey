@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 
 import { prisma } from "@/src/lib/prisma";
 import { countPoints } from "@/src/utils/gamification";
@@ -17,6 +17,8 @@ import {
   getUserId,
 } from "@/src/utils/prisma/user";
 
+import { authOptions } from "../auth/[...nextauth]";
+
 const targetList = ["teknologi", "pendidikan", "kesehatan", "agrikultur"];
 
 export default async function handle(
@@ -25,7 +27,7 @@ export default async function handle(
 ) {
   const { questions } = req.body;
   const points = countPoints(questions);
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res, authOptions);
   const userId = await getUserId(String(session?.user?.email));
   let userData = await getUserData(String(userId));
   const { surveyData } = await getSurveyData(questions[0].surveyId);
