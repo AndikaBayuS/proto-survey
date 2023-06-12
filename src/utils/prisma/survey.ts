@@ -1,10 +1,21 @@
-import { Response } from "@prisma/client";
+import { Prisma, Response } from "@prisma/client";
 
 import { AnswerCounts, SurveyAnswerCount } from "@/src/global/types";
 import { prisma } from "@/src/lib/prisma";
 
-export const getSurveys = async () => {
+export const getSurveys = async (search: string, category: string) => {
+  const whereClause: Prisma.SurveysWhereInput = {};
+
+  if (search) {
+    whereClause.title = { contains: search };
+  }
+
+  if (category) {
+    whereClause.category = { contains: category };
+  }
+
   const surveysData = await prisma.surveys.findMany({
+    where: whereClause,
     orderBy: {
       createdAt: "desc",
     },
@@ -14,6 +25,7 @@ export const getSurveys = async () => {
 
   return surveys;
 };
+
 
 export const getSurveyData = async (surveyId: string) => {
   const surveys = await prisma.surveys.findUnique({

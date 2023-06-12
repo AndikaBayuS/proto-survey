@@ -10,6 +10,8 @@ import {
   Tag,
   Text,
   VStack,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 
 import IncognitoIcon from "@/src/components/icons/IncognitoIcon";
@@ -59,30 +61,21 @@ const Card: React.FC<CardProps> = ({
           <Text noOfLines={1}>{description}</Text>
         </VStack>
         <Divider my={2} />
-        <VStack alignItems="start" spacing={2}>
-          {category && (
-            <HStack spacing={1}>
-              {category.map((item) => (
-                <Tag
-                  key={item}
-                  colorScheme="messenger"
-                  fontSize="xs"
-                  fontWeight="semibold"
-                >
-                  # {toTitleCase(item)}
+        <VStack alignItems="start" spacing={3}>
+          <Wrap>
+            <WrapItem>
+              <Tag colorScheme="messenger" fontSize="xs" fontWeight="semibold">
+                {toTitleCase(category)}
+              </Tag>
+            </WrapItem>
+            {subCategory.map((item) => (
+              <WrapItem key={item}>
+                <Tag fontSize="xs" fontWeight="semibold">
+                  {toTitleCase(item)}
                 </Tag>
-              ))}
-              {subCategory.map((item) => (
-                <Tag
-                  key={item}
-                  fontSize="xs"
-                  fontWeight="semibold"
-                >
-                  # {toTitleCase(item)}
-                </Tag>
-              ))}
-            </HStack>
-          )}
+              </WrapItem>
+            ))}
+          </Wrap>
           <HStack>
             <Avatar size="xs" src={String(ownerImage)} />
             <Text color="gray.600" fontSize="xs" noOfLines={1}>

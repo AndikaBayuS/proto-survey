@@ -49,7 +49,7 @@ const CreateSurvey = () => {
           description: "",
           surveyMode: "normal",
           terms: "",
-          surveyCategory: [],
+          surveyCategory: "",
           surveySubCategory: [],
           questions: [{ question: "", type: "text" }],
         }}

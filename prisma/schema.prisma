@@ -70,7 +70,7 @@ model Surveys {
   title       String
   description String
   surveyMode  String
-  category    String[]
+  category    String
   subCategory String[]
   terms       String?
   createdAt   DateTime    @default(now()) @db.Timestamp(3)

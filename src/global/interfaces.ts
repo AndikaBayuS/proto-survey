@@ -18,7 +18,7 @@ export interface CardProps {
   title: string;
   description: string;
   surveyMode: string;
-  category: string[];
+  category: string;
   subCategory: string[];
 }
 
@@ -28,7 +28,7 @@ export interface SigninProps {
 
 export interface SurveyProps {
   id?: string;
-  surveyCategory: string[];
+  surveyCategory: string;
   surveySubCategory: string[];
   surveyMode: string;
   questions: SurveyQuestion[];
@@ -85,7 +85,7 @@ export interface CreateValues {
   description: string;
   surveyMode: string;
   terms?: string | null;
-  surveyCategory: string[] | null;
+  surveyCategory: string | null;
   surveySubCategory: string[] | null;
   questions: [
     { question: string; type: string; options?: { id: string; value: string }[] }

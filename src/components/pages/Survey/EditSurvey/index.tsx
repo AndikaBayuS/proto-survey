@@ -71,7 +71,7 @@ const EditSurvey = () => {
           title: data?.survey?.title,
           description: data?.survey?.description,
           terms: data?.survey?.terms || "",
-          surveyCategory: data?.survey?.category || [],
+          surveyCategory: data?.survey?.category || "",
           surveySubCategory: data?.survey?.subCategory || [],
           surveyMode: data?.survey?.surveyMode,
           questions:

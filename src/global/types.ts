@@ -8,7 +8,7 @@ export type surveyType = {
   title: string;
   description: string;
   terms: string;
-  category: string[];
+  category: string;
   subCategory: string[];
   surveyMode: string;
 }

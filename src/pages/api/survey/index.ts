@@ -18,10 +18,12 @@ export default async function handler(
 ) {
   try {
     const session = await getServerSession(req, res, authOptions);
+    const search = req.query.search as string;
+    const category = req.query.category as string;
     const userId = await getUserId(String(session?.user?.email));
     const userData = await getUserData(String(userId));
     const userGamification = await getGamification(String(userId));
-    const surveys = await getSurveys();
+    const surveys = await getSurveys(search, category);
 
     if (userId && userGamification == null) {
       await setGamification(String(userId));
