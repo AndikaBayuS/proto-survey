@@ -191,7 +191,7 @@ const MobileNavbar = ({ isOpen, onClose }: any) => {
               <Stats
                 experience={gamification?.points}
                 isLoading={isLoading}
-                level={gamification.level}
+                level={gamification?.level}
                 maxPoints={gamification?.maxPoints}
                 minPoints={gamification?.minPoints}
               />

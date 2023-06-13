@@ -33,7 +33,7 @@ const Profile = () => {
         badges={data?.badge!}
         email={data?.email!}
         image={data?.image!}
-        level={gamification.level}
+        level={gamification?.level}
         name={data?.name!}
         university={data?.university!}
       />

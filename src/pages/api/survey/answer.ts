@@ -45,7 +45,7 @@ export default async function handle(
   const gamification = await getGamification(String(userId));
   if (
     gamification?.points != undefined &&
-    gamification.points >= gamification.maxPoints
+    gamification?.points >= gamification?.maxPoints
   ) {
     await addLevel(String(userId));
     await addMaxPoints(String(userId));
