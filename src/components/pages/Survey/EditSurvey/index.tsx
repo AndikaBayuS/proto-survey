@@ -9,6 +9,7 @@ import {
   HStack,
   IconButton,
   Input,
+  Select,
   Text,
   Textarea,
   VStack,
@@ -29,6 +30,7 @@ import fetcher from "@/src/lib/fetcher";
 import { updateSurvey } from "@/src/utils/fetch";
 import { handleEnterKey, toTitleCase } from "@/src/utils/helper";
 
+import { handleQuestionTypeChange } from "../CreateSurvey/actions";
 import { SURVEY_CATEGORY, SURVEY_SUBCATEGORY } from "../CreateSurvey/constants";
 
 import { buttonAttributes } from "./constants";
@@ -128,8 +130,8 @@ const EditSurvey = () => {
                     options={SURVEY_CATEGORY}
                     variant="filled"
                     defaultValue={[{
-                      label: toTitleCase(values.surveyCategory[0]),
-                      value: values.surveyCategory[0],
+                      label: toTitleCase(values.surveyCategory),
+                      value: values.surveyCategory,
                     }]}
                     onChange={(options: any) =>
                       setFieldValue(
@@ -162,61 +164,54 @@ const EditSurvey = () => {
                 <SurveyMode surveyMode={values.surveyMode} />
 
                 <Box w="full">
-                  <FieldArray name="questions">
+                <FieldArray name="questions">
                     {({ remove, push, form }) => {
-                      const { values, setFieldValue } = form;
                       return (
                         <VStack alignItems="start" spacing={3}>
-                          {values.questions.map(
+                          {form.values.questions.map(
                             (_question: QuestionValues, index: number) => (
                               <FormControl key={index} isRequired>
                                 <FormLabel htmlFor={`questions.${index}`}>
                                   Pertanyaan {index + 1}
                                 </FormLabel>
-                                <HStack w="full">
+                                <HStack alignItems="start" w="full">
                                   <CreateQuestion
                                     name={`questions[${index}].question`}
                                     options={_question.options}
-                                    setFieldValue={setFieldValue}
+                                    setFieldValue={form.setFieldValue}
                                     target={`questions[${index}].options`}
                                     type={_question.type}
                                   />
+                                  <Select
+                                    value={_question.type}
+                                    w="40%"
+                                    onChange={(e) =>
+                                      handleQuestionTypeChange(e, index, form)
+                                    }
+                                  >
+                                    {buttonAttributes.map((attribute, idx) => (
+                                      <option key={idx} value={attribute.type}>
+                                        {attribute.label}
+                                      </option>
+                                    ))}
+                                  </Select>
                                   <IconButton
                                     aria-label="Hapus Pertanyaan"
                                     colorScheme="red"
                                     disabled={index === 0}
                                     icon={<CloseIcon />}
-                                    size="sm"
                                     variant="outline"
-                                    onClick={() =>
-                                      handleDeleteQuestion(
-                                        values,
-                                        index,
-                                        setFieldValue
-                                      )
-                                    }
+                                    onClick={() => remove(index)}
                                   />
                                 </HStack>
                               </FormControl>
                             )
                           )}
-                          <HStack>
-                            {buttonAttributes.map((attribute, index) => (
-                              <Button
-                                key={index}
-                                size="md"
-                                onClick={() =>
-                                  push({
-                                    question: "",
-                                    type: attribute.type,
-                                    options: attribute.options,
-                                  })
-                                }
-                              >
-                                {attribute.label}
-                              </Button>
-                            ))}
-                          </HStack>
+                          <Button
+                            onClick={() => push({ question: "", type: "text" })}
+                          >
+                            Tambah Pertanyaan
+                          </Button>
                         </VStack>
                       );
                     }}
