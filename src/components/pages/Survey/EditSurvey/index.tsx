@@ -129,15 +129,14 @@ const EditSurvey = () => {
                     colorScheme="messenger"
                     options={SURVEY_CATEGORY}
                     variant="filled"
-                    defaultValue={[{
-                      label: toTitleCase(values.surveyCategory),
-                      value: values.surveyCategory,
-                    }]}
+                    defaultValue={[
+                      {
+                        label: toTitleCase(values.surveyCategory),
+                        value: values.surveyCategory,
+                      },
+                    ]}
                     onChange={(options: any) =>
-                      setFieldValue(
-                        "surveyCategory",
-                        options.value
-                      )
+                      setFieldValue("surveyCategory", options.value)
                     }
                   />
                 </FormControl>
@@ -148,10 +147,12 @@ const EditSurvey = () => {
                     colorScheme="messenger"
                     options={SURVEY_SUBCATEGORY}
                     variant="filled"
-                    defaultValue={values.surveySubCategory.map((subCategory) => ({
-                      label: toTitleCase(subCategory),
-                      value: subCategory,
-                    }))}
+                    defaultValue={values.surveySubCategory.map(
+                      (subCategory) => ({
+                        label: toTitleCase(subCategory),
+                        value: subCategory,
+                      })
+                    )}
                     onChange={(options: any) =>
                       setFieldValue(
                         "surveySubCategory",
@@ -164,7 +165,7 @@ const EditSurvey = () => {
                 <SurveyMode surveyMode={values.surveyMode} />
 
                 <Box w="full">
-                <FieldArray name="questions">
+                  <FieldArray name="questions">
                     {({ remove, push, form }) => {
                       return (
                         <VStack alignItems="start" spacing={3}>
@@ -208,7 +209,14 @@ const EditSurvey = () => {
                             )
                           )}
                           <Button
-                            onClick={() => push({ question: "", type: "text" })}
+                            onClick={() =>
+                              push({
+                                surveyId: data?.questions[0].surveyId,
+                                question: "",
+                                type: "text",
+                                isNew: true,
+                              })
+                            }
                           >
                             Tambah Pertanyaan
                           </Button>

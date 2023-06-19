@@ -18,7 +18,7 @@ export default async function handle(
       questions,
     } = req.body;
     const surveyId = questions[0].surveyId;
-    const { updates, deletes } = handleUpdateQuestion(questions);
+    const { updates, deletes, news } = handleUpdateQuestion(questions);
 
     await prisma.$transaction([
       prisma.surveys.update({
@@ -34,6 +34,7 @@ export default async function handle(
       }),
       ...updates.map((update: any) => prisma.questions.update(update)),
       ...deletes.map((del: any) => prisma.questions.delete(del)),
+      ...news.map((newQuestion: any) => prisma.questions.create({ data: newQuestion })),
     ]);
 
     res.json("Survey updated");

@@ -26,7 +26,6 @@ export const getSurveys = async (search: string, category: string) => {
   return surveys;
 };
 
-
 export const getSurveyData = async (surveyId: string) => {
   const surveys = await prisma.surveys.findUnique({
     where: {
@@ -83,7 +82,7 @@ export const getSurveyResponse = async (
 
 export const handleUpdateQuestion = (questions: any) => {
   const updates = questions
-    .filter((question: any) => !question.deleteQuestion)
+    .filter((question: any) => !question.deleteQuestion && !question.isNew)
     .map((question: any) => ({
       where: { id: question.questionsId },
       data: {
@@ -99,5 +98,14 @@ export const handleUpdateQuestion = (questions: any) => {
       where: { id: question.questionsId },
     }));
 
-  return { updates, deletes };
+  const news = questions
+    .filter((question: any) => question.isNew)
+    .map((question: any) => ({
+      surveyId: question.surveyId,
+      question: question.question,
+      options: question.options ?? undefined,
+      type: question.type,
+    }));
+
+  return { updates, deletes, news };
 };
