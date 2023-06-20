@@ -52,36 +52,36 @@ export const setBadges = async (id: string) => {
   const badgesData = {
     teknologi: [
       {
-        image: "badges/teknologi/1.png",
+        image: "badges/teknologi/bronze-medal.svg",
         achieved: false,
         dateAchieved: "",
       },
       {
-        image: "badges/teknologi/1.png",
+        image: "badges/teknologi/gold-medal.svg",
         achieved: false,
         dateAchieved: "",
       },
     ],
     kesehatan: [
       {
-        image: "badges/kesehatan/1.png",
+        image: "badges/kesehatan/bronze-medal.svg",
         achieved: false,
         dateAchieved: "",
       },
       {
-        image: "badges/kesehatan/1.png",
+        image: "badges/kesehatan/gold-medal.svg",
         achieved: false,
         dateAchieved: "",
       },
     ],
     pendidikan: [
       {
-        image: "badges/pendidikan/1.png",
+        image: "badges/pendidikan/bronze-medal.svg",
         achieved: false,
         dateAchieved: "",
       },
       {
-        image: "badges/pendidikan/1.png",
+        image: "badges/pendidikan/gold-medal.svg",
         achieved: false,
         dateAchieved: "",
       },

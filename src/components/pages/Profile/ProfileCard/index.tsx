@@ -62,7 +62,7 @@ const ProfileCard = ({
                     <Image
                       key={idx}
                       alt={badge.image}
-                      boxSize="75"
+                      boxSize="50"
                       cursor="pointer"
                       filter={isAchieved}
                       src={badge.image}
