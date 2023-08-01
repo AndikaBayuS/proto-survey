@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  emailVerified DateTime?
+  image         String?
+  university    String?
+  badge         Json           @default("{}")
+  surveyCount   Json           @default("{}")
+  createdAt     DateTime       @default(now()) @db.Timestamp(3)
+  updatedAt     DateTime       @updatedAt
+  surveys       Surveys[]
+  account       Account[]
+  session       Session[]
+  response      Response[]
+  gamification  Gamification[]
+}
+
+model Surveys {
+  id          String      @id @default(cuid())
+  ownerId     String
+  owner       Json
+  title       String
+  description String
+  surveyMode  String
+  category    String
+  subCategory String[]
+  terms       String?
+  createdAt   DateTime    @default(now()) @db.Timestamp(3)
+  updatedAt   DateTime    @updatedAt
+  user        User?       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  questions   Questions[]
+  response    Response[]
+}
+
+model Questions {
+  id       String     @id @default(cuid())
+  question String
+  type     String
+  options  Json?
+  surveyId String
+  survey   Surveys    @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  response Response[]
+}
+
+model Response {
+  id            String     @id @default(cuid())
+  answer        String[]
+  type          String
+  question      String
+  participantId String
+  surveyId      String
+  questionsId   String?
+  questions     Questions? @relation(fields: [questionsId], references: [id], onDelete: Cascade)
+  user          User       @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  survey        Surveys    @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+}
+
+model Gamification {
+  id        String @id @default(cuid())
+  userId    String
+  level     Int    @default(1)
+  points    Int    @default(0)
+  maxPoints Int    @default(1000)
+  minPoints Int    @default(0)
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
