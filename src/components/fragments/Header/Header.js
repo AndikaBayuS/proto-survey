@@ -251,15 +251,28 @@ function MobileNavbar({ isOpen, onClose }) {
                 </Button>
               ))}
               {status === "authenticated" && (
-                <Button
-                  color="red.500"
-                  justifyContent="start"
-                  onClick={onModalOpen}
-                  variant="ghost"
-                  width="full"
-                >
-                  Keluar
-                </Button>
+                <Fragment>
+                  <Button
+                    color="red.500"
+                    justifyContent="start"
+                    onClick={onModalOpen}
+                    variant="ghost"
+                    width="full"
+                  >
+                    Keluar
+                  </Button>
+                  <Button
+                    colorScheme="messenger"
+                    onClick={() => {
+                      router.push("/survey/create");
+                      onClose();
+                    }}
+                    size="md"
+                    width="full"
+                  >
+                    Buat Survei
+                  </Button>
+                </Fragment>
               )}
             </VStack>
           </DrawerBody>

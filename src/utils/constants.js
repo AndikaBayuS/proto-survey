@@ -46,8 +46,8 @@ export const SURVEY_SUBCATEGORY = [
   { label: "Fisioterapi", value: "fisioterapi" },
   { label: "Kesehatan Masyarakat", value: "kesehatan masyarakat" },
   {
-    label: "Agroteknologi/Agroekoteknologi",
-    value: "agroteknologi/agroekoteknologi",
+    label: "Agroteknologi",
+    value: "agroekoteknologi",
   },
   { label: "Agribisnis", value: "agribisnis" },
   { label: "Ilmu Tanah", value: "ilmu tanah" },

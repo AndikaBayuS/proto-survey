@@ -33,7 +33,7 @@ import {
   handleQuestionTypeChange,
 } from "@/utils/helper";
 
-import { DEFAULT_QUESTION } from "./constants";
+import { DEFAULT_QUESTION, MAX_SELECTED, maxSelectedOptions } from "./constants";
 
 export default function CreateSurvey() {
   const router = useRouter();
@@ -63,6 +63,8 @@ export default function CreateSurvey() {
         }}
       >
         {({ values, setFieldValue }) => {
+          const isMax = values.surveySubCategory.length === MAX_SELECTED;
+
           return (
             <Form onKeyDown={handleEnterKey}>
               <VStack alignItems="start" spacing={3}>
@@ -101,6 +103,7 @@ export default function CreateSurvey() {
                 <FormControl>
                   <FormLabel>Sub-kategori Survei</FormLabel>
                   <ReactSelect
+                    closeMenuOnSelect={false}
                     colorScheme="messenger"
                     isMulti
                     onChange={(options) =>
@@ -109,7 +112,7 @@ export default function CreateSurvey() {
                         options.map((option) => option.value)
                       )
                     }
-                    options={SURVEY_SUBCATEGORY}
+                    options={isMax ? maxSelectedOptions : SURVEY_SUBCATEGORY}
                     variant="filled"
                   />
                 </FormControl>

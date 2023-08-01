@@ -32,6 +32,8 @@ import {
 import { updateSurvey } from "@/utils/fetch";
 import { areFieldsEmpty, handleEnterKey, toTitleCase } from "@/utils/helper";
 
+import { MAX_SELECTED, maxSelectedOptions } from "./constants";
+
 export default function EditSurvey() {
   const router = useRouter();
   const toast = useToast();
@@ -93,6 +95,7 @@ export default function EditSurvey() {
         }}
       >
         {({ values, setFieldValue }) => {
+          const isMax = values.surveySubCategory.length === MAX_SELECTED;
           return (
             <Form onKeyDown={handleEnterKey}>
               <VStack alignItems="start" spacing={3}>
@@ -151,7 +154,7 @@ export default function EditSurvey() {
                         options.map((option) => option.value)
                       )
                     }
-                    options={SURVEY_SUBCATEGORY}
+                    options={isMax ? maxSelectedOptions : SURVEY_SUBCATEGORY}
                     variant="filled"
                   />
                 </FormControl>

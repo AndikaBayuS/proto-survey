@@ -1,4 +1,3 @@
-export const DEFAULT_QUESTION = { question: "", type: "text" };
 export const MAX_SELECTED = 2;
 export const maxSelectedOptions = [
   {
