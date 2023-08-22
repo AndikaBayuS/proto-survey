@@ -11,14 +11,13 @@ export default function Leaderboard() {
   if (isLoading) return <Loading />;
   if (error) return <div>Error</div>;
 
-  console.log(data);
-
   return (
     <Box>
       {data?.map((leaderboard, index) => (
         <LeaderboardCard
           index={index}
           key={leaderboard.id}
+          level={leaderboard.level}
           points={leaderboard.points}
           user={leaderboard.user}
         />
