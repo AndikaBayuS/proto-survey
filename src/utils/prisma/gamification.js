@@ -72,8 +72,7 @@ export const countAnsweredCategory = async (id, surveyData) => {
 
   if (surveyCount) {
     let categoryToUpdate;
-
-    switch (surveyData.category[0]) {
+    switch (surveyData.category) {
       case "teknologi":
         categoryToUpdate = "teknologi";
         break;
@@ -132,8 +131,8 @@ export const addBadge = async (userData, target) => {
 
   const targetValue = userData.surveyCount[target];
 
-  if (targetValue === 10 || targetValue === 50) {
-    const index = targetValue === 10 ? 0 : 1;
+  if (targetValue === 5 || targetValue === 10) {
+    const index = targetValue === 5 ? 0 : 1;
     const updatedBadges = {
       ...userData.badge,
       [target]: activateBadge(userData.badge[target], index),
