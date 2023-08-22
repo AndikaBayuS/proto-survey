@@ -4,11 +4,14 @@ import { Pie } from "react-chartjs-2";
 
 import { PIE_BORDER_COLORS, PIE_COLORS } from "./constants";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(Tooltip, Legend, ArcElement);
 
 export default function PieChart({ labels, data, title }) {
+  const total = data.reduce((sum, value) => sum + value, 0);
+  const percentages = data.map((value) => ((value / total) * 100).toFixed(2));
+
   const chartData = {
-    labels: labels,
+    labels: labels.map((label, index) => `${label} - ${percentages[index]}%`),
     datasets: [
       {
         data: data,
@@ -23,7 +26,11 @@ export default function PieChart({ labels, data, title }) {
     responsive: true,
     plugins: {
       legend: {
-        display: false,
+        display: true,
+        position: "right", // Display legend on the right side
+        labels: {
+          usePointStyle: true, // You can adjust other label styles here
+        },
       },
       title: {
         display: false,
@@ -37,7 +44,7 @@ export default function PieChart({ labels, data, title }) {
         {title}
       </Text>
       <Box h="15rem">
-        <Pie data={chartData} height="50px" options={options} width="50px" />
+        <Pie data={chartData} options={options} />
       </Box>
     </Box>
   );
